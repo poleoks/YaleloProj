@@ -1,0 +1,4 @@
+user= 'pokuttu@yalelo.ug'
+password= 'Aligator@1'
+url= 'https://firstwavegroup.sharepoint.com'
+site= "https://firstwavegroup.sharepoint.com/sites/FirstWaveDA/"
