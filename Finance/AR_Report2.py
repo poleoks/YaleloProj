@@ -344,7 +344,7 @@ smtp_server = "smtp-mail.outlook.com"  # Google SMTP Server
 
 # Set up the email lists
 email_from = pbi_user
-email_list = ["pokuttu@yalelo.ug"]
+email_list = ["pokuttu@yal.ug"]
 # email_list = ["pokuttu@yalelo.ug","knyeko@yalelo.ug","rnabukeera@yalelo.ug","aoriide@yalelo.ug","alakica@yalelo.ug"]
 
 # Define the password (better to reference externally)
