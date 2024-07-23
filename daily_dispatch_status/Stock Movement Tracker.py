@@ -41,97 +41,97 @@ week_end_date=week_end_date.strftime('%m/%d/%Y')
 # INSTANTIATE CHROME
 Options=webdriver.ChromeOptions()
 Options.add_experimental_option("detach", True)
-# driver=webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=Options)
+driver=webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=Options)
 
-# #%%
-# # powerbi login url
-# driver.get('https://app.powerbi.com/?noSignUpCheck=1')
+#%%
+# powerbi login url
+driver.get('https://app.powerbi.com/?noSignUpCheck=1')
 
-# #Expand window
-# driver.maximize_window()
-# # wait for page load
-# time.sleep(5)
+#Expand window
+driver.maximize_window()
+# wait for page load
+time.sleep(5)
 
-# # find email area using xpath
-# email=driver.find_element(By.XPATH,"//input[@class='form-control ltr_override input ext-input text-box ext-text-box']")
-# email.send_keys(pbi_user)
+# find email area using xpath
+email=driver.find_element(By.XPATH,"//input[@class='form-control ltr_override input ext-input text-box ext-text-box']")
+email.send_keys(pbi_user)
 
-# # proceed to password input by clicking button
-# submit = driver.find_element("id",'idSIButton9')
-# submit.click()
+# proceed to password input by clicking button
+submit = driver.find_element("id",'idSIButton9')
+submit.click()
 
-# time.sleep(5)
-# #%%
-# # now we need to find password field
-# password = driver.find_element("id",'i0118')
-# # then we send our user's password 
-# password.send_keys(pbi_pass)
-# # after we find sign in button above
-# submit = driver.find_element("id",'idSIButton9')
-# # then we click to submit button
-# submit.click()
-# # time.sleep(3)
-# time.sleep(5)
-# no = driver.find_element("id",'idBtn_Back')
-# # then we click to no
-# no.click()
-
-# time.sleep(5)
-
-# #%%
-# #navigate specific report by getting its url
-# report_url="https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/327e7fb0-8c3c-4596-bdd3-98e41603c2a6/ReportSection2e1d7001a05a5136ed5d"
-# driver.get(report_url)
-
-# # wait and locate report load the END DATE
-# ed=WebDriverWait(driver, 5*60).until(
-#         EC.presence_of_element_located((By.XPATH,'//*[contains(@aria-label,"End date") and @aria-description="Enter date in M/d/yyyy format"]'))
-#     )
-# #clear the search box
-# ed.clear()
-# #paste date
-# ed.send_keys(yesterday_date)
-# # press enter button
-# ed.send_keys(Keys.ENTER)
-
-# #click enter date on the calendar pop-up grid
-# driver.find_element(By.XPATH,'//*[@class="date-cell themableBackgroundColorSelected date-selected"]').click()
-
+time.sleep(5)
+#%%
+# now we need to find password field
+password = driver.find_element("id",'i0118')
+# then we send our user's password 
+password.send_keys(pbi_pass)
+# after we find sign in button above
+submit = driver.find_element("id",'idSIButton9')
+# then we click to submit button
+submit.click()
 # time.sleep(3)
+time.sleep(5)
+no = driver.find_element("id",'idBtn_Back')
+# then we click to no
+no.click()
 
-# #Wait and locate the report to load the Start Date
-# sd=WebDriverWait(driver, 5*60).until(
-#     EC.presence_of_element_located((By.XPATH,'//*[contains(@aria-label,"Start date") and @aria-description="Enter date in M/d/yyyy format"]'))
-# )
-# #clear search box
-# sd.clear()
-# #paste the date
-# sd.send_keys(month_start_date)
+time.sleep(5)
 
-# #press Enter Key
-# sd.send_keys(Keys.ENTER)
-# time.sleep(3)
+#%%
+#navigate specific report by getting its url
+report_url="https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/327e7fb0-8c3c-4596-bdd3-98e41603c2a6/ReportSection2e1d7001a05a5136ed5d"
+driver.get(report_url)
 
-# #click on the entered date in the calendar pop-up grid
-# driver.find_element(By.XPATH,'//*[@class="date-cell themableBackgroundColorSelected date-selected"]').click()
-# #Expand view option
-# driver.find_element(By.XPATH,"//button[contains(@class, 'mat-menu-trigger') and contains(@aria-label, 'View')]").click()
+# wait and locate report load the END DATE
+ed=WebDriverWait(driver, 5*60).until(
+        EC.presence_of_element_located((By.XPATH,'//*[contains(@aria-label,"End date") and @aria-description="Enter date in M/d/yyyy format"]'))
+    )
+#clear the search box
+ed.clear()
+#paste date
+ed.send_keys(yesterday_date)
+# press enter button
+ed.send_keys(Keys.ENTER)
 
-# # select full screen
-# expand_button = driver.find_element(By.XPATH, "//button[contains(@class, 'appBarMatMenu') and contains(@title, 'Open in full-screen mode')]")
+#click enter date on the calendar pop-up grid
+driver.find_element(By.XPATH,'//*[@class="date-cell themableBackgroundColorSelected date-selected"]').click()
 
-# # Click the expand button
-# expand_button.click()
+time.sleep(3)
 
-# time.sleep(5)
+#Wait and locate the report to load the Start Date
+sd=WebDriverWait(driver, 5*60).until(
+    EC.presence_of_element_located((By.XPATH,'//*[contains(@aria-label,"Start date") and @aria-description="Enter date in M/d/yyyy format"]'))
+)
+#clear search box
+sd.clear()
+#paste the date
+sd.send_keys(month_start_date)
 
-# #check if filter exists and hide, else ignore
-# try:
-#     driver.find_element(By.XPATH,'//*[@aria-label="Show/hide filter pane" and @aria-expanded="true"]').click()
-#     print("button pressed to hide filter pane")
-# except:
-#     print('Filter already hidden')
-# time.sleep(3)
+#press Enter Key
+sd.send_keys(Keys.ENTER)
+time.sleep(3)
+
+#click on the entered date in the calendar pop-up grid
+driver.find_element(By.XPATH,'//*[@class="date-cell themableBackgroundColorSelected date-selected"]').click()
+#Expand view option
+driver.find_element(By.XPATH,"//button[contains(@class, 'mat-menu-trigger') and contains(@aria-label, 'View')]").click()
+
+# select full screen
+expand_button = driver.find_element(By.XPATH, "//button[contains(@class, 'appBarMatMenu') and contains(@title, 'Open in full-screen mode')]")
+
+# Click the expand button
+expand_button.click()
+
+time.sleep(5)
+
+#check if filter exists and hide, else ignore
+try:
+    driver.find_element(By.XPATH,'//*[@aria-label="Show/hide filter pane" and @aria-expanded="true"]').click()
+    print("button pressed to hide filter pane")
+except:
+    print('Filter already hidden')
+time.sleep(3)
 
 
 
