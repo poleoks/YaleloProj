@@ -21,7 +21,13 @@ import pyperclip
 from datetime import date,datetime, timedelta
 import calendar
 my_date = date.today()
+#%%
+#get email lists
 
+active_warehouse = pd.read_csv('P:/Pertinent Files/Python/scripts/daily_dispatch_status/distinct_warehouse.csv')
+active_warehouse.dropna(subset=['Email']).head()
+
+#%%
 
 day_of_the_week=calendar.day_name[my_date.weekday()]
 day_of_the_week_num=datetime.today().weekday() #0 for Monday, 1 for Tuesday
@@ -103,10 +109,13 @@ driver.get(transfer_in_url)
 # wait for report load
 
 #Click to get Drop Down Menu
-download_address=glob.glob("C:/Users/Pole Okuttu/Downloads/data"+ "*xlsx")
 
 def export_tr(url):
+
+    download_address=glob.glob("C:/Users/Pole Okuttu/Downloads/data"+ "*xlsx")
+
     file_path=[]
+
     for h in download_address:
         os.remove(h)
 
@@ -142,7 +151,7 @@ def export_tr(url):
     # Close the browser
     return tr_file
 
-
+driver.quit()
 
 #%%
 #Read
@@ -152,14 +161,20 @@ transfers_out = export_tr(transfer_out_url)
 
 #%%
 # df_in = transfers_in.pivot(index=["Date"], columns=["ProductSizeId"], values="Received (kg)")
-df_in = pd.pivot_table(transfers_in,index="Date", columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')
-df_in['Total'] = df_in.sum(axis=1, skipna=True)
-df_in.head()
+df_in = pd.pivot_table(transfers_in,index=["Date", "ReceivingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum').
+# df_in['Total'] = df_in.sum(axis=1, skipna=True)
+df_in
 
 #%%
 
 # df_in = transfers_in.pivot(index=["Date"], columns=["ProductSizeId"], values="Received (kg)")
-df_out = pd.pivot_table(transfers_out,index="Date", columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')
+df_out = pd.pivot_table(transfers_out,index=["Date","ReceivingWarehouseId","ShippingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum').reset_index
 df_out['Total'] = df_out.sum(axis=1, skipna=True)
 df_out.head()
+# %%
+df_in.merge(active_warehouse, on="WarehouseId", how="left")
+# for j in active_warehouse['WarehouseId'].sort_values().to_list():
+#     for i in transfers_in['ReceivingWarehouseId'].dropna().drop_duplicates().sort_values().to_list():
+#         if i in 
+
 # %%
