@@ -16,18 +16,14 @@ import os
 import pandas as pd 
 # from PIL import Image
 import pyperclip
-#%%
 
 from datetime import date,datetime, timedelta
 import calendar
 my_date = date.today()
-#%%
 #get email lists
 
 active_warehouse = pd.read_csv('P:/Pertinent Files/Python/scripts/daily_dispatch_status/distinct_warehouse.csv')
 active_warehouse.dropna(subset=['Email']).head()
-
-#%%
 
 day_of_the_week=calendar.day_name[my_date.weekday()]
 day_of_the_week_num=datetime.today().weekday() #0 for Monday, 1 for Tuesday
@@ -46,7 +42,6 @@ print(f"Month end date: {month_end_date}")
 
 print(f"week start date: {week_start_date}")
 print(f"week end date: {week_end_date}")
-#%%
 current_time = str(datetime.now().time())
 
 # Options.add_experimental_option("detach", True)
@@ -148,6 +143,8 @@ def export_tr(url):
 
     # Get the latest downloaded file
     tr_file = pd.read_excel('C:/Users/Pole Okuttu/Downloads/data.xlsx')
+
+
     # Close the browser
     return tr_file
 
@@ -157,7 +154,10 @@ driver.quit()
 #Read
 
 transfers_in = export_tr(transfer_in_url)
+transfers_in.to_csv('transfers_in.csv')
+#%%
 transfers_out = export_tr(transfer_out_url)
+transfers_out.to_csv('transfers_out.csv')
 
 #%%
 # df_in = transfers_in.pivot(index=["Date"], columns=["ProductSizeId"], values="Received (kg)")
