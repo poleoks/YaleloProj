@@ -161,7 +161,7 @@ transfers_out = export_tr(transfer_out_url)
 
 #%%
 # df_in = transfers_in.pivot(index=["Date"], columns=["ProductSizeId"], values="Received (kg)")
-df_in = pd.pivot_table(transfers_in,index=["Date", "ReceivingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum').
+df_in = pd.pivot_table(transfers_in,index=["Date", "ReceivingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')
 # df_in['Total'] = df_in.sum(axis=1, skipna=True)
 df_in
 
@@ -169,7 +169,7 @@ df_in
 
 # df_in = transfers_in.pivot(index=["Date"], columns=["ProductSizeId"], values="Received (kg)")
 df_out = pd.pivot_table(transfers_out,index=["Date","ReceivingWarehouseId","ShippingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum').reset_index
-df_out['Total'] = df_out.sum(axis=1, skipna=True)
+# df_out['Total'] = df_out.sum(axis=1, skipna=True)
 df_out.head()
 # %%
 df_in.merge(active_warehouse, on="WarehouseId", how="left")
