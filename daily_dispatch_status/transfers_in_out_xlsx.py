@@ -230,17 +230,18 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
     new_path='P:/Pertinent Files/Python/scripts/daily_dispatch_status/'
 
     # Prepare the body of the email
-    body = f"""
+    body = f"""<span style="font-family: 'Times New Roman';">
     Hello {i} Store,
     
     Please find your month to date transfers in and out report attached. 
     
     Check both sheets to ensure that you are aware and own this records.
-    In case of any issues, please reply to pokuttu@yalelo.ug for followup.
+    
+    **In case of any issues, please reply to pokuttu@yalelo.ug for followup.**
 
     Regards,
     Pole
-    """
+    </span>"""
     # Make a MIME object to define parts of the email
     msg = MIMEMultipart()
     msg['From'] = email_from
@@ -272,5 +273,7 @@ TIE_server.quit()
 #%%
 for k in glob.glob("P:/Pertinent Files/Python/scripts/daily_dispatch_status/"+ "*MTD Stock*" + "*.xlsx"):
     os.remove(k)
+
+print("All files removed from repository")
 # %%
 
