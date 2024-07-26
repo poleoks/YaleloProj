@@ -201,8 +201,6 @@ TIE_server.starttls()
 TIE_server.login(email_from, pswd)
 print("Succesfully connected to server")
 #%%
-# active_warehouse['WarehouseId'].to_list()
-# for i,j in active_warehouse['WarehouseId'].to_list(), active_warehouse['Email'].to_list():
 for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Email'].to_list()):
     email_list = [f"{e}","pokuttu@yalelo.ug"]
     try:
@@ -230,18 +228,19 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
     new_path='P:/Pertinent Files/Python/scripts/daily_dispatch_status/'
 
     # Prepare the body of the email
-    body = f"""<span style="font-family: 'Times New Roman';">
+    body = f"""
     Hello {i} Store,
     
     Please find your month to date transfers in and out report attached. 
     
     Check both sheets to ensure that you are aware and own this records.
+    The Total Received - Total Shipped Stock = Net Received (shared daily on whatsapp)
     
-    **In case of any issues, please reply to pokuttu@yalelo.ug for followup.**
+    In case of any issues, please reply to pokuttu@yalelo.ug for followup.
 
     Regards,
     Pole
-    </span>"""
+    """
     # Make a MIME object to define parts of the email
     msg = MIMEMultipart()
     msg['From'] = email_from
