@@ -152,6 +152,7 @@ def export(url):
 export(transfer_in_url)
 tr_in = pd.read_excel("C:/Users/Pole Okuttu/Downloads/data.xlsx")
 
+#%%
 df_in = pd.pivot_table(tr_in,index=["Date", "ReceivingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
 df_in['Total'] = df_in.sum(axis=1, skipna=True)
 #%%
@@ -206,12 +207,12 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
     email_list = [f"{e}","pokuttu@yalelo.ug"]
     try:
         df_in_w = df_in.loc[(slice(None), i),:].dropna(axis=1, how='all')
-        # df_in_w.to_excel(f"{i} MTD Stock Received.xlsx")
+        df_in_w.loc['Sub Total', :] = df_in_w.sum().values
     except:
         None
     try:
-        df_out_w = df_out.loc[(slice(None),slice(None), i),:].dropna(axis=1, how='all')
-        # df_out_w.to_excel(f"{i} MTD Stock Shipped.xlsx")
+        df_out_w = df_out.loc[slice(None), slice(None), i].dropna(axis=1, how='all')
+        df_out_w.loc['Sub Total', :] = df_out_w.sum().values
     except:
         None
 
@@ -272,3 +273,4 @@ TIE_server.quit()
 for k in glob.glob("P:/Pertinent Files/Python/scripts/daily_dispatch_status/"+ "*MTD Stock*" + "*.xlsx"):
     os.remove(k)
 # %%
+
