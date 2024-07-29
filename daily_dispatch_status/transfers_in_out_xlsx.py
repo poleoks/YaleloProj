@@ -1,5 +1,4 @@
 #%%
-#import modules
 import glob
 import time
 from selenium import webdriver
@@ -47,7 +46,6 @@ active_warehouse = [
     {'WarehouseId' : 'Natete V2', 'Email':'nateetestore@yalelo.ug'},
     {'WarehouseId' : 'Ntinda', 'Email':'ntindastore@yalelo.ug'},
     {'WarehouseId' : 'Nyahuka', 'Email':'nyahukaborder@yalelo.ug'}
-    
     ]
 
 
@@ -62,6 +60,8 @@ driver=webdriver.Chrome(service=Service(ChromeDriverManager().install()),options
 # powerbi login url
 driver.get('https://app.powerbi.com/?noSignUpCheck=1')
 driver.maximize_window()
+
+
 # wait for page load
 time.sleep(5)
 # find email area using xpath
@@ -150,129 +150,163 @@ def export(url):
 #%%
 # read files
 export(transfer_in_url)
+
+#%%
 tr_in = pd.read_excel("C:/Users/Pole Okuttu/Downloads/data.xlsx")
 
 #%%
 df_in = pd.pivot_table(tr_in,index=["Date", "ReceivingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
 df_in['Total'] = df_in.sum(axis=1, skipna=True)
-#%%
-#pivot transfers_out
-export(transfer_out_url)
-tr_out = pd.read_excel("C:/Users/Pole Okuttu/Downloads/data.xlsx")
-df_out = pd.pivot_table(tr_out,index=["Date","ReceivingWarehouseId","ShippingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index()
-df_out['Total'] = df_out.sum(axis=1, skipna=True)
 
-driver.quit()
-#%%
-print(df_in.columns)
 
-#%%
-print(df_out.head())
+# #%%
+# #DC transfers from production
+# df_in_dc = pd.pivot_table(tr_in[tr_in['Received (kg)'] > 15],index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
+# df_in_dc['Total Received'] = df_in_dc.sum(axis=1, skipna=True)
 
-#%%
-# log-in to email server
-"""
-######################################################################
-# Email With Attachments Python Script
+# print(df_in_dc.head())
+# #%%
+# #DC driploss - from shops
+# df_dl_dc = pd.pivot_table(tr_in[(tr_in['ShippingWarehouseId'] != 'Production') & (tr_in['Received (kg)'] < 15)],index=["Date", "ReceivingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
+# df_dl_dc['Total Driploss From Shops'] = df_dl_dc.sum(axis=1, skipna=True)
 
-######################################################################
-"""
+# print(df_dl_dc.head())
+# #%%
+# #pivot transfers_out
+# export(transfer_out_url)
+# tr_out = pd.read_excel("C:/Users/Pole Okuttu/Downloads/data.xlsx")
+# df_out = pd.pivot_table(tr_out,index=["Date","ReceivingWarehouseId","ShippingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index()
+# df_out['Total Shipped Out'] = df_out.sum(axis=1, skipna=True)
 
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email import encoders
+# #%%
 
-# Setup port number and server name
 
-smtp_port = 587                 # Standard secure SMTP port
-smtp_server = "smtp-mail.outlook.com"  # Google SMTP Server
+# #%%
 
-# Set up the email lists
-email_from = pbi_user
+# driver.quit()
+# #%%
+# print(df_in.columns)
 
-# Define the password (better to reference externally)
-pswd = pbi_pass # As shown in the video this password is now dead, left in as example only
+# #%%
+# print(df_out.head())
 
-print("Connecting to server...")
-TIE_server = smtplib.SMTP(smtp_server, smtp_port)
-TIE_server.starttls()
-TIE_server.login(email_from, pswd)
-print("Succesfully connected to server")
-#%%
-for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Email'].to_list()):
-    email_list = [f"{e}","pokuttu@yalelo.ug"]
-    try:
-        df_in_w = df_in.loc[(slice(None), i),:].dropna(axis=1, how='all')
-        df_in_w.loc['Sub Total', :] = df_in_w.sum().values
-    except:
-        None
-    try:
-        df_out_w = df_out.loc[slice(None), slice(None), i].dropna(axis=1, how='all')
-        df_out_w.loc['Sub Total', :] = df_out_w.sum().values
-    except:
-        None
+# #%%
+# # log-in to email server
+# """
+# ######################################################################
+# # Email With Attachments Python Script
 
-    with pd.ExcelWriter(f"{i} MTD Stock.xlsx") as writer:
-            # Write df_in_w to the first sheet
-            df_in_w.to_excel(writer, sheet_name=f'{i} Stock Received')
+# ######################################################################
+# """
 
-            # Write df_out_w to the second sheet
-            df_out_w.to_excel(writer, sheet_name=f'{i} Stock Shipped')
-   # name the email subject
+# import smtplib
+# from email.mime.text import MIMEText
+# from email.mime.multipart import MIMEMultipart
+# from email.mime.base import MIMEBase
+# from email import encoders
 
-    subject = f"{i} Transfers Report [Month To Date]"
+# # Setup port number and server name
 
-    # import sys 
-    new_path='P:/Pertinent Files/Python/scripts/daily_dispatch_status/'
+# smtp_port = 587                 # Standard secure SMTP port
+# smtp_server = "smtp-mail.outlook.com"  # Google SMTP Server
 
-    # Prepare the body of the email
-    body = f"""
-    Hello {i} Store,
+# # Set up the email lists
+# email_from = pbi_user
+
+# # Define the password (better to reference externally)
+# pswd = pbi_pass # As shown in the video this password is now dead, left in as example only
+
+# print("Connecting to server...")
+# TIE_server = smtplib.SMTP(smtp_server, smtp_port)
+# TIE_server.starttls()
+# TIE_server.login(email_from, pswd)
+# print("Succesfully connected to server")
+# #%%
+# for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Email'].to_list()):
+#     email_list = [f"{e}","pokuttu@yalelo.ug"]
+#     try:
+#         df_in_w = df_in.loc[(slice(None), i),:].dropna(axis=1, how='all')
+#         df_in_w.loc['Sub Total', :] = df_in_w.sum().values
+#     except:
+#         None
+#     try:
+#         df_out_w = df_out.loc[slice(None), slice(None), i].dropna(axis=1, how='all')
+#         df_out_w.loc['Sub Total', :] = df_out_w.sum().values
+#     except:
+#         None
+#     if i=='Distrbtion':
+#         with pd.ExcelWriter(f"{i} MTD Stock.xlsx") as writer:
+#                 # Write df_in_w to the first sheet
+#                 df_in_dc.to_excel(writer, sheet_name=f'{i} Stock Received From Production')
+                               
+#                 # Write df_in_w to the first sheet
+#                 df_in_dc.to_excel(writer, sheet_name=f'{i} Stock Received From Production')
+
+#                 # Write df_out_w to the second sheet
+#                 df_out_w.to_excel(writer, sheet_name=f'{i} Stock Shipped Out')
+
+#     else:
+#         with pd.ExcelWriter(f"{i} MTD Stock.xlsx") as writer:
+#             # Write df_in_w to the first sheet
+#             df_in_w.to_excel(writer, sheet_name=f'{i} Stock Received')
+
+#             # Write df_out_w to the second sheet
+#             df_out_w.to_excel(writer, sheet_name=f'{i} Stock Shipped')
+
     
-    Please find your month to date transfers in and out report attached. 
+#    # name the email subject
+
+#     subject = f"{i} Transfers Report [Month To Date]"
+
+#     # import sys 
+#     new_path='P:/Pertinent Files/Python/scripts/daily_dispatch_status/'
+
+#     # Prepare the body of the email
+#     body = f"""
+#     Hello {i} Store,
     
-    Check both sheets to ensure that you are aware and own this records.
-    The Total Received - Total Shipped Stock = Net Received (shared daily on whatsapp)
+#     Please find your month to date transfers in and out report attached. 
     
-    In case of any issues, please reply to pokuttu@yalelo.ug for followup.
+#     Check both sheets to ensure that you are aware and own this records.
+#     The Total Received - Total Shipped Stock = Net Received (shared daily on whatsapp)
+    
+#     In case of any issues, please reply to pokuttu@yalelo.ug for followup.
 
-    Regards,
-    Pole
-    """
-    # Make a MIME object to define parts of the email
-    msg = MIMEMultipart()
-    msg['From'] = email_from
-    msg['Subject'] = subject
-    msg['To'] = ', '.join(email_list)
+#     Regards,
+#     Pole
+#     """
+#     # Make a MIME object to define parts of the email
+#     msg = MIMEMultipart()
+#     msg['From'] = email_from
+#     msg['Subject'] = subject
+#     msg['To'] = ', '.join(email_list)
 
 
-    # Attach the body of the message
-    msg.attach(MIMEText(body, 'plain'))
+#     # Attach the body of the message
+#     msg.attach(MIMEText(body, 'plain'))
 
-    # Define the file to attach
-    filename = f"{i} MTD Stock.xlsx"
+#     # Define the file to attach
+#     filename = f"{i} MTD Stock.xlsx"
 
-    # Open the file in python as a binary
-    with open(filename, 'rb') as attachment:
-        # Encode as base 64
-        attachment_package = MIMEBase('application', 'octet-stream')
-        attachment_package.set_payload(attachment.read())
-        encoders.encode_base64(attachment_package)
-        attachment_package.add_header('Content-Disposition', f"attachment; filename= {filename}")
-        msg.attach(attachment_package)
-    # Send emails to all recipients at once
-    TIE_server.sendmail(email_from,email_list, msg.as_string())
-    print(f"{i} email sent!")
-#%%
-print("All Emails Sent successfully")
-#clear space
-TIE_server.quit()
-#%%
-for k in glob.glob("P:/Pertinent Files/Python/scripts/daily_dispatch_status/"+ "*MTD Stock*" + "*.xlsx"):
-    os.remove(k)
+#     # Open the file in python as a binary
+#     with open(filename, 'rb') as attachment:
+#         # Encode as base 64
+#         attachment_package = MIMEBase('application', 'octet-stream')
+#         attachment_package.set_payload(attachment.read())
+#         encoders.encode_base64(attachment_package)
+#         attachment_package.add_header('Content-Disposition', f"attachment; filename= {filename}")
+#         msg.attach(attachment_package)
+#     # Send emails to all recipients at once
+#     TIE_server.sendmail(email_from,email_list, msg.as_string())
+#     print(f"{i} email sent!")
+# #%%
+# print("All Emails Sent successfully")
+# #clear space
+# TIE_server.quit()
+# #%%
+# for k in glob.glob("P:/Pertinent Files/Python/scripts/daily_dispatch_status/"+ "*MTD Stock*" + "*.xlsx"):
+#     os.remove(k)
 
-print("All files removed from repository")
-# %%
+# print("All files removed from repository")
+# # %%
 
