@@ -42,7 +42,6 @@ week_end_date=week_end_date.strftime('%m/%d/%Y')
 Options=webdriver.ChromeOptions()
 Options.add_experimental_option("detach", True)
 driver=webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=Options)
-
 #%%
 # powerbi login url
 driver.get('https://app.powerbi.com/?noSignUpCheck=1')

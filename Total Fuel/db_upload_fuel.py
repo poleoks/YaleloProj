@@ -14,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import os
 import pandas as pd 
 from PIL import Image
-import pyperclip
+# import pyperclip
 
 from datetime import datetime, timedelta
 # from config import CHROME_PROFILE_PATH
