@@ -1,0 +1,5 @@
+CHROME_PROFILE_PATH = "user-data-dir=C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\wtsp_conf"
+CHROME_PROFILE_PATH_R = "user-data-dir=C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Wtsp"
+CHROME_PROFILE_PATH_P = "user-data-dir=C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Wtsp_pole"
+CHROME_PROFILE_PATH_Yvone = "user-data-dir=C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Wtsp_yvone"
+CHROME_PROFILE_PATH_HydroVuWQ = "user-data-dir=C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\HydroVuWQ"
