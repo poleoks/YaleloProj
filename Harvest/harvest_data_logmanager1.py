@@ -1,9 +1,10 @@
 #%%
+import sys
 import warnings
 warnings.filterwarnings('ignore')
 import mysql.connector
 import pandas as pd
-from sharepoint import *
+# from sharepoint import *
 import time
 import requests
 from requests.auth import HTTPBasicAuth
@@ -14,7 +15,7 @@ from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl import Workbook
 from openpyxl.styles import Font, Border, Side
 import glob
-import os\
+import os
     
     # "C:\Users\Administrator\Documents\Python_Automations\Harvest\excel_upload_harvest_logger.py"
 
@@ -58,7 +59,7 @@ my_cursor.execute(sql)
 df_mysql = my_cursor.fetchall()
 # print(df_mysql)
 col_names=[i[0] for i in my_cursor.description]
-# Print the df_mysql
+# Print the df_mysqlp
 # for row in df_mysql:
 #     print(row)
 harvest_data = pd.DataFrame(df_mysql, columns=col_names).set_index('id')

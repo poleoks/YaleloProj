@@ -3,7 +3,7 @@ import warnings
 warnings.filterwarnings('ignore')
 import mysql.connector
 import pandas as pd
-from sharepoint import *
+# from sharepoint import *
 import time
 import requests
 from requests.auth import HTTPBasicAuth
