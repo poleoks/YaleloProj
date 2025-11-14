@@ -1,10 +1,18 @@
+<<<<<<< HEAD
 
 # print(os.getcwd())
+=======
+import os
+print(os.getcwd())
+>>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 from shareplum import Site, Office365
 from shareplum.site import Version
 import json
 from creds import *
+<<<<<<< HEAD
 import time
+=======
+>>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 # from config import *
 
 USERNAME=user
@@ -32,6 +40,7 @@ class SharePoint:
 
         list_data = self.auth_site.List(list_name=ls_name).GetListItems()
 
+<<<<<<< HEAD
         return list_data
     def append_to_list(self,ls_name,my_sql):
         my_sql=[my_sql.to_dict()]
@@ -103,3 +112,6 @@ class SharePoint:
 # # # Append data to the SharePoint list
 # # data_to_append = [{'Field1': 'Value1', 'Field2': 'Value2'}, {'Field1': 'Value3', 'Field2': 'Value4'}]
 # # sp.append_to_list('YourListName', data_to_append)
+=======
+        return list_data
+>>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0

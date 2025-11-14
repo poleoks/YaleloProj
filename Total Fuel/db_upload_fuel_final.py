@@ -1,15 +1,7 @@
-<<<<<<< HEAD
 
 #%%
 try:
-    file_location = 'C:/Users/Administrator/Documents/Python_Automations/Finance/YU_Fuel_Automated.xlsx'
-    
-=======
-from credentials import *
-#%%
-try:
     file_location = 'P:/Pertinent Files/Python/scripts/Total Fuel/YU_Fuel_Automated.xlsx'
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
     os.remove(file_location)
     print("file deleted from SharePoint")
 
@@ -29,48 +21,21 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os
 import pandas as pd 
-<<<<<<< HEAD
-import sys
-=======
 from PIL import Image
 import pyperclip
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 
 from datetime import datetime, timedelta
 # from config import CHROME_PROFILE_PATH
 current_time = str(datetime.now().time())
-<<<<<<< HEAD
-sys.path.insert(1,"C:/Users/Administrator/Documents/Python_Automations/")
-from credentials import *
-#%%
-Options=webdriver.ChromeOptions()
-Options.add_experimental_option("detach", True)
-# Options.add_argument(CHROME_PROFILE_PATH)
-chrome_install = ChromeDriverManager().install()
-
-folder = os.path.dirname(chrome_install)
-chromedriver_path = os.path.join(folder, "chromedriver.exe")
-
-Service = webdriver.ChromeService(chromedriver_path)
-
-driver=webdriver.Chrome(service=Service)
-
-today = datetime.now().strftime('%m/%d/%Y')
-=======
 Options = Options()
 Options.add_experimental_option("detach", True)
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=Options)
 
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 #%%
 #GET FUEL CONSUMPTION IN KENYA
 # groups_path='P:/Pertinent Files/Python/scripts/groups_all.txt'
 driver.get('https://www.mytotalfuelcard.com/')
-<<<<<<< HEAD
-driver.delete_all_cookies()
-=======
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 driver.maximize_window()
 time.sleep(5)
 
@@ -112,40 +77,12 @@ select_yu=WebDriverWait(driver, 500).until(
     )
 select_yu.click()
 
-<<<<<<< HEAD
-bgd = WebDriverWait(driver, 500).until(
-    EC.presence_of_element_located((By.XPATH,'//*[@id="dp_date_debut"]'))
-)
-
-bgd.clear()
-time.sleep(1)
-bgd.send_keys('01/01/2024')
-bgd.send_keys(Keys.ENTER)
-time.sleep(1)
-
-edd = WebDriverWait(driver, 500).until(
-    EC.presence_of_element_located((By.XPATH,'//*[@id="dp_date_fin"]'))
-)
-
-edd.clear()
-time.sleep(1)
-edd.send_keys(today)
-edd.send_keys(Keys.ENTER)
-time.sleep(1)
-#%%
-# csv download
-download_link=WebDriverWait(driver, 500).until(
-        EC.presence_of_element_located((By.XPATH,'//*[@id="csvIcon"]'))
-    )
-driver.execute_script("arguments[0].scrollIntoView(true);", download_link)
-=======
 
 #%%
 # csv download
 download_link=WebDriverWait(driver, 500).until(
         EC.presence_of_element_located(("xpath","/html/body/div[3]/section/div/section/div/div[3]/div[2]"))
     )
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 download_link.click()
 
 #%%
@@ -153,44 +90,25 @@ download_link.click()
 max_wait_time_seconds = 60*1
 current_wait_time = 0
 
-<<<<<<< HEAD
-while not os.path.exists("c:/Users/Administrator/Downloads/Transactions.csv") and current_wait_time < max_wait_time_seconds:
-    time.sleep(1)
-    current_wait_time += 1
-# Check if the file exists
-ke_fuel=pd.read_csv("c:/Users/Administrator/Downloads/Transactions.csv",sep=";")
-=======
 while not os.path.exists("C:/Users/Pole Okuttu/Downloads/Transactions.csv") and current_wait_time < max_wait_time_seconds:
     time.sleep(1)
     current_wait_time += 1
 # Check if the file exists
 ke_fuel=pd.read_csv("C:/Users/Pole Okuttu/Downloads/Transactions.csv",sep=";")
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 print(ke_fuel.shape)
 print(ke_fuel.head())
 #%%
 # import os
-<<<<<<< HEAD
-os.remove("c:/Users/Administrator/Downloads/Transactions.csv")
-=======
 os.remove("C:/Users/Pole Okuttu/Downloads/Transactions.csv")
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 
 driver.quit()
 time.sleep(5)
 # %%
 
 #GET FUEL CONSUMPTION IN UGANDA
-<<<<<<< HEAD
-browser=webdriver.Chrome(service=Service)
-# groups_path='P:/Pertinent Files/Python/scripts/groups_all.txt'
-browser.get('https://www.mytotalfuelcard.com/')
-browser.delete_all_cookies()
-=======
 browser=webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=Options)
 # groups_path='P:/Pertinent Files/Python/scripts/groups_all.txt'
 browser.get('https://www.mytotalfuelcard.com/')
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 browser.maximize_window()
 time.sleep(5)
 
@@ -236,57 +154,14 @@ select_yu.click()
 
 
 #%%
-<<<<<<< HEAD
-bgd = WebDriverWait(browser, 500).until(
-    EC.presence_of_element_located((By.XPATH,'//*[@id="dp_date_debut"]'))
-)
-
-# csv download
-bgd.clear()
-time.sleep(1)
-bgd.send_keys('01/01/2024')
-bgd.send_keys(Keys.ENTER)
-time.sleep(1)
-
-edd = WebDriverWait(browser, 500).until(
-    EC.presence_of_element_located((By.XPATH,'//*[@id="dp_date_fin"]'))
-)
-
-edd.clear()
-time.sleep(1)
-edd.send_keys(today)
-edd.send_keys(Keys.ENTER)
-time.sleep(1)
-#%%
-# csv download
-download_link=WebDriverWait(browser, 500).until(
-        EC.presence_of_element_located((By.XPATH,'//*[@id="csvIcon"]'))
-    )
-browser.execute_script("arguments[0].scrollIntoView(true);", download_link)
-=======
 # csv download
 download_link=WebDriverWait(browser, 500).until(
         EC.presence_of_element_located(("xpath","/html/body/div[3]/section/div/section/div/div[3]/div[2]"))
     )
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 download_link.click()
 
 #%%
 # Wait for the download to complete (you may need to customize the waiting time)
-<<<<<<< HEAD
-max_wait_time_seconds = 60*5
-current_wait_time = 0
-
-while not os.path.exists("c:/Users/Administrator/Downloads/Transactions.csv") and current_wait_time < max_wait_time_seconds:
-    time.sleep(1)
-    current_wait_time += 1
-# Check if the file exists
-ug_fuel=pd.read_csv("c:/Users/Administrator/Downloads/Transactions.csv",sep=";")
-print(ug_fuel.head())
-#%%
-# import os
-os.remove("c:/Users/Administrator/Downloads/Transactions.csv")
-=======
 max_wait_time_seconds = 60*1
 current_wait_time = 0
 
@@ -298,7 +173,162 @@ ug_fuel=pd.read_csv("C:/Users/Pole Okuttu/Downloads/Transactions.csv",sep=";")
 #%%
 # import os
 os.remove("C:/Users/Pole Okuttu/Downloads/Transactions.csv")
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 
 browser.quit()
 time.sleep(5)
+
+
+
+# # %%
+# total_fuel=pd.concat([ug_fuel,ke_fuel], ignore_index=True)
+# total_fuel['Receipt_n_date']= total_fuel['Date'].astype('str') +  total_fuel['Receipt num.'].astype('str')
+# file_location='P:/Pertinent Files/Python/scripts/Total Fuel/YU_Fuel_Automated.xlsx'
+
+# total_fuel.to_excel(file_location,index=False)
+# print(total_fuel.shape)
+# print(total_fuel.info())
+# print(total_fuel['Currency'].value_counts(normalize=True))
+# print("All fuel data saved successfully")
+##%%
+
+## %%
+# # REMOVE AND UPLOAD EXCEL IN D&A SHAREPOINT
+# drvr=webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
+# # groups_path='P:/Pertinent Files/Python/scripts/groups_all.txt'
+# # drvr.get('https://firstwavegroup.sharepoint.com/sites/FirstWaveDA/')
+# drvr.get('https://firstwavegroup.sharepoint.com/:f:/r/sites/FirstWaveDA/Shared%20Documents/Yalelo%20Uganda%20(YU)/Recurring%20Reports/YU%20Distribution?csf=1&web=1&e=l2L2k7')
+
+# drvr.maximize_window()
+# time.sleep(2)
+
+# #%%
+# # driver2.find_element("id","//button[@id='tarteaucitronAllDenied2']").click()
+
+# WebDriverWait(drvr, 10*60).until(
+#         EC.presence_of_element_located(("xpath","/html/body/div/form[1]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/div/div/div/div[2]/div[2]/div/input[1]"))
+#     ).send_keys("pokuttu@yalelo.ug")
+
+# time.sleep(3)
+# #%%
+# WebDriverWait(drvr, 500).until(
+#         EC.presence_of_element_located(("id","idSIButton9"))
+#     ).click()
+# # drvr.find_element("id","idSIButton9").click()
+
+# time.sleep(3)
+# WebDriverWait(drvr, 500).until(
+#         EC.presence_of_element_located(("id","i0118"))
+#     ).send_keys("Aligator@1")
+# # # drvr.find_element("id","i0118").send_keys("Aligator@1")
+# time.sleep(2)
+
+# WebDriverWait(drvr, 500).until(
+#         EC.presence_of_element_located(("id","idSIButton9"))
+#     ).click()
+# # # # drvr.find_element("id","idSIButton9").click()
+# time.sleep(2)
+
+# WebDriverWait(drvr, 500).until(
+#         EC.presence_of_element_located(("id","idBtn_Back"))
+#     ).click()
+# # # drvr.find_element("id","idBtn_Back").click()
+# time.sleep(5)
+
+
+# #%%
+# print("deleting file from sharepoint now")
+# try:
+#     drvr.find_element(By.XPATH,'//div[contains(@id,"checkbox") and contains(@aria-label, "YU_Fuel_Automated.xlsx")]').click()
+#     time.sleep(3)
+
+#     drvr.find_element(By.XPATH,'//button[@role="menuitem" and @aria-label="More" and span[@data-automationid="splitbuttonprimary"]]').click()
+
+#     time.sleep(5)
+
+#     drvr.find_element(By.XPATH,'//i[@data-icon-name="delete" and @aria-hidden="true"]').click()
+#     time.sleep(5)
+#     # Find the button using the updated XPath
+#     button_xpath = '//button[@type="button" and @data-automationid="confirmbutton" and .//span[contains(@class, "ms-Button-label") and contains(normalize-space(), "Delete")]]'
+#     delete_button = drvr.find_element(By.XPATH, button_xpath)
+
+#     # # Scroll to the element using JavaScript
+#     drvr.execute_script("arguments[0].scrollIntoView(true);", delete_button)
+
+#     # # Perform actions on the element (e.g., click)
+#     delete_button.click()
+    
+#     #Upload file into sharepoint
+#     # Click the button that opens the menu
+#     button_xpath = '//*[@data-icon-name="upload"]'
+#     button_element = drvr.find_element(By.XPATH, button_xpath)
+#     button_element.click()
+
+#     # Wait for a short time to allow the menu to appear (adjust as needed)
+#     time.sleep(2)
+
+#     # Select the "Files" option from the menu
+#     files_option_xpath = '//span[contains(@class, "ms-ContextualMenu-itemText") and contains(text(), "Files")]'
+#     files_option_element = drvr.find_element(By.XPATH, files_option_xpath)
+#     files_option_element.click()
+
+#     # Wait for a short time to allow the file input to become visible (adjust as needed)
+#     time.sleep(2)
+
+#     # Find the file input element using XPath
+#     file_input_xpath = '//input[@type="file"]'
+#     file_input = drvr.find_element(By.XPATH, file_input_xpath)
+
+#     # Provide the path to your Excel file
+#     # file_location = "C:/Users/Pole Okuttu/Downloads/YU_Fuel_Automated.xlsx"
+
+#     # Set the file path in the file input
+#     file_input.send_keys(file_location)
+
+#     # Wait for a few seconds (just for demonstration purposes)
+#     time.sleep(30)
+
+#     # Close the browser
+#     drvr.quit()
+#     print("Sharepoint file successfully updated")
+#     time.sleep(3)
+# except:
+#     print("file not found, proceed")
+#     time.sleep(5)
+# #%%
+# # "C:\Users\Pole Okuttu\AppData\Local\Programs\Python\Python312\python.exe"
+#     #Upload file into sharepoint
+#     # Click the button that opens the menu
+#     button_xpath = '//*[@data-icon-name="upload"]'
+#     button_element = drvr.find_element(By.XPATH, button_xpath)
+#     button_element.click()
+
+#     # Wait for a short time to allow the menu to appear (adjust as needed)
+#     time.sleep(2)
+
+#     # Select the "Files" option from the menu
+#     files_option_xpath = '//span[contains(@class, "ms-ContextualMenu-itemText") and contains(text(), "Files")]'
+#     files_option_element = drvr.find_element(By.XPATH, files_option_xpath)
+#     files_option_element.click()
+
+#     # Wait for a short time to allow the file input to become visible (adjust as needed)
+#     time.sleep(2)
+
+#     # Find the file input element using XPath
+#     file_input_xpath = '//input[@type="file"]'
+#     file_input = drvr.find_element(By.XPATH, file_input_xpath)
+
+#     # Provide the path to your Excel file
+#     # file_location = "C:/Users/Pole Okuttu/Downloads/YU_Fuel_Automated.xlsx"
+
+#     # Set the file path in the file input
+#     file_input.send_keys(file_location)
+
+#     # Wait for a few seconds (just for demonstration purposes)
+#     time.sleep(30)
+
+#     # Close the browser
+#     drvr.quit()
+#     print("Sharepoint file successfully updated")
+#     time.sleep(3)
+# #%%

@@ -1,40 +1,23 @@
-<<<<<<< HEAD
-import sys
-sys.path.append('C:/Users/Administrator/Documents/Python_Automations/')
-from credentials import  *
-from fuel_data import *
-=======
+
 from credentials import *
-from fuel_data import ke_fuel,ug_fuel
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 import os
-import sys
+
 #%%
 import glob
 
 
 #%%
-<<<<<<< HEAD
-
-=======
-file_location='c:/Users/Administrator/Downloads/Customer aging report.xlsx'
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
+file_location='C:/Users/Pole Okuttu/Downloads/Customer aging report.xlsx'
 try:
-    for file in glob.glob(os.path.join("c:/Users/Administrator/Downloads","*.xlsx*")):
+    for file in glob.glob(os.path.join("C:/Users/Pole Okuttu/Downloads","*.xlsx*")):
         os.remove(file)
-    for xl in glob.glob(os.path.join("C:/Users/Administrator/Documents/Python_Automations/Finance/","*.xlsx*")):
+    for xl in glob.glob(os.path.join("P:/Pertinent Files/Python/scripts/Finance/","*.xlsx*")):
         os.remove(xl)
-<<<<<<< HEAD
-=======
     # os.remove(file_location)
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
     print("File deleted")
 except:
     print("File Does not Exist")
 
-<<<<<<< HEAD
-#%%
-=======
 # %%
 
 import time
@@ -52,8 +35,8 @@ import pandas as pd
 import pyperclip
 import datetime as dt
 from datetime import datetime#, timedelta
-# sys.path.insert(0,'C:/Users/Administrator/Documents/Python_Automations/Finance/')
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
+import sys
+# sys.path.insert(0,'P:/Pertinent Files/Python/scripts/Finance/')
 
 date_today=datetime.today().day
 month_num=datetime.today().month
@@ -65,35 +48,6 @@ print(formatted_date)
 
 # %%
 # from config import CHROME_PROFILE_PATH
-<<<<<<< HEAD
-
-current_time = str(datetime.now().time())
-#INSTANTIATE WHATSAPP
-sys.path.insert(0,'C:/Users/Administrator/Documents/Python_Automations/Distribution/')
-from chrome_configuration import CHROME_PATH
-
-Options=webdriver.ChromeOptions()
-Options.add_experimental_option("detach", True)
-Options.add_argument(CHROME_PATH)
-chrome_install = ChromeDriverManager().install()
-
-folder = os.path.dirname(chrome_install)
-chromedriver_path = os.path.join(folder, "chromedriver.exe")
-
-Service = webdriver.ChromeService(chromedriver_path)
-browser=webdriver.Chrome(service=Service, options=Options)
-
-#GET AR REPORT FOR KENYA
-browser.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yk&mi=Output%3ACustAgingBalance')
-
-WebDriverWait(browser, 60).until(
-    EC.presence_of_element_located((By.XPATH,'//*[@data-test-id="poweruser@firstwave.ag"]'))
-).click()
-
-browser.maximize_window()
-
-time.sleep(3)
-=======
 current_time = str(datetime.now().time())
 Options=Options()
 Options.add_experimental_option("detach", True)
@@ -115,6 +69,8 @@ time.sleep(5)
 
 email=browser.find_element(By.XPATH,"//input[@class='form-control ltr_override input ext-input text-box ext-text-box']")
 # # send power bi login user
+pbi_user='d365@yalelo.ke'
+pbi_pass='Kenya@YK'
 email.send_keys(pbi_user)
 #%% find submit button
 submit = browser.find_element("id",'idSIButton9')
@@ -122,7 +78,6 @@ submit = browser.find_element("id",'idSIButton9')
 submit.click()
 
 time.sleep(5)
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 #%%
 # now we need to find password field
 password = browser.find_element("id",'i0118')
@@ -132,10 +87,6 @@ password.send_keys(pbi_pass)
 submit = browser.find_element("id",'idSIButton9')
 # then we click to submit button
 submit.click()
-<<<<<<< HEAD
-time.sleep(5)
-
-=======
 # time.sleep(10)
 time.sleep(5)
 # to complate the login process we need to click no button from above
@@ -145,7 +96,6 @@ no = browser.find_element("id",'idBtn_Back')
 no.click()
 time.sleep(5)
 # //*[@id="email"]
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 #%%
 
 aging_date=WebDriverWait(browser, 500).until(
@@ -211,23 +161,11 @@ time.sleep(2)
 WebDriverWait(browser, 500).until(
     EC.presence_of_element_located((By.XPATH, '//*[@id="SrsReportPdfViewerForm_5_PdfViewerExportToExcelButton_label"]'))).click()
 time.sleep(5)
-<<<<<<< HEAD
-# browser.quit()
-
-
-bb=f"As at: {date_ar} [kshs]"
-try:
-    file_location='c:/Users/Administrator/Downloads/Customer aging report.xlsx'
-except:
-    None
-
-=======
 browser.quit()
 
-
-bb=f"As at: {date_ar} [kshs]"
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
-df=pd.read_excel(file_location,skiprows=11,skipfooter=1)
+kenya_ar_extract='C:/Users/Pole Okuttu/Downloads/Customer aging report.xlsx'
+bb=f"As at: {date_today} [kshs]"
+df=pd.read_excel(kenya_ar_extract,skiprows=11,skipfooter=1)
 df=df[df.columns.drop(list(df.filter(regex='Unnamed')))]
 df.rename(columns={ df.columns[3]:bb,df.columns[4]:"Current (0-7) days [kshs]",df.columns[5]:"8-14 days [kshs]",df.columns[6]:"15-29 days [kshs]",
                 df.columns[7]:"30-89 days [kshs]",df.columns[8]:"90+ [kshs]"}, inplace = True)
@@ -238,24 +176,12 @@ kenya_ar_extract=df.copy()
 #%%
 # import os
 try:
-    for x in glob.glob(os.path.join("c:/Users/Administrator/Downloads","Customer aging report*")):
+    for x in glob.glob(os.path.join("C:/Users/Pole Okuttu/Downloads","Customer aging report*")):
         os.remove(x)
 except:
     print('does not exist')
 
 #%%
-<<<<<<< HEAD
-time.sleep(3)
-# browser=webdriver.Chrome(service=Service)
-# browser=webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=Options)
-browser.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yu&mi=Output%3ACustAgingBalance')
-# browser.maximize_window()
-
-# //*[@id="email"]
-#%%
-
-aging_date=WebDriverWait(browser, 500).until(
-=======
 drvr=webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=Options)
 drvr.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yu&mi=Output%3ACustAgingBalance')
 drvr.maximize_window()
@@ -309,33 +235,18 @@ time.sleep(5)
 #%%
 
 aging_date=WebDriverWait(drvr, 500).until(
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
     EC.presence_of_element_located((By.XPATH, '//*[@id="SysOperationTemplateForm_2_Fld3_1_input"]'))
 )
 aging_date.clear()
 aging_date.send_keys(formatted_date)
 time.sleep(2)
 
-<<<<<<< HEAD
-balance_date=browser.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld4_1_input"]')
-=======
 balance_date=drvr.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld4_1_input"]')
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 balance_date.clear()
 balance_date.send_keys(formatted_date)
 time.sleep(2)
 
 # criteria filter selection
-<<<<<<< HEAD
-browser.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld5_1_input"]').click()
-time.sleep(2)
-
-browser.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld5_1_list_item0"]').click()
-time.sleep(2)
-
-#currency filter
-currency_filter=browser.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld7_1_input"]')
-=======
 drvr.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld5_1_input"]').click()
 time.sleep(2)
 
@@ -344,7 +255,6 @@ time.sleep(2)
 
 #currency filter
 currency_filter=drvr.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld7_1_input"]')
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 currency_filter.clear()
 
 time.sleep(2)
@@ -355,30 +265,13 @@ time.sleep(2)
 
 #negative balance
 try:
-<<<<<<< HEAD
-    browser.find_element(By.XPATH, "//*[@id='SysOperationTemplateForm_2_Fld15_1']//span[@class='toggle-value' and @title='No']").click()
-    toggle_element = browser.find_element(By.XPATH, "//span[@id='SysOperationTemplateForm_2_Fld15_1_toggle']")
-=======
     drvr.find_element(By.XPATH, "//*[@id='SysOperationTemplateForm_2_Fld15_1']//span[@class='toggle-value' and @title='No']").click()
     toggle_element = drvr.find_element(By.XPATH, "//span[@id='SysOperationTemplateForm_2_Fld15_1_toggle']")
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
     toggle_element.click()  # Simulate a click
 except:
     print("switched on")
     
 
-<<<<<<< HEAD
-# browser.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld15_1_toggle"]').click()
-# time.sleep(2)
-#aging period definition
-browser.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld6_1"]/div/div').click()
-time.sleep(2)
-
-browser.find_element(By.XPATH,'//input[@value="AgingYU"]').click()
-time.sleep(2)
-# ok button to load report
-browser.find_element(By.XPATH, '//*[@id="SysOperationTemplateForm_2_CommandButton"]').click()
-=======
 # drvr.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld15_1_toggle"]').click()
 # time.sleep(2)
 #aging period definition
@@ -389,57 +282,46 @@ drvr.find_element(By.XPATH,'//input[@value="AgingYU"]').click()
 time.sleep(2)
 # ok button to load report
 drvr.find_element(By.XPATH, '//*[@id="SysOperationTemplateForm_2_CommandButton"]').click()
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 
 
 #wait for load and press export button
 
 search_xpath = '//*[@id="SrsReportPdfViewerForm_5_PdfViewerExportMenuButton_label"]'
-<<<<<<< HEAD
-search_button = WebDriverWait(browser, 500).until(
-=======
 search_button = WebDriverWait(drvr, 500).until(
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
     EC.presence_of_element_located((By.XPATH, search_xpath))
 )
 
 search_button.click()
 time.sleep(2)
 
-<<<<<<< HEAD
-browser.find_element(By.XPATH, '//*[@id="SrsReportPdfViewerForm_5_PdfViewerExportToExcelButton_label"]').click()
-time.sleep(5)
-
-browser.quit()
-=======
 drvr.find_element(By.XPATH, '//*[@id="SrsReportPdfViewerForm_5_PdfViewerExportToExcelButton_label"]').click()
 time.sleep(5)
 
 drvr.quit()
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 # time.sleep(5)
 
-bb=f"As at: {date_ar} [ugx]"
-df=pd.read_excel(file_location,skiprows=11,skipfooter=1)
+uganda_ar_extract='C:/Users/Pole Okuttu/Downloads/Customer aging report.xlsx'
+
+bb=f"As at: {date_today} [ugx]"
+df=pd.read_excel(uganda_ar_extract,skiprows=11,skipfooter=1)
 df=df[df.columns.drop(list(df.filter(regex='Unnamed')))]
 df.rename(columns={ df.columns[3]:bb,df.columns[4]:"90+ days [ugx]",df.columns[5]:"90 days [ugx]",df.columns[6]:"60 days [ugx]",
                 df.columns[7]:"30 days [ugx]",df.columns[8]:"Current Date [ugx]"}, inplace = True)
 
 uganda_ar_extract = df.copy()
 #%%
-AR_Standing_status = pd.ExcelWriter('C:/Users/Administrator/Documents/Python_Automations/Finance/Customer Credit Report.xlsx')
 
+AR_Standing_status = pd.ExcelWriter('P:/Pertinent Files/Python/scripts/Finance/Customer Credit Report.xlsx')
 
 uganda_ar_extract.to_excel(AR_Standing_status, sheet_name='Customer Details UG',index=False)
 kenya_ar_extract.to_excel(AR_Standing_status, sheet_name='Customer Details KY',index=False)
-ke_fuel.to_excel(AR_Standing_status, sheet_name='Kenya Fuel',index=False)
-ug_fuel.to_excel(AR_Standing_status, sheet_name='Uganda Fuel',index=False)
+
 
 # Save the workbook
 AR_Standing_status.close()
 
 
-time.sleep(5)
+# time.sleep(5)
 #%%
 
 """
@@ -462,7 +344,7 @@ smtp_server = "smtp-mail.outlook.com"  # Google SMTP Server
 
 # Set up the email lists
 email_from = pbi_user
-email_list = ["pokuttu@yalelo.ug"]
+email_list = ["pokuttu@yal.ug"]
 # email_list = ["pokuttu@yalelo.ug","knyeko@yalelo.ug","rnabukeera@yalelo.ug","aoriide@yalelo.ug","alakica@yalelo.ug"]
 
 # Define the password (better to reference externally)
@@ -472,8 +354,8 @@ pswd = pbi_pass # As shown in the video this password is now dead, left in as ex
 # name the email subject
 subject = f"Customer Credit Report"
 
-# import sys 
-new_path='C:/Users/Administrator/Documents/Python_Automations/Finance/'
+import sys 
+new_path='P:/Pertinent Files/Python/scripts/Finance/'
 # sys.path.insert(0, new_path)
 os.chdir(new_path)
 # Define the email function (dont call it email!)
@@ -517,11 +399,7 @@ def send_emails(email_list):
     print("Connecting to server...")
     TIE_server = smtplib.SMTP(smtp_server, smtp_port)
     TIE_server.starttls()
-<<<<<<< HEAD
-    TIE_server.login(email_from, pbi_pass_email)
-=======
     TIE_server.login(email_from, pswd)
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
     print("Succesfully connected to server")
     print()
 
@@ -535,10 +413,4 @@ def send_emails(email_list):
     TIE_server.quit()
 
 # Run the function
-<<<<<<< HEAD
 send_emails(email_list)
-=======
-send_emails(email_list)
-
-# %%
->>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
