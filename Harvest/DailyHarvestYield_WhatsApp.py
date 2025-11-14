@@ -1,5 +1,5 @@
 #%%##
-#remove file if existent
+#import modules
 import os
 from harvest_data_logmanager_posts import *
 from datetime import datetime, timedelta
@@ -17,7 +17,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from PIL import Image
 
 ## navigate the report and take screenshot
