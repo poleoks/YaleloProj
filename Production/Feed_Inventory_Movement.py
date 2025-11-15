@@ -1,19 +1,14 @@
-# #%%
-from selenium.webdriver.common.keys import Keys
+#%%
 import sys
 sys.path.append('C:/Users/Administrator/Documents/Python_Automations/')
 from powerbi_sign_in_file import *
 #%%
-
-from datetime import datetime, timedelta
-import calendar
-
-my_date=datetime.today() 
-yesterday= datetime.today() - timedelta(days=1)
+my_date=datetime.datetime.today() 
+yesterday= datetime.datetime.today() - timedelta(days=1)
 print(yesterday)
 
 day_of_the_week=calendar.day_name[my_date.weekday()]
-day_of_the_week_num=datetime.today().weekday() #0 for Monday, 1 for Tuesday
+day_of_the_week_num=datetime.datetime.today().weekday() #0 for Monday, 1 for Tuesday
 month_start_date =my_date.replace(day=1).strftime('%m/%d/%Y')
 month_end_date = my_date.strftime('%m/%d/%Y')
 yesterday_date = yesterday.strftime('%m/%d/%Y')
@@ -38,7 +33,7 @@ print(f"Month end date: {ed_date}")
 print(f"week start date: {week_start_date}")
 print(f"week end date: {week_end_date}")
 
-current_time = str(datetime.now().time())
+current_time = str(datetime.datetime.now().time())
 
 #%%
 current_dir= "C:/Users/Administrator/Documents/Python_Automations/Production/"
