@@ -14,7 +14,7 @@ from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl import Workbook
 from openpyxl.styles import Font, Border, Side
 import glob
-import os\
+import os
     
     # "C:\Users\Administrator\Documents\Python_Automations\Harvest\excel_upload_harvest_logger.py"
 
