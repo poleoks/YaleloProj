@@ -1,30 +1,11 @@
 #%%##
-#remove file if existent
-import os
-from harvest_data_logmanager_posts import *
-from datetime import datetime, timedelta
-import dataframe_image as dfi
-import pyperclip
-#%%sending whatsapp
 import sys
-import time
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import pandas as pd
-import matplotlib.pyplot as plt
-from PIL import Image
-
+from harvest_data_logmanager_posts import *
 ## navigate the report and take screenshot
 sys.path.append("C:/Users/Administrator/Documents/Python_Automations/")
 from whatsapp_config_pole import CHROME_PROFILE_PATH
-from email_sender import *
-from credentials import *
+from gmail_sender import *
+
 #%%
 try:
     os.remove('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png')
@@ -216,7 +197,7 @@ try:
                 # Optional code for attachment
                 pyperclip.copy(f'Latest harvest report as at (Last Crate Weighed): {last_time}')
                 time.sleep(2)
-    
+
                 attachment_box = browser.find_element(by=By.XPATH, value="//span[@data-icon='plus-rounded']")
                 attachment_box.click()
                 # time.sleep(3)
@@ -244,6 +225,6 @@ try:
         print("No Latest Harvest Data!")
         pass
 except:
-    email_function(pbi_user,pbi_pass_email,['pokuttu@yalelo.ug'],'Harvest Update On Whatsapp Has Failed',
+    email_function('pokuttu@yalelo.ug','Harvest Update On Whatsapp Has Failed',
                'Hello, the harvest subscription for Whatsapp has failed to go. Please look into it.'
                )
