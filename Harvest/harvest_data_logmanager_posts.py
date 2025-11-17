@@ -1,9 +1,11 @@
 #%%
+import sys
+sys.path.append("C:/Users/Administrator/Documents/Python_Automations/")
 import warnings
 warnings.filterwarnings('ignore')
 import mysql.connector
 import pandas as pd
-# from sharepoint import *
+from credentials import *
 import time
 import requests
 from requests.auth import HTTPBasicAuth
@@ -37,11 +39,10 @@ except:
 #%%
 # get mysql data
 conn=mysql.connector.connect(
-    host='127.0.0.1',
-    user='powerbi',
-    password='Y@l3l0@2023',
-    # port=3306,
-    database='logmanager1'
+    host=host_pin,
+    user=user_pin,
+    password=password_pin,
+    database=database_pin
 )
 
 my_cursor=conn.cursor()

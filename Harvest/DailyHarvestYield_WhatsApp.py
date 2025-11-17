@@ -1,5 +1,5 @@
 #%%##
-import sys
+
 from harvest_data_logmanager_posts import *
 ## navigate the report and take screenshot
 sys.path.append("C:/Users/Administrator/Documents/Python_Automations/")
