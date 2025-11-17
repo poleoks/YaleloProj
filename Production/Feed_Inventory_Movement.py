@@ -2,6 +2,7 @@
 import sys
 sys.path.append('C:/Users/Administrator/Documents/Python_Automations/')
 from powerbi_sign_in_file import *
+from whatsapp_file_sign_in import *
 #%%
 my_date=datetime.datetime.today() 
 yesterday= datetime.datetime.today() - timedelta(days=1)
@@ -41,57 +42,14 @@ current_dir= "C:/Users/Administrator/Documents/Python_Automations/Production/"
 # ss_name ='Feed.png'
 ss_path=current_dir#+ss_name
 
-report_url="https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/e33a4d76-14e2-475d-b035-62fb4a47e444/65f141bc08c07d1050a3"
+report_url="https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/e33a4d76-14e2-475d-b035-62fb4a47e444/50e17e2aa4e3c53a2f4c"
 
-browser.get(report_url)
 # wait for report load
 
 #%%
+pbi_sign_in(repo_url=report_url)
 ##wait for a max of 5 mins until full load
-
-## select the last week calendar performance from the date filter
-# ed=WebDriverWait(browser, 5*60).until(
-#         EC.presence_of_element_located((By.XPATH,'//*[contains(@aria-label,"End date") and @aria-description="Enter date in M/d/yyyy format"]'))
-#     )
-# ed.clear()
-# ed.send_keys(yesterday_date)
-# ed.send_keys(Keys.ENTER)
-
-# browser.find_element(By.XPATH,'//*[@class="date-cell themableBackgroundColorSelected date-selected"]').click()
-
-# time.sleep(3)
-
-# sd=WebDriverWait(browser, 5*60).until(
-#     EC.presence_of_element_located((By.XPATH,'//*[contains(@aria-label,"Start date") and @aria-description="Enter date in M/d/yyyy format"]'))
-# )
-# sd.clear()
-# sd.send_keys(yesterday_date)
-# sd.send_keys(Keys.ENTER)
-
-
-
-# browser.find_element(By.XPATH,'//*[@class="date-cell themableBackgroundColorSelected date-selected"]').click()
-#Expand view to full screen
-WebDriverWait(browser,20).until(
-    EC.presence_of_element_located((By.XPATH,"//button[contains(@class, 'mat-menu-trigger') and contains(@aria-label, 'View')]"))
-).click()
-time.sleep(1)
-expand_button = browser.find_element(By.XPATH, "//button[contains(@class, 'appBarMatMenu') and contains(@title, 'Open in full-screen mode')]")
-
-# Click the expand button
-expand_button.click()
-
-time.sleep(5)
-
-try:
-    browser.find_element(By.XPATH,'//*[@aria-label="Show/hide filter pane" and @aria-expanded="true"]').click()
-    print("button pressed to hide filter pane")
-except:
-    print('Filter already hidden')
-time.sleep(5)
-
-for jj in ['BS','GA','GB','GC','GD','GE','NA','NB']:
-    
+for jj in ['BS','GA','GB','GC','GD','GE','GG','NA','NB']:
     try:
         browser.find_element(By.XPATH, f"//*[@title='{jj}']").click()
         time.sleep(5)
@@ -105,4 +63,25 @@ for jj in ['BS','GA','GB','GC','GD','GE','NA','NB']:
 print("successfully taken screenshots!!!")
 
 time.sleep(5)
-browser.quit()
+
+#%%
+# send whatsapp
+file_path = "C:/Users/Administrator/Documents/Python_Automations/Production/"
+os.chdir(file_path)
+wsp_sgn(
+    ["Pole","Pole Mifi", "Pole" ], #"Grow Out feeding", "Nursery YU","FEED LOGISTICS"],
+
+    [
+            ['Platform: GA_Feed','Platform: GB_Feed','Platform: GC_Feed','Platform: GD_Feed','Platform: GE_Feed','Platform: GF_Feed'],
+            ['Platform: NA_Feed','Platform: NB_Feed',,'Platform: BS_Feed'],
+            ['Platform: GA_Feed','Platform: GB_Feed','Platform: GC_Feed','Platform: GD_Feed','Platform: GE_Feed','Platform: GF_Feed',
+            'Platform: NA_Feed','Platform: NB_Feed',,'Platform: BS_Feed']
+    ],
+    [
+            ['GA_Feed.png','GB_Feed.png','GC_Feed.png','GD_Feed.png','GE_Feed.png','GF_Feed.png'],
+            ['NA_Feed.png','NB_Feed.png',,'BS_Feed.png'],
+            ['GA_Feed.png','GB_Feed.png','GC_Feed.png','GD_Feed.png','GE_Feed.png','GF_Feed.png',
+            'NA_Feed.png','NB_Feed.png',,'BS_Feed.png']
+    ]
+    ,Pole_dp
+    )
