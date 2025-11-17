@@ -1,0 +1,8 @@
+2024/06/22-07:50:16.831 90d8 Reusing MANIFEST C:\Users\Administrator\Documents\Python_Automations\Distribution\Wtsp\Default\Local Storage\leveldb/MANIFEST-000001
+2024/06/22-07:50:16.838 90d8 Recovering log #6
+2024/06/22-07:50:17.145 90d8 Level-0 table #8: started
+2024/06/22-07:50:17.297 90d8 Level-0 table #8: 13341 bytes OK
+2024/06/22-07:50:17.298 90d8 Recovering log #8
+2024/06/22-07:50:17.340 90d8 Reusing old log C:\Users\Administrator\Documents\Python_Automations\Distribution\Wtsp\Default\Local Storage\leveldb/000008.log 
+2024/06/22-07:50:17.444 90d8 Delete type=0 #6
+2024/06/22-07:50:17.444 90d8 Delete type=2 #9
