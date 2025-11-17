@@ -1,6 +1,6 @@
 import sys
-# sys.path.append('E:/Python_Automations/')
-sys.path.append('D:/YU/ScriptCodez/')
+sys.path.append('C:/Users/Administrator/Documents/Python_Automations/')
+# sys.path.append('D:/YU/ScriptCodez/')
 from powerbi_sign_in_file import *
 
 from datetime import datetime#, timedelta
@@ -10,9 +10,9 @@ from datetime import datetime#, timedelta
 import glob
 import os
 #%%
-save_dir = "D:/YU/ScriptCodez/"
+save_dir = "C:/Users/Administrator/Documents/Python_Automations/"
 i=0
-for h in glob.glob("E:/Python_Automations/Pole/Finance/*.xlsx") or glob.glob("C:/Users/D&A/Downloads/Transactions*.xlsx") or glob.glob("*.png"):
+for h in glob.glob("C:/Users/Administrator/Documents/Python_Automations/retail_targets/*.xlsx") or glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx") or glob.glob("*.png"):
         i += 1
         os.remove(h)
         
@@ -134,11 +134,11 @@ WebDriverWait(browser, 15).until(
 ).click()
 print("export started")
 WebDriverWait(browser, 45*60).until(
-                    lambda driver: len(glob.glob("C:/Users/Pole Okuttu/Downloads/Transactions*.xlsx")) > len(file_path)
+                    lambda driver: len(glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx")) > len(file_path)
                     )
 
 print("export completed")
-for file in glob.glob("C:/Users/Pole Okuttu/Downloads/Transactions*.xlsx"):
+for file in glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx"):
                     df = pd.read_excel(file)
 
 
