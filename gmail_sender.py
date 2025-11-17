@@ -23,7 +23,7 @@ server.login(sender_email, sender_password)
 print("Login successful!")
 
 
-def email_function(receipient_email,subject_line,email_body,attachment_path):
+def gmail_function(receipient_email,subject_line,email_body,attachment_path):
     # Create the email message
     msg = MIMEMultipart()
     # msg["From"] = sender_email

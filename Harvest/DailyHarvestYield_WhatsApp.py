@@ -4,7 +4,7 @@ from harvest_data_logmanager_posts import *
 ## navigate the report and take screenshot
 sys.path.append("C:/Users/Administrator/Documents/Python_Automations/")
 from whatsapp_config_pole import CHROME_PROFILE_PATH
-from gmail_sender import *
+
 
 #%%
 try:
@@ -168,7 +168,7 @@ try:
         
         browser.maximize_window()
         #%%
-        groups_path='C:/Users/Administrator/Documents/Python_Automations/Distribution/click.txt'
+        groups_path='C:/Users/Administrator/Documents/Python_Automations/click.txt'
         browser.get('https://web.whatsapp.com/')
 
         
@@ -225,6 +225,7 @@ try:
         print("No Latest Harvest Data!")
         pass
 except:
-    email_function('pokuttu@yalelo.ug','Harvest Update On Whatsapp Has Failed',
-               'Hello, the harvest subscription for Whatsapp has failed to go. Please look into it.'
+    from gmail_sender import *
+    gmail_function('pokuttu@yalelo.ug','Harvest Update On Whatsapp Has Failed',
+               'Hello, the harvest subscription for Whatsapp has failed to go. Please look into it.',''
                )
