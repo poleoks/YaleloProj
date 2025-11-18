@@ -1,7 +1,7 @@
 #%%
 import sys
-# dir_path2 = 'C:/Users/Administrator/Documents/Python_Automations/'
-dir_path = 'D:/YU/ScriptCodez/'
+dir_path = 'C:/Users/Administrator/Documents/Python_Automations/'
+# dir_path = 'D:/YU/ScriptCodez/'
 sys.path.append(f'{dir_path}')
 from powerbi_sign_in_file import *
 from whatsapp_file_sign_in import *
