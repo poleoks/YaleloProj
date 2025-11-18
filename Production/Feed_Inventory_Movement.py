@@ -83,12 +83,18 @@ files_t = [
     'NB_Feed.png', 'NC_Feed.png', 'BS_Feed.png'
     ]
 
-whatsapp_share(groups_t, messages_t,files_t, dir_path, Pole)
+whatsapp_share(groups_t, messages_t,files_t, dir_path, Yvone)
 time.sleep(5)
 
+browser.quit()
+#%%
+import os
+import glob
+dir_path = 'C:/Users/Administrator/Documents/Python_Automations/'
 
-for i in (f"{dir_path}*_Feed.png"):
+for i in glob.glob(f"{dir_path}*_Feed.png"):
     os.remove(i)
     print(f"{i} removed successfully!")
 print("All temp files removed successfully!")
-time.sleep(3)
+
+# %%

@@ -2,7 +2,7 @@ import sys
 sys.path.append('C:/Users/Administrator/Documents/Python_Automations/')
 # sys.path.append('D:/YU/ScriptCodez/')
 from powerbi_sign_in_file import *
-
+from whatsapp_file_sign_in import *
 from datetime import datetime#, timedelta
 #import calendar
 #%%
@@ -255,3 +255,22 @@ nonborder_total = plot_and_save(df_nonborder, "GKMA & RC Stores", nonborder_path
 
 print(f"Border total: {border_total:.2f} kg")
 print(f"Non-border total: {nonborder_total:.2f} kg")
+
+
+#%%
+#Send whatsapp message
+groups_t = ['YU Retail Team','YU Rest of Country Sales Team']
+files_t = ["nonborder_warehouse_value_chart.png","border_warehouse_value_chart.png"]
+messages_t = [f"Latest Sales GKMA/RC Shops: {nonborder_total:.2f}",f"Latest Sales BDR: {border_total:.2f}"]
+
+whatsapp_share(groups_t, messages_t,files_t, save_dir, Justine)
+time.sleep(5)
+
+#%%
+import os
+import glob
+for i in glob.glob(f"{save_dir}*.png"):
+    os.remove(i)
+    print(f"{i} removed successfully!")
+print("All temp files removed successfully!")
+time.sleep(3)

@@ -6,7 +6,6 @@ myenv/
 *__pycache__*
 credentials.py
 *.html
-powerbi_sign*
 warehouse_email.py
 *creds.py
 *test.py
@@ -19,5 +18,4 @@ warehouse_email.py
 *whatsapp_config*
 *chrome_config*
 d365_connect/
-powerbi_sign_in_file.py
 ScriptCodez/
