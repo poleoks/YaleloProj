@@ -87,4 +87,4 @@ for grp, msg_list, file_list in zip(groups_t, messages_t, files_t):
         wsp_sgn(grp, msg, file, Pole_dp, file_path)
         print(f"   ✅ Sent {file} with message: {msg}")
     
-    print(f"✅ Finished sending to {grp}\n")
+    print(f"✅ Finished sending to {grp}\n")    print(f"✅ Finished sending to {grp}\n")
