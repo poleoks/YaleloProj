@@ -1,6 +1,8 @@
 #%%
 import sys
-sys.path.append('C:/Users/Administrator/Documents/Python_Automations/')
+# dir_path2 = 'C:/Users/Administrator/Documents/Python_Automations/'
+dir_path = 'D:/YU/ScriptCodez/'
+sys.path.append(f'{dir_path}')
 from powerbi_sign_in_file import *
 from whatsapp_file_sign_in import *
 #%%
@@ -37,7 +39,7 @@ print(f"week end date: {week_end_date}")
 current_time = str(datetime.datetime.now().time())
 
 #%%
-current_dir= "C:/Users/Administrator/Documents/Python_Automations/Production/"
+current_dir= f"{dir_path}"
 
 # ss_name ='Feed.png'
 ss_path=current_dir#+ss_name
@@ -49,7 +51,7 @@ report_url="https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/
 #%%
 pbi_sign_in(repo_url=report_url)
 ##wait for a max of 5 mins until full load
-for jj in ['BS','GA','GB','GC','GD','GE','GG','NA','NB']:
+for jj in ['BS','GA','GB','GC','GD','GE','GG','NA','NB','NC']:
     try:
         browser.find_element(By.XPATH, f"//*[@title='{jj}']").click()
         time.sleep(5)
@@ -65,23 +67,28 @@ print("successfully taken screenshots!!!")
 time.sleep(5)
 
 #%%
-# send whatsapp
-file_path = "C:/Users/Administrator/Documents/Python_Automations/Production/"
-os.chdir(file_path)
-wsp_sgn(
-    ["Pole","Pole Mifi", "Pole" ], #"Grow Out feeding", "Nursery YU","FEED LOGISTICS"],
 
-    [
-            ['Platform: GA_Feed','Platform: GB_Feed','Platform: GC_Feed','Platform: GD_Feed','Platform: GE_Feed','Platform: GF_Feed'],
-            ['Platform: NA_Feed','Platform: NB_Feed',,'Platform: BS_Feed'],
-            ['Platform: GA_Feed','Platform: GB_Feed','Platform: GC_Feed','Platform: GD_Feed','Platform: GE_Feed','Platform: GF_Feed',
-            'Platform: NA_Feed','Platform: NB_Feed',,'Platform: BS_Feed']
-    ],
-    [
-            ['GA_Feed.png','GB_Feed.png','GC_Feed.png','GD_Feed.png','GE_Feed.png','GF_Feed.png'],
-            ['NA_Feed.png','NB_Feed.png',,'BS_Feed.png'],
-            ['GA_Feed.png','GB_Feed.png','GC_Feed.png','GD_Feed.png','GE_Feed.png','GF_Feed.png',
-            'NA_Feed.png','NB_Feed.png',,'BS_Feed.png']
+#send whatsapp messages
+groups_t = ['Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding','Nursery YU', 'Nursery YU', 'Nursery YU', 
+    'Nursery YU','FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS','FEED LOGISTICS', 
+    'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS']
+messages_t = [
+    'Platform: GA_Feed', 'Platform: GB_Feed', 'Platform: GC_Feed', 'Platform: GD_Feed', 'Platform: GE_Feed', 'Platform: GF_Feed',
+    'Platform: NA_Feed', 'Platform: NB_Feed', 'Platform: NC_Feed', 'Platform: BS_Feed','Platform: GA_Feed', 'Platform: GB_Feed', 'Platform: GC_Feed', 
+    'Platform: GD_Feed', 'Platform: GE_Feed', 'Platform: GF_Feed','Platform: NA_Feed', 'Platform: NB_Feed', 'Platform: NC_Feed', 'Platform: BS_Feed'
     ]
-    ,Pole_dp
-    )
+files_t = [
+    'GA_Feed.png', 'GB_Feed.png', 'GC_Feed.png', 'GD_Feed.png', 'GE_Feed.png', 'GF_Feed.png','NA_Feed.png', 'NB_Feed.png', 'NC_Feed.png', 
+    'BS_Feed.png','GA_Feed.png', 'GB_Feed.png', 'GC_Feed.png', 'GD_Feed.png', 'GE_Feed.png', 'GF_Feed.png','NA_Feed.png', 
+    'NB_Feed.png', 'NC_Feed.png', 'BS_Feed.png'
+    ]
+
+whatsapp_share(groups_t, messages_t,files_t, dir_path, Pole)
+time.sleep(5)
+
+
+for i in (f"{dir_path}*_Feed.png"):
+    os.remove(i)
+    print(f"{i} removed successfully!")
+print("All temp files removed successfully!")
+time.sleep(3)
