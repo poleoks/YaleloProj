@@ -4,7 +4,6 @@ import sys
 save_dir= "C:/Users/Administrator/Documents/Python_Automations/"
 sys.path.append(save_dir)
 from whatsapp_file_sign_in import *
-
 from powerbi_sign_in_file import *
 
 now = datetime.datetime.now()
@@ -57,37 +56,6 @@ risk_analysis = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7d
 ooh_gkma = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/65cfcd8b-d7af-442e-8e76-cd729a944fb1/53ec76f15a2501eece98"
 resellers_gkma = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/65cfcd8b-d7af-442e-8e76-cd729a944fb1/be0d3b60c587d413ab0e"
 
-
-# def url(report_url):
-#     browser.get(report_url)
-#     try:
-#           reset_button= WebDriverWait(browser, 60*5).until(
-#                 EC.presence_of_element_located((By.XPATH,'//*[@data-testid="reset-to-default-btn"]'))
-#                 )
-          
-#           reset_button.click()
-#           ok_button = WebDriverWait(browser, 15).until(
-#                 EC.presence_of_element_located((By.XPATH,'//*[@id="okButton"]'))
-#                 )
-#           ok_button.click()
-#           print("reset activated")
-#     except:
-#           print("reset not found")
-#           pass
-    
-#     print("Expanding View")
-    # Click the expand button
-    # view_button= WebDriverWait(browser, 15).until(
-    #       EC.presence_of_element_located((By.XPATH,'//*[@data-testid="app-bar-view-menu-btn"]'))
-    # )
-    # view_button.send_keys(Keys.CONTROL + Keys.SHIFT + 'f')
-    
-    # print("Expanded view")
-
-    # time.sleep(10)
-
-    # Take a screenshot of the report and save it to a file
-    # time.sleep(5)
 if now < noon:
     files_t =['retail.png','area_sales.png','rc_sales.png','risk_analysis.png',
               'risk_analysis.png','risk_analysis.png','ooh_gkma.png','resellers_gkma.png']
@@ -102,32 +70,38 @@ if now < noon:
                   f"Reseller Sales: {yesterday}"]
 
     pbi_sign_in(retail_grp)
-    browser.save_screenshot(save_dir+'retail.png')
+    ss_path_ret = save_dir+'retail.png'
+    browser.save_screenshot(ss_path_ret)
     print("Retail successfully taken screenshot!!!")
-
+    time.sleep(5)
+    ss_path_area = save_dir+'area_sales.png'
     pbi_sign_in(area_sales_grp)
-    browser.save_screenshot(save_dir+'area_sales.png')
+    browser.save_screenshot(ss_path_area)
     print("Area sales successfully taken screenshot!!!")
-
-    pbi_sign_in(rc_sales)
-    browser.save_screenshot(save_dir+'rc_sales.png')
-    print("RC successfully taken screenshot!!!")
-
     time.sleep(5)
 
+    ss_path_rc = save_dir+'rc_sales.png'
+    pbi_sign_in(rc_sales)
+    browser.save_screenshot(ss_path_rc)
+    print("RC successfully taken screenshot!!!")
+    time.sleep(5)
+
+    ss_path_risk = save_dir+'risk_analysis.png'
     pbi_sign_in(risk_analysis)
-    browser.save_screenshot(save_dir+'risk_analysis.png')
+    browser.save_screenshot(ss_path_risk)
     print("RC successfully taken screenshot!!!")
 
+    ss_path_ooh = save_dir+'ooh_gkma.png'
     pbi_sign_in(ooh_gkma)
-    browser.save_screenshot(save_dir+'ooh_gkma.png')
+    browser.save_screenshot(ooh_gkma)
     print("OOH successfully taken screenshot!!!")
-
+    
+    ss_path_resl = save_dir+'resellers_gkma.png'
     pbi_sign_in(resellers_gkma)
-    browser.save_screenshot(save_dir+'resellers_gkma.png')
+    browser.save_screenshot(ss_path_resl)
     print("Resellers successfully taken screenshot!!!")
 else:
-    files_t =['rc_sales.png','risk_analysis.png','risk_analysis.png']
+    files_t =['risk_analysis.png','risk_analysis.png','risk_analysis.png']
     
     groups_t = ['YU Rest of Country Sales Team','Area Sales Leads','YU Retail Team']
     
@@ -135,9 +109,12 @@ else:
                   f"MTD/Yesterday Banking: {yesterday}",f"MTD/Yesterday Banking: {yesterday}",
                   f"MTD/Yesterday Banking: {yesterday}"
                   ]
+    
+    ss_path_risk = save_dir+'risk_analysis.png'
     pbi_sign_in(risk_analysis)
-    browser.save_screenshot(save_dir+'risk_analysis.png')
+    browser.save_screenshot(ss_path_risk)
     print("RC successfully taken screenshot!!!")
+    time.sleep(5)
 
 time.sleep(2)
 browser.quit()
@@ -147,6 +124,7 @@ browser.quit()
 time.sleep(2)
 whatsapp_share(groups_t, messages_t,files_t, save_dir, Pole)
 #%%
+#delete files
 import os
 import glob
 for i in glob.glob(f"{save_dir}*.png"):

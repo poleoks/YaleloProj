@@ -116,7 +116,5 @@ def pbi_sign_in(repo_url):
           EC.presence_of_element_located((By.XPATH,'//*[@data-testid="app-bar-view-menu-btn"]'))
     )
     view_button.send_keys(Keys.CONTROL + Keys.SHIFT + 'f')
-    
-    print("Expanded view")
 
     time.sleep(10)
