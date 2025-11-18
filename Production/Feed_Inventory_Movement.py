@@ -51,7 +51,7 @@ report_url="https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/
 #%%
 pbi_sign_in(repo_url=report_url)
 ##wait for a max of 5 mins until full load
-for jj in ['BS','GA','GB','GC','GD','GE','GG','NA','NB','NC']:
+for jj in ['BS','GA','GB','GC','GD','GE','GF','GG','NA','NB','NC']:
     try:
         browser.find_element(By.XPATH, f"//*[@title='{jj}']").click()
         time.sleep(5)
@@ -69,18 +69,29 @@ time.sleep(5)
 #%%
 
 #send whatsapp messages
-groups_t = ['Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding','Nursery YU', 'Nursery YU', 'Nursery YU', 
-    'Nursery YU','FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS','FEED LOGISTICS', 
-    'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS']
+groups_t = [
+    'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding',
+    'Grow Out feeding',
+    'Grow Out feeding', 'Grow Out feeding','Nursery YU', 'Nursery YU', 
+    'Nursery YU','Nursery YU','FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 
+    'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS','FEED LOGISTICS', 'FEED LOGISTICS', 
+    'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 'Pole D&A'
+    ]
 messages_t = [
-    'Platform: GA_Feed', 'Platform: GB_Feed', 'Platform: GC_Feed', 'Platform: GD_Feed', 'Platform: GE_Feed', 'Platform: GF_Feed',
-    'Platform: NA_Feed', 'Platform: NB_Feed', 'Platform: NC_Feed', 'Platform: BS_Feed','Platform: GA_Feed', 'Platform: GB_Feed', 'Platform: GC_Feed', 
-    'Platform: GD_Feed', 'Platform: GE_Feed', 'Platform: GF_Feed','Platform: NA_Feed', 'Platform: NB_Feed', 'Platform: NC_Feed', 'Platform: BS_Feed'
+    'Platform: GA_Feed', 'Platform: GB_Feed', 'Platform: GC_Feed', 'Platform: GD_Feed', 
+    'Platform: GE_Feed', 
+    'Platform: GF_Feed', 'Platform: GG_Feed','Platform: NA_Feed', 
+    'Platform: NB_Feed', 'Platform: NC_Feed', 'Platform: BS_Feed','Platform: GA_Feed', 
+    'Platform: GB_Feed', 'Platform: GC_Feed', 'Platform: GD_Feed', 'Platform: GE_Feed', 
+    'Platform: GF_Feed', 'Platform: GG_Feed','Platform: NA_Feed', 'Platform: NB_Feed', 
+    'Platform: NC_Feed', 'Platform: BS_Feed', 'Platform: GA_Feed'
     ]
 files_t = [
-    'GA_Feed.png', 'GB_Feed.png', 'GC_Feed.png', 'GD_Feed.png', 'GE_Feed.png', 'GF_Feed.png','NA_Feed.png', 'NB_Feed.png', 'NC_Feed.png', 
-    'BS_Feed.png','GA_Feed.png', 'GB_Feed.png', 'GC_Feed.png', 'GD_Feed.png', 'GE_Feed.png', 'GF_Feed.png','NA_Feed.png', 
-    'NB_Feed.png', 'NC_Feed.png', 'BS_Feed.png'
+    'GA_Feed.png', 'GB_Feed.png', 'GC_Feed.png', 'GD_Feed.png', 'GE_Feed.png', 
+    'GF_Feed.png', 
+    'GG_Feed.png','NA_Feed.png', 'NB_Feed.png', 'NC_Feed.png','BS_Feed.png','GA_Feed.png', 
+    'GB_Feed.png', 'GC_Feed.png', 'GD_Feed.png', 'GE_Feed.png', 'GF_Feed.png', 'GG_Feed.png',
+    'NA_Feed.png', 'NB_Feed.png', 'NC_Feed.png', 'BS_Feed.png','GA_Feed.png'
     ]
 
 whatsapp_share(groups_t, messages_t,files_t, dir_path, Yvone)
