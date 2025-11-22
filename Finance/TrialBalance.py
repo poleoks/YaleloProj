@@ -8,7 +8,7 @@ import glob
 import pandas as pd
 
 from powerbi_sign_in_file import *
-
+from gmail_sender import *
 #%%
 #get all start and end dates for each months
 def get_first_and_last_days_last_12_months():
@@ -205,10 +205,6 @@ def get_first_and_last_days_last_12_months():
             WebDriverWait(browser, 5*60).until(
                 lambda driver: len(glob.glob("C:/Users/Administrator/Downloads/Trial balance*.xlsx")) > len(file_path)
             )
-            # WebDriverWait(browser,60).until(
-            #      EC.presence_of_element_located((By.XPATH,'//*[@class="messageBar-message" and contains(text(),"We finished your export")]'))
-            # )
-
 #%%
             time.sleep(3)
         print("Compilation completed")
@@ -226,19 +222,16 @@ get_first_and_last_days_last_12_months()
 ######################################################################
 """
 
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email import encoders
-
-# Setup port number and server name
-
-smtp_port = 587                 # Standard secure SMTP port
-smtp_server = "smtp-mail.outlook.com"  # Google SMTP Server
-
 # Set up the email lists
-email_from = pbi_user
+body = """
+    Hello Team,
+    
+    Please find an updated record of Trial Balance for the past 12 months attached.
+
+    Regards,
+    Audit Team
+    """
+
 email_list = ["pokuttu@yalelo.ug","alakica@yalelo.ug"]
 # email_list = ["pokuttu@yalelo.ug","knyeko@yalelo.ug","rnabukeera@yalelo.ug","aoriide@yalelo.ug","alakica@yalelo.ug"]
 
@@ -248,67 +241,13 @@ pswd = pbi_pass # As shown in the video this password is now dead, left in as ex
 
 # name the email subject
 subject = f"Trial Balance Extract"
-
-import sys 
-import os
 new_path='C:/Users/Administrator/Documents/Python_Automations/'
 # sys.path.insert(0, new_path)
 os.chdir(new_path)
-# Define the email function (dont call it email!)
-def send_emails(email_list):
 
-    # Prepare the body of the email
-    body = """
-    Hello Team,
-    
-    Please find an updated record of Trial Balance for the past 12 months attached.
+filename = "Trial_Balance_1_Year_Extract.xlsx"
 
-    Regards,
-    Audit Team
-    """
-
-    # Make a MIME object to define parts of the email
-    msg = MIMEMultipart()
-    msg['From'] = email_from
-    msg['Subject'] = subject
-    # recipients = '; '.join(email_list)
-     # Add CC recipients
-    # cc_recipients = email_list
-    # msg['CC'] = ', '.join(email_list)
-    msg['To'] = ', '.join(email_list)
-    # Attach the body of the message
-    msg.attach(MIMEText(body, 'plain'))
-
-    # Define the file to attach
-    filename = "Trial_Balance_1_Year_Extract.xlsx"
-
-    # Open the file in python as a binary
-    with open(filename, 'rb') as attachment:
-        # Encode as base 64
-        attachment_package = MIMEBase('application', 'octet-stream')
-        attachment_package.set_payload(attachment.read())
-        encoders.encode_base64(attachment_package)
-        attachment_package.add_header('Content-Disposition', f"attachment; filename= {filename}")
-        msg.attach(attachment_package)
-
-    # Connect with the server
-    print("Connecting to server...")
-    TIE_server = smtplib.SMTP(smtp_server, smtp_port)
-    TIE_server.starttls()
-    TIE_server.login(email_from, pbi_pass_email)
-    print("Succesfully connected to server")
-    
-
-    # Send emails to all recipients at once
-    print("Sending emails...")
-    TIE_server.sendmail(email_from,email_list, msg.as_string())
-    print("All emails sent")
-    
-
-    # Close the port
-    TIE_server.quit()
-
-# Run the function
-send_emails(email_list)
 
 # %%
+# Sending email using gmail sender function
+gmail_function(email_list,subject,body,filename)
