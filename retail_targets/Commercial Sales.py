@@ -93,7 +93,7 @@ if now < noon:
 
     ss_path_ooh = save_dir+'ooh_gkma.png'
     pbi_sign_in(ooh_gkma)
-    browser.save_screenshot(ooh_gkma)
+    browser.save_screenshot(ss_path_ooh)
     print("OOH successfully taken screenshot!!!")
     
     ss_path_resl = save_dir+'resellers_gkma.png'

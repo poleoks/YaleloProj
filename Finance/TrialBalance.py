@@ -18,8 +18,6 @@ def get_first_and_last_days_last_12_months():
         browser.delete_all_cookies()
         browser.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yu&mi=LedgerTrialBalanceListPage')
         browser.maximize_window()
-
-#%% 
         for i in range(12):
             
             # Use glob to find files matching the pattern "Trial balance*" in the Downloads folder
@@ -205,7 +203,6 @@ def get_first_and_last_days_last_12_months():
             WebDriverWait(browser, 5*60).until(
                 lambda driver: len(glob.glob("C:/Users/Administrator/Downloads/Trial balance*.xlsx")) > len(file_path)
             )
-#%%
             time.sleep(3)
         print("Compilation completed")
         browser.quit()
@@ -214,30 +211,10 @@ def get_first_and_last_days_last_12_months():
 get_first_and_last_days_last_12_months()
 
 #%%
-
-"""
-######################################################################
-# Email With Attachments Python Script
-
-######################################################################
-"""
-
 # Set up the email lists
-body = """
-    Hello Team,
-    
-    Please find an updated record of Trial Balance for the past 12 months attached.
+body = "Hello Team, \n\nPlease find an updated record of Trial Balance for the past 12 months attached.\n\nRegards,\nAudit Team"
 
-    Regards,
-    Audit Team
-    """
-
-email_list = ["pokuttu@yalelo.ug","alakica@yalelo.ug"]
-# email_list = ["pokuttu@yalelo.ug","knyeko@yalelo.ug","rnabukeera@yalelo.ug","aoriide@yalelo.ug","alakica@yalelo.ug"]
-
-# Define the password (better to reference externally)
-pswd = pbi_pass # As shown in the video this password is now dead, left in as example only
-
+email_list = "pokuttu@yalelo.ug, alakica@yalelo.ug"
 
 # name the email subject
 subject = f"Trial Balance Extract"
@@ -250,4 +227,8 @@ filename = "Trial_Balance_1_Year_Extract.xlsx"
 
 # %%
 # Sending email using gmail sender function
-gmail_function(email_list,subject,body,filename)
+gmail_function(email_list,subject,body,new_path+filename)
+# remove the file after sending email
+if os.path.exists(new_path+filename):
+    os.remove(new_path+filename)
+    print(f"Removed the file: {filename} after sending email.")
