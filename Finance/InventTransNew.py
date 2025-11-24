@@ -13,7 +13,6 @@ print("Modules imported successfully")
 today = datetime.datetime.today()
 # set today as yesterday
 today = today - timedelta(days=1)
-<<<<<<< HEAD
 year_ = today.year
 month_ = today.month
 # end_day_filter = today.replace(day=12) - relativedelta(months=0)
@@ -42,16 +41,6 @@ except FileNotFoundError:
             
 print(f"{tttt} removed")
 
-=======
-# end_day_filter = today.replace(day=12) - relativedelta(months=0)
-
-# # Calculate the first day of the month
-start_day_filter = today.replace(day=22)
-end_day_filter=today.strftime('%m/%d/%Y')
-start_day_filter=start_day_filter.strftime('%m/%d/%Y')
-# print(range(12))
-print(f"First day: {end_day_filter}, Last day: {start_day_filter}")
->>>>>>> 354b822e67a786609dc3a4e8cfa3e76a031a7e0c
 #%%
 browser.delete_all_cookies()
 time.sleep(2)
@@ -222,21 +211,14 @@ from gmail_sender import *
 subject = "Inventory Transactions YTD"
 body = "Hi Team,\n\nPlease find attached the Inventory Transactions report.\n\nBest regards,\nPole"
 to = "pokuttu@yalelo.ug"
-<<<<<<< HEAD
 gmail_function(to,subject, body, attachments_)
 time.sleep(5)
-=======
-attachments = 'Inventory Transactions.xlsx'
-gmail_function(to,subject, body, attachments)
-
->>>>>>> 354b822e67a786609dc3a4e8cfa3e76a031a7e0c
 #%%
 #cleanup downloads folder
 tttt=file_path_r+attachments_
 
 
 for i in glob.glob(f"{download_path}Inventory transactions*.xlsx"):
-<<<<<<< HEAD
     try:
             os.remove(i)
             print(f"{i} removed")
@@ -249,7 +231,3 @@ except FileNotFoundError:
         print(f"{tttt} not found, skipping removal.")       
             
 print(f"{tttt} removed")
-=======
-    os.remove(i)
-    print(f"{i} removed")
->>>>>>> 354b822e67a786609dc3a4e8cfa3e76a031a7e0c
