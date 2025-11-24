@@ -1,7 +1,6 @@
 ##%import module
 from credentials import  *
 
-# sys.path.append('E:/Python_Automations/')
 #%%
 Options=webdriver.ChromeOptions()
 Options.headless = True  # Enable headless mode
@@ -120,3 +119,31 @@ def pbi_sign_in(repo_url):
     print("Expanded view")
 
     time.sleep(10)
+def pbi_export(url, downloads_folder):
+    browser.get(url)
+    hover_element=WebDriverWait(browser, 5*60).until(
+        EC.presence_of_element_located((By.XPATH,'//*[ @role="presentation" and @class="top-viewport"]'))
+    )
+
+    ActionChains(browser).double_click(hover_element).perform()
+
+    WebDriverWait(browser, 5*60).until(
+            EC.presence_of_element_located((By.XPATH,'//*[@data-testid="visual-more-options-btn" and @class="vcMenuBtn" and @aria-expanded="false" and @aria-label="More options"]'))
+        ).click()
+
+    #Click Export data
+    WebDriverWait(browser, 5*60).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@title="Export data"]'))
+    ).click()
+
+    #Click Export Icon
+    WebDriverWait(browser, 5*60).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@aria-label="Export"]'))
+    ).click()
+
+    # Wait for the file to download (this might need adjustments based on download time)
+    WebDriverWait(browser, 5*60).until(
+        lambda driver: len(glob.glob(f"{downloads_folder}/data*.xlsx")) > 1
+    )
+    time.sleep(2)
+    print("file download completed!!!")
