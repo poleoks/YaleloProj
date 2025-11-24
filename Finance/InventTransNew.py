@@ -183,25 +183,14 @@ WebDriverWait(browser, 60).until(
 time.sleep(5)
 print("Downloading Inventory transactions excel file...")
 WebDriverWait(browser, 30*60).until(
-<<<<<<< HEAD
                     lambda driver: len(glob.glob(f"{download_path}/Inventory transactions*.xlsx")) > len(file_path)
                     )
 print("Download completed!!!")
-=======
-                    lambda driver: len(glob.glob("C:/Users/Pole Okuttu/Downloads/Inventory transactions*.xlsx")) > len(file_path)
-                    )
-
-print("Download completed!")
->>>>>>> 354b822e67a786609dc3a4e8cfa3e76a031a7e0c
 
 for file in glob.glob(f"{download_path}Inventory transactions*.xlsx"):
                     dd = pd.read_excel(file)
                     print(dd.head())
-<<<<<<< HEAD
 dd.to_excel(attachments_, index=False)
-=======
-dd.to_excel('Inventory Transactions.xlsx', index=False)
->>>>>>> 354b822e67a786609dc3a4e8cfa3e76a031a7e0c
 
 print(dd.head())
 time.sleep(5)

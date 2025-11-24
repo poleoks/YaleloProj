@@ -20,16 +20,18 @@ to = "pokuttu@yalelo.ug"
 time.sleep(5)
 #%%
 for h in attachments_:
-        try:
-            os.remove(h)
-            print(f"{h} removed")
-        except FileNotFoundError:
-            print(f"{h} not found, skipping removal.")
+    try:
+        os.remove(h)
+        print(f"{h} removed")
+    except FileNotFoundError:
+        print(f"{h} not found, skipping removal.")
 
 pbi_export('https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/7095f1e2-0598-4ec9-ba08-cc4f2cd2f9c6/818e08a4e3e8b2785e2c', f"{download_path}")
 
 print("Download complete...")
+dd=pd.read_excel(attachments_)
+dd.to_excel("HarvestCOGs.xlsx", index=False)
 from gmail_sender import *
-for x_ in attachments_:
-    gmail_function(to,subject, body, x_)
+
+gmail_function(to,subject, body, "HarvestCOGs.xlsx")
 time.sleep(5)
