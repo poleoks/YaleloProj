@@ -11,14 +11,16 @@ from powerbi_sign_in_file import *
 print("Modules imported successfully")
 
 today = datetime.datetime.today()
-first_day = today.replace(day=12) - relativedelta(months=0)
+# set today as yesterday
+today = today - timedelta(days=1)
+# end_day_filter = today.replace(day=12) - relativedelta(months=0)
 
-# Calculate the last day of the month
-last_day = (first_day + relativedelta(months=1)) - timedelta(days=1)
-first_day=today.strftime('%m/%d/%Y')
-last_day=last_day.strftime('%m/%d/%Y')
+# # Calculate the first day of the month
+start_day_filter = today.replace(day=22)
+end_day_filter=today.strftime('%m/%d/%Y')
+start_day_filter=start_day_filter.strftime('%m/%d/%Y')
 # print(range(12))
-print(f"First day: {first_day}, Last day: {last_day}")
+print(f"First day: {end_day_filter}, Last day: {start_day_filter}")
 #%%
 browser.delete_all_cookies()
 time.sleep(2)
@@ -64,23 +66,6 @@ cupd = WebDriverWait(browser,60).until(
 cupd.click()
 time.sleep(25)
 
-# Add filters
-st_date = WebDriverWait(browser,60).until(
-        EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[1]'))
-        )
-
-st_date.clear()
-time.sleep(1)
-st_date.send_keys(f"{first_day}")
-print("filter cleared")
-en_date = WebDriverWait(browser,60).until(
-        EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[2]'))
-        )
-
-en_date.clear()
-time.sleep(1)
-en_date.send_keys(f"{last_day}")
-
 
 #%%
 # Add custom filter Receipt
@@ -113,13 +98,40 @@ cupd = WebDriverWait(browser,60).until(
 cupd.click()
 time.sleep(5)
 #%%
-#load report
+# Add filters
+st_date = WebDriverWait(browser,60).until(
+        EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[1]'))
+        )
+
+st_date.clear()
+time.sleep(1)
+st_date.send_keys(f"{start_day_filter}")
+print("filter cleared")
+en_date = WebDriverWait(browser,60).until(
+        EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[2]'))
+        )
+
+en_date.clear()
+time.sleep(1)
+en_date.send_keys(f"{end_day_filter}")
+
+
 ##Receitp filter to Purchased only
 rct=WebDriverWait(browser,60).until(
         EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Filter field: Receipt status (Receipt), operator: is exactly"]'))
         )
+rct.clear()
+time.sleep(1)
 rct.send_keys('Purchased')
 print("Receipt filtered to Purchased only")
+
+fnb=WebDriverWait(browser,60).until(
+        EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Filter field: Number, operator: begins with"]'))
+        )
+fnb.clear()
+time.sleep(1)
+fnb.send_keys('YUTO')
+print("Number filtered to start with YUTO only")
 
 time.sleep(2)
 #click apply filters
@@ -148,25 +160,28 @@ WebDriverWait(browser, 60).until(
         (By.XPATH,'//*[@data-dyn-controlname="DownloadButton"]')
     )
 ).click()
+time.sleep(5)
 print("Downloading Inventory transactions excel file...")
 WebDriverWait(browser, 30*60).until(
-                    lambda driver: len(glob.glob(f"{download_path}Inventory transactions*.xlsx")) > len(file_path)
+                    lambda driver: len(glob.glob("C:/Users/Pole Okuttu/Downloads/Inventory transactions*.xlsx")) > len(file_path)
                     )
 
+print("Download completed!")
 
 for file in glob.glob(f"{download_path}Inventory transactions*.xlsx"):
                     dd = pd.read_excel(file)
                     print(dd.head())
 dd.to_excel('Inventory Transactions.xlsx', index=False)
-time.sleep(5)
+
 print(dd.head())
+time.sleep(5)
 browser.quit()
 #%%
 from gmail_sender import *
 subject = "Inventory Transactions"
 body = "Hi Team,\n\nPlease find attached the Inventory Transactions report.\n\nBest regards,\nPole"
 to = "pokuttu@yalelo.ug"
-attachments = ['Inventory Transactions.xlsx']
+attachments = 'Inventory Transactions.xlsx'
 gmail_function(to,subject, body, attachments)
 
 #%%
