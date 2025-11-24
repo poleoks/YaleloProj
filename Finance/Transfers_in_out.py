@@ -73,42 +73,9 @@ download_address=glob.glob("C:/Users/Administrator/Downloads/data"+"*xlsx")
 
 file_path=[]
     # load url
-def export(url):
-
-    for h in download_address:
-        os.remove(h)
-
-    browser.get(url)
-    hover_element=WebDriverWait(browser, 5*60).until(
-        EC.presence_of_element_located((By.XPATH,'//*[ @role="presentation" and @class="top-viewport"]'))
-    )
-
-    ActionChains(browser).double_click(hover_element).perform()
-
-    WebDriverWait(browser, 5*60).until(
-            EC.presence_of_element_located((By.XPATH,'//*[@data-testid="visual-more-options-btn" and @class="vcMenuBtn" and @aria-expanded="false" and @aria-label="More options"]'))
-        ).click()
-
-    #Click Export data
-    WebDriverWait(browser, 5*60).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@title="Export data"]'))
-    ).click()
-
-    #Click Export Icon
-    WebDriverWait(browser, 5*60).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@aria-label="Export"]'))
-    ).click()
-
-    # Wait for the file to download (this might need adjustments based on download time)
-    WebDriverWait(browser, 5*60).until(
-        lambda driver: len(glob.glob("C:/Users/Administrator/Downloads/data*.xlsx")) > len(file_path)
-    )
-    time.sleep(2)
-    return print("file download completed!!!")
-
 #%%
 # read files
-export(transfer_in_url)
+pbi_exporter(transfer_in_url)
 
 #%%
 tr_in = pd.read_excel("C:/Users/Administrator/Downloads/data.xlsx")
@@ -148,12 +115,12 @@ df_dl_dc['Driploss From Shops'] = df_dl_dc.sum(axis=1, skipna=True)
 
 # print(df_dl_dc.head())
 #%%
-export(transfer_out_url)
+pbi_exporter(transfer_out_url)
 tr_out = pd.read_excel("C:/Users/Administrator/Downloads/data.xlsx")
 df_out = pd.pivot_table(tr_out,index=["Date","ReceivingWarehouseId","ShippingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index()
 df_out['Total Shipped Out'] = df_out.sum(axis=1, skipna=True)
 #%%
-export(actual_received_stock)
+pbi_exporter(actual_received_stock)
 net_received_stock = pd.read_excel("C:/Users/Administrator/Downloads/data.xlsx")
 net_received_stock = net_received_stock.iloc[:-3,:]
 # print(net_received_stock)
