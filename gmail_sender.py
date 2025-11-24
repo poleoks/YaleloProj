@@ -54,4 +54,5 @@ def gmail_function(receipient_email,subject_line,email_body,attachment_path):
     else:
         print(f"⚠️ No valid attachment found — sending email without attachment: {attachment_path}")
     server.send_message(msg)
+    print(f"{subject_line} email sent!")
     time.sleep(5)
