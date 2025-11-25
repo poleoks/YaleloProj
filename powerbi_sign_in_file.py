@@ -1,7 +1,5 @@
 ##%import module
 from credentials import  *
-
-#%%
 Options=webdriver.ChromeOptions()
 Options.headless = True  # Enable headless mode
 Options.add_experimental_option("detach", True)
@@ -92,6 +90,7 @@ except:
        
 #%%
 #PowerBI Report Sign in Function
+f_path = []
 def pbi_sign_in(repo_url):
     browser.get(repo_url)
     try:
@@ -119,7 +118,14 @@ def pbi_sign_in(repo_url):
     print("Expanded view")
 
     time.sleep(10)
-def pbi_export(url, downloads_folder):
+def pbi_export(url,download_address):
+    try:
+        os.remove(download_address)
+        print(f"{download_address} file removed")
+    except:
+        print("no file found")
+        pass
+
     browser.get(url)
     hover_element=WebDriverWait(browser, 5*60).until(
         EC.presence_of_element_located((By.XPATH,'//*[ @role="presentation" and @class="top-viewport"]'))
@@ -143,7 +149,15 @@ def pbi_export(url, downloads_folder):
 
     # Wait for the file to download (this might need adjustments based on download time)
     WebDriverWait(browser, 5*60).until(
-        lambda driver: len(glob.glob(f"{downloads_folder}/data*.xlsx")) > 1
+        lambda driver: len(glob.glob(f"{download_address}")) > len(f_path)
     )
     time.sleep(2)
+
+    xx= pd.read_excel(f"{download_address}").iloc[:-1,:]
+    print(xx.shape)
+    os.remove(download_address)
     print("file download completed!!!")
+    print(f"{download_address} removed!")
+    
+    return xx
+    
