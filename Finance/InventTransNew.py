@@ -63,7 +63,7 @@ clk.click()
 print("insert cols")
 time.sleep(2)
 for cols in ["Warehouse"]:     
-        filter = WebDriverWait(browser,5).until(
+        filter = WebDriverWait(browser,55).until(
                         EC.presence_of_element_located((By.XPATH,'(//input[@aria-label="Filter"])[2]'))
                         )
         filter.clear()
@@ -95,7 +95,7 @@ addf=WebDriverWait(browser,45).until(
 addf.click()
 print("---click add filter")
 for cols in ["Receipt"]:     
-        filter = WebDriverWait(browser,5).until(
+        filter = WebDriverWait(browser,55).until(
                         EC.presence_of_element_located((By.XPATH,'(//input[@aria-label="Filter"])[2]'))
                         )
         filter.clear()
