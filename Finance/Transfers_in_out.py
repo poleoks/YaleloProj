@@ -249,7 +249,7 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
         Regards,
         Pole
         """
-    gmail_function('pokuttu@yalelo.ug',subject_line=subject, email_body=body, attachment_path=attachment_)
+    gmail_function(e,subject_line=subject, email_body=body, attachment_path=attachment_)
 #%%
 import glob
 import os
