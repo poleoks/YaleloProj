@@ -41,11 +41,11 @@ active_warehouse = [
     {'WarehouseId' : 'Production', 'Email':'nbitsinze@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Natete V2', 'Email':'nateetestore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Ntinda', 'Email':'ntindastore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'KyebandoR', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'HighValue', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug'},
+    {'WarehouseId' : 'KyebandoR', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug'},
+    {'WarehouseId' : 'HighValue', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Nyahuka', 'Email':'nyahukaborder@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Odramacaku', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug'}
+    {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug'}
     ]
 
 active_warehouse = pd.DataFrame(active_warehouse)
