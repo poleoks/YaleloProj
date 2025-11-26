@@ -1,5 +1,11 @@
 import sys
 sys.path.append('C:/Users/Administrator/Documents/Python_Automations/')
+from credentials import  *
+import os
+import datetime
+import time
+import glob
+import pandas as pd
 
 from powerbi_sign_in_file import *
 from gmail_sender import *
@@ -220,6 +226,7 @@ filename = "Trial_Balance_1_Year_Extract.xlsx"
 
 
 # %%
+time.sleep(5)
 # Sending email using gmail sender function
 gmail_function(email_list,subject,body,new_path+filename)
 # remove the file after sending email
