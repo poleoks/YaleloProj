@@ -137,13 +137,13 @@ en_date.send_keys(f"{end_day_filter}")
 
 
 ##Receitp filter to Purchased only
-rct=WebDriverWait(browser,60).until(
-        EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Filter field: Receipt status (Receipt), operator: is exactly"]'))
-        )
-rct.clear()
-time.sleep(1)
-rct.send_keys('Purchased')
-print("Receipt filtered to Purchased only")
+# rct=WebDriverWait(browser,60).until(
+#         EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Filter field: Receipt status (Receipt), operator: is exactly"]'))
+#         )
+# rct.clear()
+# time.sleep(1)
+# rct.send_keys('Purchased')
+# print("Receipt filtered to Purchased only")
 
 fnb=WebDriverWait(browser,60).until(
         EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Filter field: Number, operator: begins with"]'))
