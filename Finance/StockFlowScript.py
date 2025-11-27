@@ -19,6 +19,9 @@ nairobi_received_stock = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7
 finance_all_sales = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/e93c265c-fe76-4358-b056-8f49bc2ed8ad/db31a1f8030ec9954a01"
 overall_dispatch = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/48b560bd224dad1d787b"
 overall_sale = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/069182dba7e1167bd78a"
+otif_qty = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/334b99a8547099358c4a"
+otif_tm = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/52fbcb2716006b3804b6"
+
 #%%
 from credentials import  *
 from warehouse_email import *
@@ -95,6 +98,11 @@ overall_dispatches = pbi_export(overall_dispatch,download_file_path)
 time.sleep(2)
 overall_sales = pbi_export(overall_sale,download_file_path)
 time.sleep(2)
+otif_q = pbi_export(otif_qty,download_file_path)
+time.sleep(2)
+
+otif_tm = pbi_export(otif_tm,download_file_path)
+time.sleep(2)
 browser.quit()
 #%% sys.path.insert(0,"E:/Python_Automations/Pole/Finance/")
 
@@ -117,6 +125,8 @@ with pd.ExcelWriter('stock_flow.xlsx') as wr:
     fin_dispatches.to_excel(wr, sheet_name="fin_dispatches")
     overall_dispatches.to_excel(wr, sheet_name='overall_dispatch')
     overall_sales.to_excel(wr, sheet_name='overall_sale')
+    otif_q.to_excel(wr,sheet_name="otif_qty")
+    otif_tm.to_excel(wr,sheet_name="otif_time")
 
 #%%
 from gmail_sender import gmail_function

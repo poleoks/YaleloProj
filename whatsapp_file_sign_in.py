@@ -85,11 +85,16 @@ def whatsapp_share(recipient_group, wsp_message,wsp_file, directory, profile_own
             print(f"Sending file '{wsp_file}' and message to {group_name}...")
 
             # --- A. Attach File ---
-            attachment_box = browser.find_element(by=By.XPATH, value="//span[@data-icon='plus-rounded']")
+            attachment_box = browser.find_element(By.XPATH, "//*[@data-icon='plus-rounded']")
+            attachment_box = WebDriverWait(browser, 5).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@data-icon='plus-rounded']"))
+                )
             attachment_box.click()
             time.sleep(3)
 
-            image_box = browser.find_element(by=By.XPATH, value='//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
+            image_box = WebDriverWait(browser, 5).until(
+                EC.presence_of_element_located((By.XPATH,'//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]'))
+            )
             # Assuming 'directory' is defined outside this scope
             full_path = directory + wsp_file
             image_box.send_keys(full_path) 
@@ -97,7 +102,9 @@ def whatsapp_share(recipient_group, wsp_message,wsp_file, directory, profile_own
 
             # --- B. Add Caption/Message and Send ---
             txt_xpath = '//div[@contenteditable="true"][@role="textbox"]'
-            txt_box = browser.find_element(by=By.XPATH, value=txt_xpath)
+            txt_box = WebDriverWait(browser, 5).until(
+                EC.presence_of_element_located((By.XPATH,txt_xpath))
+            )
 
             # Copy and paste the specific message for this file
             pyperclip.copy(f'{wsp_message}')
