@@ -255,6 +255,12 @@ time.sleep(5)
 #%%
 # create excel file with two sheets
 attachment_path_ = 'C:/Users/Administrator/Downloads/YU_Fuel_Automated.xlsx'
+try:
+    os.remove(attachment_path_)
+    print(f'Removed existing attachment: {attachment_path_}')
+except FileNotFoundError:
+    print(f'No existing attachment to remove at: {attachment_path_}')
+    
 with pd.ExcelWriter(attachment_path_) as writer:
     ke_fuel.to_excel(writer, sheet_name='Kenya_Fuel_Data', index=False)
     ug_fuel.to_excel(writer, sheet_name='Uganda_Fuel_Data', index=False)
@@ -266,3 +272,8 @@ from gmail_sender import *
 gmail_function('pokuttu@yalelo.ug','YU Fuel Data Downloaded',
                'Fuel data for Kenya and Uganda has been downloaded successfully.',
                attachment_path_)
+
+#%%
+time.sleep(30)
+os.remove(attachment_path_)
+print(f'Removed attachment: {attachment_path_}')

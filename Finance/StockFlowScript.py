@@ -20,7 +20,7 @@ finance_all_sales = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a
 overall_dispatch = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/48b560bd224dad1d787b"
 overall_sale = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/069182dba7e1167bd78a"
 otif_qty = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/334b99a8547099358c4a"
-otif_tm = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/52fbcb2716006b3804b6"
+otif_tm = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/f61c2b3a6e1cbc71de9a"
 
 #%%
 from credentials import  *

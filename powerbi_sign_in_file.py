@@ -1,5 +1,7 @@
 ##%import module
 from credentials import  *
+
+#%%
 Options=webdriver.ChromeOptions()
 Options.headless = True  # Enable headless mode
 Options.add_experimental_option("detach", True)
@@ -160,4 +162,3 @@ def pbi_export(url,download_address):
     print(f"{download_address} removed!")
     
     return xx
-    

@@ -1,18 +1,16 @@
 import sys
-sys.path.append('C:/Users/Administrator/Documents/Python_Automations/')
+save_dir = "C:/Users/Administrator/Documents/Python_Automations/"
+sys.path.append(f'{save_dir}')
 # sys.path.append('D:/YU/ScriptCodez/')
 from powerbi_sign_in_file import *
 from whatsapp_file_sign_in import *
 from datetime import datetime#, timedelta
 #import calendar
+
 #%%
-# remove files
-import glob
-import os
-#%%
-save_dir = "C:/Users/Administrator/Documents/Python_Automations/"
+
 i=0
-for h in glob.glob("C:/Users/Administrator/Documents/Python_Automations/retail_targets/*.xlsx") or glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx") or glob.glob("*.png"):
+for h in glob.glob(f"{save_dir}retail_targets/*.xlsx") or glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx") or glob.glob("*.png"):
         i += 1
         os.remove(h)
         
