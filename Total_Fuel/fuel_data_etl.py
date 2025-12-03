@@ -262,9 +262,9 @@ except FileNotFoundError:
     print(f'No existing attachment to remove at: {attachment_path_}')
     
 with pd.ExcelWriter(attachment_path_) as writer:
-    ke_fuel.to_excel(writer, sheet_name='Kenya_Fuel_Data', index=False)
-    ug_fuel.to_excel(writer, sheet_name='Uganda_Fuel_Data', index=False)
-
+    ke_fuel.to_excel(writer, sheet_name='Kenya Fuel', index=False)
+    ug_fuel.to_excel(writer, sheet_name='Uganda Fuel', index=False)
+print(f"uganda fuel data shape: {ug_fuel.shape} - kenya fuel data shape: {ke_fuel.shape}")
 #%%
 # ======= send gmail
 from gmail_sender import *
