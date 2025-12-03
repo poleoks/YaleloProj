@@ -2,8 +2,13 @@
 import sys
 file_path_r = 'C:/Users/Administrator/Documents/Python_Automations/'
 download_path = 'C:/Users/Administrator/Downloads/'
-download_file_address = "C:/Users/Administrator/Downloads/data.xlsx"
 
+
+
+# file_path_r = 'D:/YU/ScriptCodez/'
+# download_path = 'C:/Users/Pole Okuttu/Downloads/'
+
+download_file_address = f"{download_path}data.xlsx"
 sys.path.append(file_path_r)
 from powerbi_sign_in_file import *
 today = datetime.datetime.today()
@@ -16,8 +21,7 @@ active_warehouse = [
     {'WarehouseId' : 'Bunamwaya', 'Email':'bunamwayastore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug,  pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Bwaise', 'Email':'bwaisestore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'ButembeSal', 'Email':'butembesales@yalelo.ug,  pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Elegu', 'Email':'elegustore@yalelo.ug, pokuttu@yalelo.ug'},
+    {'WarehouseId' : 'Elegu', 'Email':'eleguborder@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Gulu', 'Email':'gulustore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Jinja V3', 'Email':'jinjastore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Kafunta', 'Email':'kafuntastore@yalelo.ug, pokuttu@yalelo.ug'},
@@ -54,7 +58,7 @@ active_warehouse = pd.DataFrame(active_warehouse)
 gr_transfers_url = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/e4e07d5f73507b70b7bd"
 actual_received_stock = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/1ff5a0ec-ff78-4749-9d6a-122ce99d8595/a25014801c32e2406317"
 overall_sales = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/069182dba7e1167bd78a"
-
+banking_ = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/91687127-028f-4c1e-8ad9-3f783f724150/374266a9250a727b593e"
 
 file_path=[]
     # load url
@@ -82,8 +86,6 @@ df_in_dc_wh = pd.pivot_table(tr_in[(tr_in['Received (kg)'] > 15)
                                     index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], 
                                     columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
 df_in_dc_wh['Total Received Frm WHS'] = df_in_dc_wh.sum(axis=1, skipna=True)
-# 
-# print(df_in_dc_wh.head())
 #%%
 #Driploss transfers from other warehouse
 df_dl_dc = pd.pivot_table(tr_in[(tr_in['Received (kg)'] < 15) 
@@ -93,8 +95,8 @@ df_dl_dc = pd.pivot_table(tr_in[(tr_in['Received (kg)'] < 15)
                                 columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')
 df_dl_dc['Driploss From Shops'] = df_dl_dc.sum(axis=1, skipna=True)
 #%%
-tr_out = pbi_export(gr_transfers_url,download_file_address)
-df_out = pd.pivot_table(tr_out,index=["Date", "ShippingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
+# tr_out = pbi_export(gr_transfers_url,download_file_address)
+df_out = pd.pivot_table(tr_in,index=["Date", "ShippingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
 df_out['Total'] = df_out.sum(axis=1, skipna=True)
 #%%
 net_received_stock = pbi_export(actual_received_stock,download_file_address)
@@ -106,20 +108,24 @@ sold_stock = pbi_export(overall_sales,download_file_address)
 sold_stock = sold_stock[sold_stock['Date'] >= first_day]
 sold_stock = pd.pivot_table(sold_stock,index=["Date","WarehouseId"], columns=["ItemNumber","ProductSizeId"], values="Sales", aggfunc='sum')#.reset_index()
 sold_stock['Total'] = sold_stock.sum(axis=1, skipna=True)
-
-# close
+#%%
+# Banking
+banked = pbi_export(banking_,download_file_address)
+# banked["Date"] = pd.to_datetime(banked['Date'])
+banked = banked[banked['Date'] >= first_day]
 browser.quit()
 #%%
 
 #%%
 # log-in to email server
+
 """
 # ######################################################################
 # # Email With Attachments Python Script
-# # 
 # ######################################################################
 # """
-from gmail_sender import gmail_function
+
+# from gmail_sender import gmail_function
 print("Succesfully connected to server")
 #%%
 for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Email'].to_list()):
@@ -149,20 +155,30 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
     try:
         df_in_dc_pdn = df_in_dc_pdn.loc[slice(None), i, slice(None)].dropna(axis=1, how='all')
         df_in_dc_pdn.loc['Sub Total', :] = df_in_dc_pdn.sum().values
-        # print(f"kyebando data: {df_in_dc_pdn.shape}")
-        # time.sleep(100)
     except:
         pass
-        # time.sleep(100)
     try:
         df_in_dc_wh = df_in_dc_wh.loc[slice(None), i, slice(None)].dropna(axis=1, how='all')
         df_in_dc_wh.loc['Sub Total', :] = df_in_dc_wh.sum().values
     except:
         None
-# 
     try:
         df_dl_dc = df_dl_dc.loc[slice(None), i, slice(None)].dropna(axis=1, how='all')
         df_dl_dc.loc['Sub Total', :] = df_dl_dc.sum().values
+    except:
+        None
+    try:
+        bank_tr  = banked[banked['WarehouseId']== i]#.dropna(axis=1, how='all')
+        subtotal = bank_tr.select_dtypes(include='number').sum()
+        subtotal['WarehouseId'] = 'Sub Total'
+        subtotal['Date'] = ''
+        subtotal['Risk Status'] = ''
+        # Append subtotal
+        bank_tr = pd.concat([bank_tr, pd.DataFrame([subtotal])], ignore_index=True)
+        # Format numeric columns with commas
+        num_cols = bank_tr.select_dtypes(include='number').columns
+        bank_tr[num_cols] = bank_tr[num_cols].applymap(lambda x: f"{x:,.0f}")
+        
     except:
         None
 
@@ -209,7 +225,11 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
                 sales_stock.to_excel(writer, sheet_name=f'{i} Sold Stock')
             except:
                 None
-#    name the email subject
+            try:
+                bank_tr.to_excel(writer, sheet_name=f'{i} Banking Records', index=False)
+            except:
+                None
+#name the email subject
     subject = f"{i} Transfers Report [Month To Date]"
     attachment_ = f"{i} MTD Stock.xlsx"
     # Prepare the body of the email
@@ -249,22 +269,22 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
         Regards,
         Pole
         """
-    gmail_function(e,subject_line=subject, email_body=body, attachment_path=attachment_)
-#%%
-import glob
-import os
+#     gmail_function(e,subject_line=subject, email_body=body, attachment_path=attachment_)
+# #%%
+# import glob
+# import os
 
-for k in glob.glob("C:/Users/Administrator/Downloads" + "*.xlsx"):
-    os.remove(k)
-try:
-    for g in glob.glob("C:/Users/Administrator/Documents/Python_Automations/"+ "*MTD Stock*" + "*.xlsx"):
-        os.remove(g)
-except:
-    None
-try:
-    for g in glob.glob("C:/Users/Administrator/Documents/Python_Automations/Finance/"+ "*MTD Stock*" + "*.xlsx"):
-        os.remove(g)
-except:
-    None
+# for k in glob.glob("C:/Users/Administrator/Downloads" + "*.xlsx"):
+#     os.remove(k)
+# try:
+#     for g in glob.glob("C:/Users/Administrator/Documents/Python_Automations/"+ "*MTD Stock*" + "*.xlsx"):
+#         os.remove(g)
+# except:
+#     None
+# try:
+#     for g in glob.glob("C:/Users/Administrator/Documents/Python_Automations/Finance/"+ "*MTD Stock*" + "*.xlsx"):
+#         os.remove(g)
+# except:
+#     None
 
-print("All files removed from repository")
+# print("All files removed from repository")
