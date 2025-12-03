@@ -125,7 +125,7 @@ browser.quit()
 # ######################################################################
 # """
 
-# from gmail_sender import gmail_function
+from gmail_sender import gmail_function
 print("Succesfully connected to server")
 #%%
 for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Email'].to_list()):
@@ -269,22 +269,22 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
         Regards,
         Pole
         """
-#     gmail_function(e,subject_line=subject, email_body=body, attachment_path=attachment_)
-# #%%
-# import glob
-# import os
+    gmail_function(e,subject_line=subject, email_body=body, attachment_path=attachment_)
+#%%
+import glob
+import os
 
-# for k in glob.glob("C:/Users/Administrator/Downloads" + "*.xlsx"):
-#     os.remove(k)
-# try:
-#     for g in glob.glob("C:/Users/Administrator/Documents/Python_Automations/"+ "*MTD Stock*" + "*.xlsx"):
-#         os.remove(g)
-# except:
-#     None
-# try:
-#     for g in glob.glob("C:/Users/Administrator/Documents/Python_Automations/Finance/"+ "*MTD Stock*" + "*.xlsx"):
-#         os.remove(g)
-# except:
-#     None
+for k in glob.glob("C:/Users/Administrator/Downloads" + "*.xlsx"):
+    os.remove(k)
+try:
+    for g in glob.glob("C:/Users/Administrator/Documents/Python_Automations/"+ "*MTD Stock*" + "*.xlsx"):
+        os.remove(g)
+except:
+    None
+try:
+    for g in glob.glob("C:/Users/Administrator/Documents/Python_Automations/Finance/"+ "*MTD Stock*" + "*.xlsx"):
+        os.remove(g)
+except:
+    None
 
-# print("All files removed from repository")
+print("All files removed from repository")
