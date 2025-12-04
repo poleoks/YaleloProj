@@ -63,7 +63,7 @@ except:
             submit.click()
         except:
             try:
-                WebDriverWait(browser, 2).until(
+                WebDriverWait(browser, 12).until(
                     EC.presence_of_element_located((By.XPATH,'//*[@data-test-id="d365@yalelo.ke"]'))
                 ).click()
                 print("Profile saved, not signed in")
