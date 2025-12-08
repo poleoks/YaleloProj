@@ -151,7 +151,7 @@ except:
 
 import matplotlib.pyplot as plt
 print(df.columns, df.head())
-border_depos = ['Nyahuka', 'Busia', 'Odramacaku', 'Mpondwe', 'Elegu', 'Malaba', 'Kisoro', 'Gulu']
+border_depos = ['Nyahuka', 'Busia', 'Odramacaku', 'Mpondwe', 'Elegu', 'Malaba', 'Kisoro']
 now = datetime.now().strftime("%d-%b-%Y %I:%M %p")
 print()
 df = df[(df['Number of products'] > 0) & (df['Warehouse'] != "Farmgate") & (df['Warehouse'] != "FarmgatUGX") & (len(df['Receipt number'])>0)]
