@@ -22,7 +22,7 @@ start_day_filter = today.replace(day=1)
 end_day_filter=today.strftime('%m/%d/%Y')
 start_day_filter=start_day_filter.strftime('%m/%d/%Y')
 attachments_ = f'Inventory Transactions-{year_}-{month_}.xlsx'
-print(f"First day: {end_day_filter}, Last day: {start_day_filter}")
+# print(f"First day: {end_day_filter}, Last day: {start_day_filter}")
 #%%
 #cleanup downloads folder
 tttt=file_path_r+attachments_
@@ -118,24 +118,6 @@ cupd = WebDriverWait(browser,60).until(
 cupd.click()
 time.sleep(5)
 #%%
-# Add filters
-st_date = WebDriverWait(browser,60).until(
-        EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[1]'))
-        )
-
-st_date.clear()
-time.sleep(1)
-st_date.send_keys(f"{start_day_filter}")
-print("filter cleared")
-en_date = WebDriverWait(browser,60).until(
-        EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[2]'))
-        )
-
-en_date.clear()
-time.sleep(1)
-en_date.send_keys(f"{end_day_filter}")
-
-
 ##Receitp filter to Purchased only
 # rct=WebDriverWait(browser,60).until(
 #         EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Filter field: Receipt status (Receipt), operator: is exactly"]'))
@@ -158,8 +140,41 @@ time.sleep(2)
 WebDriverWait(browser,60).until(
                 EC.presence_of_element_located((By.XPATH,'//*[@data-dyn-controlname="SystemDefinedFilterPane_FilterDisplay_ApplyFilters"]'))
                 ).click()
-time.sleep(15)
+time.sleep(5)
 
+
+#%%
+# Apply filters
+click_filter=WebDriverWait(browser,60).until(
+                EC.presence_of_element_located((By.XPATH,'//*[@data-dyn-columnname="InventTrans_DateFinancial"]'))
+                )
+click_filter.click()
+print("Filter clicked")
+# Add filters
+st_date = WebDriverWait(browser,60).until(
+        EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[1]'))
+        )
+
+st_date.clear()
+time.sleep(1)
+st_date.send_keys(f"{start_day_filter}")
+print("filter cleared")
+en_date = WebDriverWait(browser,60).until(
+        EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[2]'))
+        )
+
+en_date.clear()
+time.sleep(1)
+en_date.send_keys(f"{end_day_filter}")
+
+aply_filt=WebDriverWait(browser,60).until(
+        EC.presence_of_element_located((By.XPATH,'//*[@id="__InventTrans_DateFinancial_ApplyFilters_label"]'))
+        )      
+aply_filt.click()
+time.sleep(5)
+
+print(f"Date filter set from {start_day_filter} to {end_day_filter}")
+time.sleep(2)
 #click microsoft icon
 WebDriverWait(browser, 60).until(
     EC.presence_of_element_located(
