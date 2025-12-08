@@ -8,7 +8,6 @@ import glob
 import pandas as pd
 
 from powerbi_sign_in_file import *
-from gmail_sender import *
 #%%
 #get all start and end dates for each months
 def get_first_and_last_days_last_12_months():
@@ -228,6 +227,7 @@ filename = "Trial_Balance_1_Year_Extract.xlsx"
 # %%
 time.sleep(5)
 # Sending email using gmail sender function
+from gmail_sender import *
 gmail_function(email_list,subject,body,new_path+filename)
 # remove the file after sending email
 if os.path.exists(new_path+filename):

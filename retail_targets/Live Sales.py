@@ -272,3 +272,4 @@ for i in glob.glob(f"{save_dir}*.png"):
     print(f"{i} removed successfully!")
 print("All temp files removed successfully!")
 time.sleep(3)
+browser.quit()
