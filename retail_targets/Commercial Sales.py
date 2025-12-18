@@ -122,7 +122,9 @@ browser.quit()
 #%%
 #send whatsapp
 time.sleep(2)
-whatsapp_share(groups_t, messages_t,files_t, save_dir, Pole)
+#INSTANTIATE WHATSAPP
+directory_t = "C:/Users/Administrator/Documents/Python_Automations/"
+whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
 #%%
 #delete files
 import os

@@ -17,39 +17,39 @@ first_day=first_day.strftime('%m/%d/%Y')
 
 #%%
 active_warehouse = [
-    {'WarehouseId' : 'Bulaga', 'Email':'bulagaduuka@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Bunamwaya', 'Email':'bunamwayastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug,  pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Bwaise', 'Email':'bwaisestore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Elegu', 'Email':'eleguborder@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Gulu', 'Email':'gulustore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Jinja V3', 'Email':'jinjastore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Kafunta', 'Email':'kafuntastore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Kasangati', 'Email':'kasangatistore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Kajjansi', 'Email':'kajjansistore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Kasubi', 'Email':'kasubistore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Kawempe V2', 'Email':'kawempestore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Kibuli', 'Email':'kibulistore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Kibuye', 'Email':'kibuyestore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Kireka', 'Email':'kirekastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Kisoro', 'Email':'kisorostore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Kyaliwajal', 'Email':'kyaliwajjalastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Kyambogo', 'Email':'kyambogostore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Kyengera-R', 'Email':'kyengerastore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Distrbtion', 'Email':'kyengerastore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Malaba', 'Email':'malababorder@yalelo.ug,  pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Mpondwe', 'Email':'mpondweborder@yalelo.ug,  pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Mukono', 'Email':'mukonoshop@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Mutungo', 'Email':'mutungostore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Nansana V2', 'Email':'nansanastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Production', 'Email':'nbitsinze@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Natete V2', 'Email':'nateetestore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Ntinda', 'Email':'ntindastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'KyebandoR', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'HighValue', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Nyahuka', 'Email':'nyahukaborder@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Odramacaku', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug'}
+    {'WarehouseId' : 'Bulaga', 'Email':'bulagaduuka@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Bunamwaya', 'Email':'bunamwayastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug,  pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Bwaise', 'Email':'bwaisestore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Elegu', 'Email':'eleguborder@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Gulu', 'Email':'gulustore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Jinja V3', 'Email':'jinjastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Kafunta', 'Email':'kafuntastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Kasangati', 'Email':'kasangatistore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Kajjansi', 'Email':'kajjansistore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Kasubi', 'Email':'kasubistore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Kawempe V2', 'Email':'kawempestore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Kibuli', 'Email':'kibulistore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Kibuye', 'Email':'kibuyestore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Kireka', 'Email':'kirekastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Kisoro', 'Email':'kisorostore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Kyaliwajal', 'Email':'kyaliwajjalastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Kyambogo', 'Email':'kyambogostore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Kyengera-R', 'Email':'kyengerastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Distrbtion', 'Email':'kyengerastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Malaba', 'Email':'malababorder@yalelo.ug,  pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Mpondwe', 'Email':'mpondweborder@yalelo.ug,  pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Mukono', 'Email':'mukonoshop@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Mutungo', 'Email':'mutungostore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Nansana V2', 'Email':'nansanastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Production', 'Email':'nbitsinze@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Natete V2', 'Email':'nateetestore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Ntinda', 'Email':'ntindastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'KyebandoR', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'HighValue', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Nyahuka', 'Email':'nyahukaborder@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Odramacaku', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'}
     ]
 
 active_warehouse = pd.DataFrame(active_warehouse)
@@ -130,7 +130,7 @@ print("Succesfully connected to server")
 #%%
 for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Email'].to_list()):
     email_list = [email.strip() for email in e.split(',')] 
-    # cc_list =  ["pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug","rnabukeera@yalelo.ug"]
+    # cc_list =  ["pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug","rnabukeera@yalelo.ug"]
     try:
         act_received  = net_received_stock.loc[(slice(None), i),:].dropna(axis=1, how='all')
         act_received.loc['Sub Total', :] = act_received.sum().values
@@ -240,7 +240,7 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
         Please find your MTD transfers report. There are two sheets (transfers in and transfers out), ensure to check of both.
         The Total Received - Total Shipped Stock = Net Received (shared daily on whatsapp)
 
-        In case of any issues, please reply to pokuttu@yalelo.ug for followup.
+        In case of any issues, please reply to pokuttu@yalelo.ug, brwakijuma@yalelo.ug for followup.
 
         Regards,
         Pole
@@ -252,7 +252,7 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
         Please find your MTD transfers report. There are two sheets (transfers in and transfers out), ensure to check of both.
         The Total Received - Total Shipped Stock = Net Received (shared daily on whatsapp)
 
-        In case of any issues, please reply to pokuttu@yalelo.ug and pomara@yalelo.ug in copy for followup.
+        In case of any issues, please reply to pokuttu@yalelo.ug, brwakijuma@yalelo.ug and pomara@yalelo.ug in copy for followup.
 
         Regards,
         Pole
@@ -264,7 +264,7 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
         Please find your MTD transfers report. There are two sheets (transfers in and transfers out), ensure to check of both.
         The Total Received - Total Shipped Stock = Net Received (shared daily on whatsapp)
 
-        In case of any issues, please reply to pokuttu@yalelo.ug and mbiryetega@yalelo.ug in copy for followup.
+        In case of any issues, please reply to pokuttu@yalelo.ug, brwakijuma@yalelo.ug and mbiryetega@yalelo.ug in copy for followup.
 
         Regards,
         Pole

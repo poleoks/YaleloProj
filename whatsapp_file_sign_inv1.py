@@ -6,6 +6,7 @@ from credentials import  *
 from whatsapp_configuration import *
 
 
+
 def whatsapp_sign_in(whatsapp_owner):
     def kill_browser(process_name="chrome"):
 
@@ -27,7 +28,7 @@ def whatsapp_sign_in(whatsapp_owner):
     Options=webdriver.ChromeOptions()
     Options.add_experimental_option("detach", True)
     Options.add_argument(whatsapp_owner)
-    # Options.headless = True  # Enable headless mode
+    Options.headless = True  # Enable headless mode
 
     chrome_install = ChromeDriverManager().install()
 
@@ -41,8 +42,6 @@ def whatsapp_sign_in(whatsapp_owner):
     browser.get('https://web.whatsapp.com/')
    
     return browser
-
-
 
 def whatsapp_share(recipient_group, wsp_message,wsp_file, directory, profile_owner):
     #whatsapp
@@ -83,32 +82,70 @@ def whatsapp_share(recipient_group, wsp_message,wsp_file, directory, profile_own
         for wsp_message, wsp_file in messages_and_files:
             print(f"Sending file '{wsp_file}' and message to {group_name}...")
 
+            # --- A. Attach File ---
+            attachment_box = browser.find_element(By.XPATH, "//*[@data-icon='plus-rounded']")
+            attachment_box = WebDriverWait(browser, 5).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@data-icon='plus-rounded']"))
+                )
+            # attachment_box.click()
+            time.sleep(3)
+
+
+            file_input_locator = (By.XPATH, '//input[@type="file"]') 
+
+            file_input = WebDriverWait(browser, 5).until(
+                EC.presence_of_element_located(file_input_locator)
+            )
+
+            full_path = directory + wsp_file # Ensure 'directory' and 'wsp_file' are defined and 'full_path' is absolute
+            # file_input.send_keys(full_path) 
+            time.sleep(3)
+
+            # xyz = WebDriverWait(browser, 10).until(
+            #     EC.presence_of_element_located((By.XPATH, '//*[@aria-label="Text"]'))
+            #     )
+            # xyz.click()
+            time.sleep(2)
+
             print("File attached, waiting for preview to load...")
             # txt_xpath = '(//div[@contenteditable="true"][@role="textbox"])[2]' # This is likely the CAPTION box now
             txt_xpath = '//*[@aria-placeholder="Type a message"]'
             # Wait for the caption box in the *preview* window
-            txt_box = WebDriverWait(browser, 35).until(
+            txt_box = WebDriverWait(browser, 5).until(
                 EC.presence_of_element_located((By.XPATH,txt_xpath))
             )
 
-            # Paste the DataFrame text
-            os.chdir(directory)
-            img = Image.open(f'{wsp_file}')
-            copy_img_to_clipboard(img)
+            
 
-            time.sleep(2)
-            txt_box.send_keys(Keys.CONTROL, 'v')
-            time.sleep(2)
-            msg_box = WebDriverWait(browser, 5).until(
-                EC.presence_of_element_located((By.XPATH,'(//*[@aria-placeholder="Type a message"])[1]'))
+            # image_box = WebDriverWait(browser, 5).until(
+            #     EC.presence_of_element_located((By.XPATH,'//*[contains(text(),"Photos & videos")]'))
+            # )
+            # Assuming 'directory' is defined outside this scope
+            # full_path = directory + wsp_file
+            # image_box.send_keys(full_path) 
+            # time.sleep(3)
+
+            # # --- B. Add Caption/Message and Send ---
+            txt_xpath = '//div[@contenteditable="true"][@role="textbox"]'
+            txt_box = WebDriverWait(browser, 5).until(
+                EC.presence_of_element_located((By.XPATH,txt_xpath))
             )
+
             # # Copy and paste the specific message for this file
-            pyperclip.copy(f'{wsp_message}')
-            msg_box.send_keys(Keys.SHIFT, Keys.INSERT)
+            # pyperclip.copy(f'{wsp_message}')
+            # txt_box.send_keys(Keys.SHIFT, Keys.INSERT)
+            
+            txt_box.send_keys(Keys.CONTROL, 'v')
+            print("Sent paste command (Ctrl+V). Waiting for upload preview...")
 
             
             # Send message (which also sends the attached file)
-            msg_box.send_keys(Keys.ENTER)
+
+            WebDriverWait(browser, 5).until(
+                EC.presence_of_element_located((By.XPATH,'//*[@ aria-label="Send"]'))
+            )
+            
+            txt_box.send_keys(Keys.ENTER)
             time.sleep(5)
             
         print(f"✅ Finished sending all items to {group_name}.")

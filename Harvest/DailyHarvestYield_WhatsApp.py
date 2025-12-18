@@ -3,24 +3,22 @@
 from harvest_data_logmanager_posts import *
 ## navigate the report and take screenshot
 sys.path.append("C:/Users/Administrator/Documents/Python_Automations/")
-from whatsapp_config_pole import CHROME_PROFILE_PATH
+from whatsapp_file_sign_in import *
 
 
 #%%
 try:
-    os.remove('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png')
-    # os.remove('Harvest/harvest.png')
-    print('file deleted')
-    time.sleep(2)
-except:
-    print('file DNE')
+    for i in glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png'):
+        os.remove(i)
+        print(f"Deleted file: {i}") 
+except Exception as e:
+    print(f'No file to delete or error occurred: {e}')
 
 #%%
-# print(df.tail())
 try:
     today = datetime.datetime.today()# - timedelta(days=3)
     last_time = df.tail(1)['datetime'].min()
-    print(today,last_time)
+    print(f"{today},{last_time}")
     currentdatetime = (datetime.datetime.today() - timedelta(days=19)).strftime('%Y-%m-%d %H:%M:%S')
     currentdatetime = today  #.strftime('%Y-%m-%d %H:%M:%S')
     currentdate = today.strftime('%Y-%m-%d')
@@ -90,8 +88,6 @@ try:
         dd['total_pieces'] = dd['total_pieces'].astype('int').apply(lambda x: '{:,}'.format(x))
         dd['total_weight_kg'] = dd['total_weight_kg'].astype('float').round(2).apply(lambda x: '{:,}'.format(x))
 
-        print(dd)
-
         # Reset index and adjust appearance
         dd = dd.reset_index()
         time.sleep(5)
@@ -126,8 +122,10 @@ try:
         ]
         
         # Style and export
+        
         df_styled = (dd.style.hide(axis='index').set_caption("Batch-Level Harvest Summary").set_properties(**{'background-color': "#67C7F3"}).set_table_styles([{'selector': 'th', 'props': [('background-color', "#0C0B0B"), ('color', 'white')]}] ) )
         df2_styled = (dd2.style.hide(axis='index').set_caption("SKU-Level Summary").set_properties(**{'background-color': "#F3D173"}).set_table_styles([{'selector': 'th', 'props': [('background-color', '#404040'), ('color', 'white')]}] ))
+    
         
         # Export the DataFrame as an image
         batch_img = 'C:/Users/Administrator/Documents/Python_Automations/Harvest/harvest_batch.png'
@@ -147,80 +145,17 @@ try:
         new_img.paste(img1, (0, 0))
         new_img.paste(img2, (0, img1.height + 60))
         new_img.save(final_img)
-
-
         time.sleep(5)
-        #%%
+
         #INSTANTIATE WHATSAPP
-        Options=webdriver.ChromeOptions()
-        Options.add_experimental_option("detach", True)
-        Options.add_argument(CHROME_PROFILE_PATH)
-        chrome_install = ChromeDriverManager().install()
+        files_t =['harvest.png']
+        groups_t = ['YU S&OP Planning Cell']
+        messages_t = [f"Latest harvest report as at (Last Crate Weighed): {last_time}"]
+        directory_t = "C:/Users/Administrator/Documents/Python_Automations/Harvest/"
 
-        folder = os.path.dirname(chrome_install)
-        chromedriver_path = os.path.join(folder, "chromedriver.exe")
-
-        Service = webdriver.ChromeService(chromedriver_path)
-        browser=webdriver.Chrome(service=Service, options=Options)
-
-        # browser =webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=Options)
-        browser.delete_all_cookies()
-        
-        browser.maximize_window()
-        #%%
-        groups_path='C:/Users/Administrator/Documents/Python_Automations/click.txt'
-        browser.get('https://web.whatsapp.com/')
+        whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
 
         
-        with open(groups_path,'r', encoding='utf8') as f:
-            groups = [group.strip() for group in f.readlines()]
-
-        # Make sure df2 is defined before using it
-        for group in groups:
-            try:
-                search_xpath = '//div[@contenteditable="true"][@data-tab="3"]'
-                search_box = WebDriverWait(browser, 500).until(
-                    EC.presence_of_element_located((By.XPATH, search_xpath))
-                )
-                search_box.clear()
-                time.sleep(3)
-                pyperclip.copy(group)
-                search_box.send_keys(Keys.SHIFT, Keys.INSERT)  # Use Keys.CONTROL + "v" for Windows users
-                time.sleep(2)
-                
-                group_xpath = f'//span[@title="{group}"]'
-                group_title = browser.find_element(by=By.XPATH, value=group_xpath)
-                browser.execute_script("arguments[0].scrollIntoView();", group_title)
-                group_title.click()
-                time.sleep(2)
-
-                # Optional code for attachment
-                pyperclip.copy(f'Latest harvest report as at (Last Crate Weighed): {last_time}')
-                time.sleep(2)
-
-                attachment_box = browser.find_element(by=By.XPATH, value="//span[@data-icon='plus-rounded']")
-                attachment_box.click()
-                # time.sleep(3)
-                time.sleep(2)
-                image_box = browser.find_element(by=By.XPATH, value='//input[@accept="image/*,video/mp4,video/3gpp,video/quicktime"]')
-
-                image_box.send_keys('C:/Users/Administrator/Documents/Python_Automations/Harvest/harvest.png')                
-                
-                time.sleep(2)
-
-                txt_xpath = '//div[@contenteditable="true"][@role="textbox"]'
-                txt_box = browser.find_element(by=By.XPATH, value=txt_xpath)
-
-                txt_box.send_keys(Keys.SHIFT, Keys.INSERT)  # Use Keys.CONTROL + "v" for Windows users
-
-                txt_box.send_keys(Keys.ENTER)
-                
-                print("Message sent via WhatsApp... Driver exiting!!!")
-                time.sleep(300)
-            except Exception as e:
-                print(f"An error occurred: {e}")
-                time.sleep(3)
-        browser.quit()
     else:
         print("No Latest Harvest Data!")
         pass
@@ -229,3 +164,10 @@ except:
     gmail_function('pokuttu@yalelo.ug','Harvest Update On Whatsapp Has Failed',
                'Hello, the harvest subscription for Whatsapp has failed to go. Please look into it.',''
                )
+#%%
+try:
+    for i in glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png'):
+        os.remove(i)
+        print(f"Deleted file: {i}") 
+except Exception as e:
+    print(f'No file to delete or error occurred: {e}')

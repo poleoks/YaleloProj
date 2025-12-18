@@ -28,7 +28,8 @@ files_t =['commercial_stockloss.png','commercial_stockloss.png','commercial_stoc
 groups_t = ['YU Retail Team','YU Rest of Country Sales Team','Andrew Yk Enterprise']
 messages_t = [f"Stock loss as at: {yesterday}",f"Stock loss as at: {yesterday}",f"Stock loss as at: {yesterday}"]
 
-whatsapp_share(groups_t, messages_t,files_t, save_dir, Pole)
+directory_t = "C:/Users/Administrator/Documents/Python_Automations/"
+whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
 time.sleep(5)
 
 #%%
