@@ -41,7 +41,7 @@ except:
         email.click()
         print("start from scratch")
         time.sleep(2)
-        email.send_keys(yu_email)
+        email.send_keys(d365_user)
         time.sleep(2)
         email.send_keys(Keys.ENTER)
         time.sleep(2)
@@ -49,7 +49,7 @@ except:
             EC.presence_of_element_located((By.XPATH,'//*[@id="i0118"]'))
         )
         # then we send our user's password 
-        password.send_keys(yu_email)
+        password.send_keys(d365_pass)
         # after we find sign in button above
         time.sleep(2)
         submit = browser.find_element(By.XPATH,'//*[@id="idSIButton9"]')
@@ -62,7 +62,7 @@ except:
                 EC.presence_of_element_located((By.XPATH,'//*[@id="i0118"]'))
             )
             # then we send our user's password 
-            password.send_keys(yu_pass)
+            password.send_keys(d365_pass)
             # after we find sign in button above
             time.sleep(2)
             submit = browser.find_element(By.XPATH,'//*[@id="idSIButton9"]')
@@ -71,7 +71,7 @@ except:
         except:
             try:
                 WebDriverWait(browser, 12).until(
-                    EC.presence_of_element_located((By.XPATH,f'//*[@data-test-id="{yu_email}"]'))
+                    EC.presence_of_element_located((By.XPATH,f'//*[@data-test-id="{d365_user}"]'))
                 ).click()
                 print("Profile saved, not signed in")
                 # time.sleep(9)
@@ -80,7 +80,7 @@ except:
                     EC.presence_of_element_located((By.XPATH,'//*[@id="i0118"]'))
                 )
                 # then we send our user's password 
-                password.send_keys(yu_pass)
+                password.send_keys(d365_pass)
                 # after we find sign in button above
                 time.sleep(2)
                 submit = browser.find_element(By.XPATH,'//*[@id="idSIButton9"]')

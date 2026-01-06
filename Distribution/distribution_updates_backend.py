@@ -12,7 +12,6 @@ from datetime import date,datetime, timedelta
 import calendar
 my_date = date.today() #-timedelta(days=1)
 
-
 day_of_the_week=calendar.day_name[my_date.weekday()]
 day_of_the_week_num=datetime.today().weekday() #0 for Monday, 1 for Tuesday
 month_start_date =my_date.replace(day=1).strftime('%m/%d/%Y')
