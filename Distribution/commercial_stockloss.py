@@ -12,11 +12,12 @@ yesterday= datetime.datetime.today() - timedelta(days=1)
 print(dayofw % 2 == 0 )
 if dayofw % 2 == 0:
     #Mon,Wed,Fri,Sun
-    pbi_sign_in("https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/1ff5a0ec-ff78-4749-9d6a-122ce99d8595/cb72c88225967453e9c4")
+    pbi_sign_in("https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/1ff5a0ec-ff78-4749-9d6a-122ce99d8595/ca701930773c46c23172?ctid=683df1d2-484b-4bb5-8ca6-1cdbf2b98d28") 
+    # pbi_sign_in("https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/1ff5a0ec-ff78-4749-9d6a-122ce99d8595/cb72c88225967453e9c4")
 else:
     #Tue,Thur,Sat
-    pbi_sign_in("https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/1ff5a0ec-ff78-4749-9d6a-122ce99d8595/ca701930773c46c23172")
-current_dir= "C:/Users/Administrator/Documents/Python_Automations/Distribution/"
+    # pbi_sign_in("https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/1ff5a0ec-ff78-4749-9d6a-122ce99d8595/cb72c88225967453e9c4") 
+    pbi_sign_in("https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/1ff5a0ec-ff78-4749-9d6a-122ce99d8595/ca701930773c46c23172?ctid=683df1d2-484b-4bb5-8ca6-1cdbf2b98d28")
 
 ss_name ='commercial_stockloss.png'
 ss_path=save_dir+ss_name
@@ -40,3 +41,4 @@ for i in glob.glob(f"{save_dir}*.png"):
     print(f"{i} removed successfully!")
 print("All temp files removed successfully!")
 time.sleep(3)
+browser.quit()

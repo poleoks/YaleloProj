@@ -47,7 +47,6 @@ ss_path=current_dir#+ss_name
 report_url="https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/e33a4d76-14e2-475d-b035-62fb4a47e444/50e17e2aa4e3c53a2f4c"
 
 # wait for report load
-
 #%%
 pbi_sign_in(repo_url=report_url)
 ##wait for a max of 5 mins until full load

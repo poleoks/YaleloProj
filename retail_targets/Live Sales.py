@@ -151,7 +151,7 @@ except:
 
 import matplotlib.pyplot as plt
 print(df.columns, df.head())
-border_depos = ['Nyahuka', 'Busia', 'Odramacaku', 'Mpondwe', 'Elegu', 'Malaba', 'Kisoro']
+border_depos = ['Nyahuka', 'Busia', 'Odramacaku', 'Mpondwe', 'Elegu', 'Malaba', 'Kisoro', 'Gulu','Mbale','Jinja V3']
 now = datetime.now().strftime("%d-%b-%Y %I:%M %p")
 print(f"{now} - Live Sales Chart Generation Started")
 df = df[(df['Number of products'] > 0) & (df['Warehouse'] != "Farmgate") & (df['Warehouse'] != "FarmgatUGX") & (len(df['Receipt number'])>0)]

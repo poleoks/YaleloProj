@@ -1,6 +1,13 @@
+save_dir= "C:/Users/Administrator/Documents/Python_Automations/"
 import sys
-sys.path.append('C:/Users/Administrator/Documents/Python_Automations/')
-
+sys.path.append(save_dir)
+from credentials import *
+from powerbi_sign_in_file import *
+from warehouse_email import *
+import glob
+import time
+import os
+import pandas as pd
 #%%
 all_dispatches = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/d4e677323a58b06ae221"
 finance_all_dispatches = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/a5e9a4c8f62722575c70"
@@ -21,15 +28,6 @@ overall_dispatch = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5
 overall_sale = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/069182dba7e1167bd78a"
 otif_qty = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/334b99a8547099358c4a"
 otif_tm = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/74da8449-897f-467a-be26-56a067be3b0c/423fc1cfcfe7d5c25753"
-
-#%%
-from credentials import  *
-from warehouse_email import *
-from powerbi_sign_in_file import *
-import glob
-import time
-import os
-import pandas as pd
 
 #%%
 download_address=glob.glob("c:/Users/Administrator/Downloads/data"+"*xlsx") #c:/Users\Administrator\Downloads
