@@ -3,8 +3,6 @@ import sys
 file_path_r = 'C:/Users/Administrator/Documents/Python_Automations/'
 download_path = 'C:/Users/Administrator/Downloads/'
 
-
-
 # file_path_r = 'D:/YU/ScriptCodez/'
 # download_path = 'C:/Users/Pole Okuttu/Downloads/'
 
