@@ -154,14 +154,15 @@ def get_first_and_last_days_last_12_months():
             ).click()
             
             try:
-                WebDriverWait(browser,60).until(
-                    EC.presence_of_element_located((By.XPATH, '//div[@aria-checked="true" and @aria-label="Select"]'))
-                )
-            except:
                 br=WebDriverWait(browser,60).until(
                     EC.presence_of_element_located((By.XPATH,'//*[contains(@id,"FormControlFieldSelector_Selected") and contains(@id,"container")]/div/span'))
                 )
                 br.click()
+            except:
+                WebDriverWait(browser,60).until(
+                    EC.presence_of_element_located((By.XPATH, '//div[@aria-checked="true" and @aria-label="Select"]'))
+                )
+                
 
             br=WebDriverWait(browser,60).until(
                 EC.presence_of_element_located((By.XPATH,'//*[contains(@id,"FormControlFieldSelector") and contains(@id,"OK") and @class="button-label"]'))
@@ -234,3 +235,6 @@ gmail_function(email_list,subject,body,new_path+filename)
 if os.path.exists(new_path+filename):
     os.remove(new_path+filename)
     print(f"Removed the file: {filename} after sending email.")
+    
+#%%
+kill_browser("chrome")

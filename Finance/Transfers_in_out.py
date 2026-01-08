@@ -19,10 +19,10 @@ active_warehouse = [
     {'WarehouseId' : 'Bunamwaya', 'Email':'bunamwayastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug,  pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Bwaise', 'Email':'bwaisestore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Elegu', 'Email':'eleguborder@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    # {'WarehouseId' : 'Elegu', 'Email':'eleguborder@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Gulu', 'Email':'gulustore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Jinja V3', 'Email':'jinjastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
-    {'WarehouseId' : 'Kafunta', 'Email':'kafuntastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    # {'WarehouseId' : 'Kafunta', 'Email':'kafuntastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Kasangati', 'Email':'kasangatistore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Kajjansi', 'Email':'kajjansistore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Kasubi', 'Email':'kasubistore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
@@ -286,3 +286,6 @@ except:
     None
 
 print("All files removed from repository")
+
+#%%
+kill_browser("chrome")

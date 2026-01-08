@@ -171,3 +171,7 @@ try:
         print(f"Deleted file: {i}") 
 except Exception as e:
     print(f'No file to delete or error occurred: {e}')
+    
+    
+#%%
+kill_browser("chrome")

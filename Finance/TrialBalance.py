@@ -233,3 +233,6 @@ gmail_function(email_list,subject,body,new_path+filename)
 if os.path.exists(new_path+filename):
     os.remove(new_path+filename)
     print(f"Removed the file: {filename} after sending email.")
+    
+##%
+kill_browser("chrome")

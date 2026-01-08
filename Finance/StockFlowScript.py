@@ -138,3 +138,6 @@ try:
 except:
     print("no file found")
     pass
+
+#%%
+kill_browser("chrome")
