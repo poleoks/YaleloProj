@@ -172,6 +172,6 @@ try:
 except Exception as e:
     print(f'No file to delete or error occurred: {e}')
     
-    
+time.sleep(125)
 #%%
 kill_browser("chrome")
