@@ -41,7 +41,7 @@ def get_first_and_last_days_last_12_months():
                 browser.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yu&mi=LedgerTrialBalanceListPage')
             else:
                 pass
-            j=i+1
+            # j=i+1
             def j(i):
                  if i==0:
                       return '1st'
@@ -153,14 +153,14 @@ def get_first_and_last_days_last_12_months():
             ).click()
             
             try:
-                WebDriverWait(browser,60).until(
-                    EC.presence_of_element_located((By.XPATH, '//div[@aria-checked="true" and @aria-label="Select"]'))
-                )
-            except:
-                br=WebDriverWait(browser,60).until(
+                br=WebDriverWait(browser,60*2).until(
                     EC.presence_of_element_located((By.XPATH,'//*[contains(@id,"FormControlFieldSelector_Selected") and contains(@id,"container")]/div/span'))
                 )
                 br.click()
+            except:
+                WebDriverWait(browser,60).until(
+                    EC.presence_of_element_located((By.XPATH, '//div[@aria-checked="true" and @aria-label="Select"]'))
+                )
 
             br=WebDriverWait(browser,60).until(
                 EC.presence_of_element_located((By.XPATH,'//*[contains(@id,"FormControlFieldSelector") and contains(@id,"OK") and @class="button-label"]'))
@@ -216,7 +216,7 @@ body = "Hello Team, \n\nPlease find an updated record of Trial Balance for the p
 email_list = "pokuttu@yalelo.ug, alakica@yalelo.ug"
 
 # name the email subject
-subject = f"Trial Balance Extract"
+subject = f"Trial Balance Extract - YU"
 new_path='C:/Users/Administrator/Documents/Python_Automations/'
 # sys.path.insert(0, new_path)
 os.chdir(new_path)
@@ -231,8 +231,10 @@ from gmail_sender import *
 gmail_function(email_list,subject,body,new_path+filename)
 # remove the file after sending email
 if os.path.exists(new_path+filename):
-    os.remove(new_path+filename)
+    # os.remove(new_path+filename)
     print(f"Removed the file: {filename} after sending email.")
     
 ##%
+time.sleep(5)
+# Close the browser
 kill_browser("chrome")
