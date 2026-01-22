@@ -79,7 +79,7 @@ def get_first_and_last_days_last_12_months():
             last_day = (first_day + relativedelta(months=1)) - datetime.timedelta(days=1)
             first_day=first_day.strftime('%m/%d/%Y')
             last_day=last_day.strftime('%m/%d/%Y')
-
+            
             br=WebDriverWait(browser,60).until(
                 EC.presence_of_element_located((By.XPATH,'//*[contains(@id,"ledgertrialbalancelistpage") and contains(@id,"StartDate_input")]'))
                 )
@@ -97,6 +97,8 @@ def get_first_and_last_days_last_12_months():
             br.send_keys(last_day)
             br.send_keys(Keys.ENTER)
             time.sleep(1)
+            print(f"Fetching data for the period: {first_day} to {last_day}")
+
 
             br=WebDriverWait(browser,60).until(
                 EC.presence_of_element_located((By.XPATH,'//*[@class="button-label" and contains(text(),"Calculate balances")]'))
@@ -215,7 +217,7 @@ get_first_and_last_days_last_12_months()
 # Set up the email lists
 body = "Hello Team, \n\nPlease find an updated record of Trial Balance for the past 12 months attached.\n\nRegards,\nAudit Team"
 
-email_list = "pokuttu@yalelo.ug, alakica@yalelo.ug"
+email_list = "pokuttu@yalelo.ug"#, alakica@yalelo.ug"
 
 # name the email subject
 subject = f"Trial Balance Extract - YK"
