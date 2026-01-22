@@ -48,13 +48,13 @@ else:
     print(len(pic_files), now,">",noon)
     print("The current time is midday or later.")
 #%%
-
-retail_grp = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/65cfcd8b-d7af-442e-8e76-cd729a944fb1/c04614698037b6c54570"
-area_sales_grp = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/65cfcd8b-d7af-442e-8e76-cd729a944fb1/d07599e95d4f8b1765bd"
-rc_sales = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/65cfcd8b-d7af-442e-8e76-cd729a944fb1/a9b1381a5590a908d025"
+retail_grp = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/c04614698037b6c54570"
+area_sales_grp = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/d07599e95d4f8b1765bd"
+rc_sales = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/a9b1381a5590a908d025"
 risk_analysis = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/91687127-028f-4c1e-8ad9-3f783f724150/ReportSection7fb968f4825ec2e5889b"
-ooh_gkma = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/65cfcd8b-d7af-442e-8e76-cd729a944fb1/53ec76f15a2501eece98"
-resellers_gkma = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/65cfcd8b-d7af-442e-8e76-cd729a944fb1/be0d3b60c587d413ab0e"
+ooh_gkma = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/53ec76f15a2501eece98"
+resellers_gkma = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/be0d3b60c587d413ab0e"
+
 
 if now < noon:
     files_t =['retail.png','area_sales.png','rc_sales.png','risk_analysis.png',
