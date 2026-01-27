@@ -55,12 +55,12 @@ gridopt.click()
 print("grid clicked")
 
 
-clk=WebDriverWait(browser,10).until(
+clk=WebDriverWait(browser,15).until(
                 EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Insert columns..."]'))
                 )
-print("click insert!")
+print("click!")
 clk.click()
-print("inserted col")
+print("insert cols")
 time.sleep(2)
 for cols in ["Warehouse"]:     
         filter = WebDriverWait(browser,55).until(
@@ -95,7 +95,7 @@ addf=WebDriverWait(browser,45).until(
 addf.click()
 print("---click add filter")
 for cols in ["Receipt"]:     
-        filter = WebDriverWait(browser,55).until(
+        filter = WebDriverWait(browser,35).until(
                         EC.presence_of_element_located((By.XPATH,'(//input[@aria-label="Filter"])[2]'))
                         )
         filter.clear()
@@ -137,7 +137,7 @@ st_date = WebDriverWait(browser,60).until(
 st_date.clear()
 time.sleep(1)
 st_date.send_keys(f"{start_day_filter}")
-print("Date filter start date set")
+print("filter cleared")
 time.sleep(2)
 
 en_date = WebDriverWait(browser,60).until(
@@ -146,7 +146,6 @@ en_date = WebDriverWait(browser,60).until(
 
 en_date.clear()
 en_date.send_keys(f"{end_day_filter}")
-print("Date filter end date set")
 
 #%%
 #click apply filters
@@ -210,7 +209,7 @@ time.sleep(5)
 browser.quit()
 #%%
 from gmail_sender import *
-subject = "Inventory Transactions YTD"
+subject = "Inventory Transactions Shipment Report YTD"
 body = "Hi Team,\n\nPlease find attached the Inventory Transactions report.\n\nBest regards,\nPole"
 to = "pokuttu@yalelo.ug"
 gmail_function(to,subject, body, attachments_)
@@ -220,7 +219,7 @@ time.sleep(5)
 tttt=file_path_r+attachments_
 
 
-for i in glob.glob(f"{download_path}Inventory transactions*.xlsx"):
+for i in glob.glob(f"{download_path}Inventory transactions shipment*.xlsx"):
     try:
             os.remove(i)
             print(f"{i} removed")

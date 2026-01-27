@@ -17,7 +17,7 @@ first_day=first_day.strftime('%m/%d/%Y')
 active_warehouse = [
     {'WarehouseId' : 'Bulaga', 'Email':'bulagaduuka@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Bunamwaya', 'Email':'bunamwayastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug,  pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Kisaasi', 'Email':'kisaasistore@yalelo.ug,  pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Bwaise', 'Email':'bwaisestore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Kisaasi', 'Email':'kisaasistore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Gulu', 'Email':'gulustore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
