@@ -3,7 +3,7 @@ import sys
 sys.path.append('C:/Users/Administrator/Documents/Python_Automations/')
 from credentials import  *
 from fuel_data import *
-=======
+# =======
 from credentials import *
 from fuel_data import ke_fuel,ug_fuel
 >>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
@@ -14,9 +14,9 @@ import glob
 
 
 #%%
-<<<<<<< HEAD
 
-=======
+
+# =======
 file_location='c:/Users/Administrator/Downloads/Customer aging report.xlsx'
 >>>>>>> c03a598df93b05e6595dc8f7aa81f3b56fa360c0
 try:

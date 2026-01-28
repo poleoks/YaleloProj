@@ -288,4 +288,5 @@ except:
 print("All files removed from repository")
 
 #%%
+time.sleep(60)
 kill_browser("chrome")
