@@ -31,10 +31,9 @@ browser.quit()
 #%%
 with pd.ExcelWriter('ebee_sales.xlsx') as wr:
     ebee_rpt.to_excel(wr, sheet_name="ebee_sales")
-    #%%
 from gmail_sender import gmail_function
 
-gmail_function('pokuttu@yalelo.ug, vguzman@yalelo.ug','ebee_sales','This is yesterday''s sales all ebee sales per location',
+gmail_function('pokuttu@yalelo.ug, vguzman@yalelo.ug, btumwebaze@yalelo.ug, modern@ebee.africa, diana@ebee.africa,mathias@ebee.africa','ebee_sales','This is yesterday''s sales all ebee sales per location',
                'ebee_sales.xlsx')
 
 try:
