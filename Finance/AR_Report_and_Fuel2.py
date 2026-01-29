@@ -8,10 +8,9 @@ for file in glob.glob("c:/Users/Administrator/Downloads/*.xlsx*"):
     os.remove(file)
     print(f"Deleted file: {file}")
 
-for xl in glob.glob("C:/Users/Administrator/Documents/Python_Automations/Finance/*.xlsx*"):
-    os.remove(xl)
-    print(f"Deleted file: {xl}")
-
+for i in glob.glob("C:/Users/Administrator/Documents/Python_Automations/Finance/"+"*xlsx"):
+        os.remove(i)
+        print(f"{i} removed")   
 
 from powerbi_sign_in_file import *
 from datetime import datetime#, timedelta
@@ -75,9 +74,7 @@ except:
 #ok button to load report
 browser.find_element(By.XPATH, '//*[@id="SysOperationTemplateForm_2_CommandButton"]').click()
 
-
 #wait for load and press export button
-
 search_xpath = '//*[@id="SrsReportPdfViewerForm_5_PdfViewerExportMenuButton_label"]'
 search_button = WebDriverWait(browser, 500).until(
     EC.presence_of_element_located((By.XPATH, search_xpath))
@@ -99,6 +96,7 @@ except:
     None
 bb=f"As at: {date_ar} [kshs]"
 df=pd.read_excel(file_location,skiprows=11,skipfooter=1)
+
 df=df[df.columns.drop(list(df.filter(regex='Unnamed')))]
 df.rename(columns={ df.columns[3]:bb,df.columns[4]:"Current (0-7) days [kshs]",df.columns[5]:"8-14 days [kshs]",df.columns[6]:"15-29 days [kshs]",
                 df.columns[7]:"30-89 days [kshs]",df.columns[8]:"90+ [kshs]"}, inplace = True)
@@ -206,53 +204,18 @@ df=df[df.columns.drop(list(df.filter(regex='Unnamed')))]
 df.rename(columns={ df.columns[3]:bb,df.columns[4]:"90+ days [ugx]",df.columns[5]:"90 days [ugx]",df.columns[6]:"60 days [ugx]",
                 df.columns[7]:"30 days [ugx]",df.columns[8]:"Current Date [ugx]"}, inplace = True)
 uganda_ar_extract = df.copy()
-uganda_ar_extract.to_excel(f"{save_dir}/Customer AR Uganda.xlsx",index=False)
-
-
+uganda_ar_extract.to_excel(f"{save_dir}Finance/Customer AR Uganda.xlsx",index=False)
 
 #%%
+AR_Standing_status = pd.ExcelWriter(f'C:/Users/Administrator/Documents/Python_Automations/Finance/Customer Credit Report - {date_ar}.xlsx')
 
-#%%
-AR_Standing_status = pd.ExcelWriter('C:/Users/Administrator/Documents/Python_Automations/Finance/Customer Credit Report.xlsx')
-
-
-uganda_ar_extract.to_excel(AR_Standing_status, sheet_name='Customer Details UG',index=False)
-kenya_ar_extract.to_excel(AR_Standing_status, sheet_name='Customer Details KY',index=False)
+uganda_ar_extract.to_excel(AR_Standing_status, sheet_name=f'Customer Details UG',index=False)
+kenya_ar_extract.to_excel(AR_Standing_status, sheet_name=f'Customer Details KY',index=False)
 
 # Save the workbook
 AR_Standing_status.close()
-
-
 time.sleep(5)
 #%%
-
-"""
-######################################################################
-# Email With Attachments Python Script
-
-######################################################################
-"""
-
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email import encoders
-
-# Setup port number and server name
-
-smtp_port = 587                 # Standard secure SMTP port
-smtp_server = "smtp-mail.outlook.com"  # Google SMTP Server
-
-# Set up the email lists
-email_from = pbi_user
-email_list = ["pokuttu@yalelo.ug"]
-# email_list = ["pokuttu@yalelo.ug","knyeko@yalelo.ug","rnabukeera@yalelo.ug","aoriide@yalelo.ug","alakica@yalelo.ug"]
-
-# Define the password (better to reference externally)
-pswd = pbi_pass # As shown in the video this password is now dead, left in as example only
-
-
 # name the email subject
 subject = f"Customer Credit Report - AR"
 
@@ -261,29 +224,19 @@ new_path='C:/Users/Administrator/Documents/Python_Automations/Finance/'
 # sys.path.insert(0, new_path)
 os.chdir(new_path)
 # Define the email function (dont call it email!)
-body = """
-Hello Team,
-
-Please find Accounts Receivables Report attached.
-
-Regards,
-Audit Team
-"""
-
+body = "Hello Team,\nPlease find Accounts Receivables Report attached.\n\nRegards,\nAudit Team"
 # Define the file to attach
-filename = "Customer Credit Report.xlsx"
+filename = "Customer Credit Report - {date_ar}.xlsx"
 
 from gmail_sender import gmail_function
 
-gmail_function('pokuttu@yalelo.ug', subject_line=subject, body=body, filename= filename)
-
+gmail_function('pokuttu@yalelo.ug', subject_line=subject, email_body=body, attachment_path=filename)
 try:
-    os.remove(filename)
-    print(f"{filename} file deleted")
+    for i in glob.glob("C:/Users/Administrator/Documents/Python_Automations/Finance/"+"*xlsx"):
+        os.remove(i)
+        print(f"{i} removed")
 except:
     print("no file found")
     pass
-
-#%%
 time.sleep(60)
 kill_browser("chrome")
