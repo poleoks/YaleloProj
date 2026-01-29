@@ -23,7 +23,9 @@ year=datetime.today().year
 formatted_date = datetime.today().strftime('%m/%d/%Y')
 date_ar= datetime.today().strftime('%Y-%m-%d')
 print(formatted_date)
-file_location='c:/Users/Administrator/Downloads/Customer aging report.xlsx'
+file_location=f"Customer Credit Report - {date_ar}.xlsx"
+download_path="C:/Users/Administrator/Downloads"
+download_address = "C:/Users/Administrator/Downloads/Customer aging report.xlsx"
 
 #GET AR REPORT FOR KENYA
 browser.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yk&mi=Output%3ACustAgingBalance')
@@ -47,7 +49,6 @@ time.sleep(2)
 
 browser.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld5_1_list_item0"]').click()
 time.sleep(2)
-
 
 #aging period definition
 browser.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld6_1"]/div/div').click()
@@ -89,13 +90,15 @@ WebDriverWait(browser, 500).until(
 time.sleep(5)
 
 
+WebDriverWait(browser, 1*60).until(
+    lambda driver: len(glob.glob(f"{download_address}")) > len(f_path)
+)
+print("Export to Excel completed")
+time.sleep(2)
+
+
 bb=f"As at: {date_ar} [kshs]"
-try:
-    file_location='c:/Users/Administrator/Downloads/Customer aging report.xlsx'
-except:
-    None
-bb=f"As at: {date_ar} [kshs]"
-df=pd.read_excel(file_location,skiprows=11,skipfooter=1)
+df=pd.read_excel(download_address,skiprows=11,skipfooter=1)
 
 df=df[df.columns.drop(list(df.filter(regex='Unnamed')))]
 df.rename(columns={ df.columns[3]:bb,df.columns[4]:"Current (0-7) days [kshs]",df.columns[5]:"8-14 days [kshs]",df.columns[6]:"15-29 days [kshs]",
@@ -190,7 +193,7 @@ time.sleep(5)
 
 # Wait for the file to download (this might need adjustments based on download time)
 WebDriverWait(browser, 5*60).until(
-    lambda driver: len(glob.glob(f"{file_location}")) > len(f_path)
+    lambda driver: len(glob.glob(f"{download_address}")) > len(f_path)
 )
 
 print("Export to Excel completed")
@@ -199,7 +202,7 @@ browser.quit()
 # time.sleep(5)
 
 bb=f"As at: {date_ar} [ugx]" 
-df=pd.read_excel(file_location,skiprows=11,skipfooter=1)
+df=pd.read_excel(download_address,skiprows=11,skipfooter=1)
 df=df[df.columns.drop(list(df.filter(regex='Unnamed')))]
 df.rename(columns={ df.columns[3]:bb,df.columns[4]:"90+ days [ugx]",df.columns[5]:"90 days [ugx]",df.columns[6]:"60 days [ugx]",
                 df.columns[7]:"30 days [ugx]",df.columns[8]:"Current Date [ugx]"}, inplace = True)
@@ -207,7 +210,7 @@ uganda_ar_extract = df.copy()
 uganda_ar_extract.to_excel(f"{save_dir}Finance/Customer AR Uganda.xlsx",index=False)
 
 #%%
-AR_Standing_status = pd.ExcelWriter(f'C:/Users/Administrator/Documents/Python_Automations/Finance/Customer Credit Report - {date_ar}.xlsx')
+AR_Standing_status = pd.ExcelWriter(file_location, engine='xlsxwriter')
 
 uganda_ar_extract.to_excel(AR_Standing_status, sheet_name=f'Customer Details UG',index=False)
 kenya_ar_extract.to_excel(AR_Standing_status, sheet_name=f'Customer Details KY',index=False)
@@ -219,18 +222,14 @@ time.sleep(5)
 # name the email subject
 subject = f"Customer Credit Report - AR"
 
-# import sys 
-new_path='C:/Users/Administrator/Documents/Python_Automations/Finance/'
-# sys.path.insert(0, new_path)
-os.chdir(new_path)
 # Define the email function (dont call it email!)
 body = "Hello Team,\nPlease find Accounts Receivables Report attached.\n\nRegards,\nAudit Team"
 # Define the file to attach
-filename = "Customer Credit Report - {date_ar}.xlsx"
+
 
 from gmail_sender import gmail_function
 
-gmail_function('pokuttu@yalelo.ug', subject_line=subject, email_body=body, attachment_path=filename)
+gmail_function('pokuttu@yalelo.ug', subject_line=subject, email_body=body, attachment_path=file_location)
 try:
     for i in glob.glob("C:/Users/Administrator/Documents/Python_Automations/Finance/"+"*xlsx"):
         os.remove(i)
