@@ -37,8 +37,9 @@ gmail_function('pokuttu@yalelo.ug, vguzman@yalelo.ug, btumwebaze@yalelo.ug, mode
                'ebee_sales.xlsx')
 
 try:
-    os.remove('ebee_sales.xlsx')
-    print("ebee_sales file deleted")
+    for i in glob.glob("C:/Users/Administrator/Documents/Python_Automations/Finance/"+"*xlsx"):
+        os.remove(i)
+        print(f"{i} removed")
 except:
     print("no file found")
     pass
