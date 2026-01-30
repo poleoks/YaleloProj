@@ -28,7 +28,9 @@ download_path="C:/Users/Administrator/Downloads"
 download_address = "C:/Users/Administrator/Downloads/Customer aging report.xlsx"
 
 #GET AR REPORT FOR KENYA
+time.sleep(5)
 browser.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yk&mi=Output%3ACustAgingBalance')
+time.sleep(15)
 browser.maximize_window()
 
 aging_date=WebDriverWait(browser, 500).until(
