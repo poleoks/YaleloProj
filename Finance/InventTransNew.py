@@ -80,7 +80,7 @@ for cols in ["Warehouse"]:
         browser.find_element(By.XPATH,'//*[contains(@class,"dyn-checkbox-span")]').click()
         time.sleep(2)
         print(f"New column:{cols} added")
-cupd = WebDriverWait(browser,60).until(
+cupd = WebDriverWait(browser,10).until(
         EC.presence_of_element_located((By.XPATH,"//*[contains(text(),'Update')]"))
         )
 cupd.click()
@@ -89,13 +89,13 @@ time.sleep(25)
 
 #%%
 # Add custom filter Receipt
-addf=WebDriverWait(browser,45).until(
+addf=WebDriverWait(browser,15).until(
                 EC.presence_of_element_located((By.XPATH,'//*[@data-dyn-role="Button" and @class="filterDisplay-addFieldControl button dynamicsButton" ]'))
                 )
 addf.click()
 print("---click add filter")
-for cols in ["Receipt"]:     
-        filter = WebDriverWait(browser,55).until(
+for cols in ["Receipt", "Financial date"]:     
+        filter = WebDriverWait(browser,15).until(
                         EC.presence_of_element_located((By.XPATH,'(//input[@aria-label="Filter"])[2]'))
                         )
         filter.clear()
@@ -112,14 +112,17 @@ for cols in ["Receipt"]:
         browser.find_element(By.XPATH,'//*[contains(@class,"dyn-checkbox-span")]').click()
         time.sleep(2)
         print(f"New filter:{cols} added")
-cupd = WebDriverWait(browser,60).until(
+
+
+
+cupd = WebDriverWait(browser,20).until(
         EC.presence_of_element_located((By.XPATH,"//*[contains(text(),'Update')]"))
         )
 cupd.click()
 time.sleep(5)
 #%%
 ##Receitp filter to Purchased only
-fnb=WebDriverWait(browser,60).until(
+fnb=WebDriverWait(browser,20).until(
         EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Filter field: Number, operator: begins with"]'))
         )
 fnb.clear()
@@ -130,17 +133,18 @@ print("Number filtered to start with YUTO only")
 time.sleep(2)
 
 #%%
-st_date = WebDriverWait(browser,60).until(
+st_date = WebDriverWait(browser,15).until(
         EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[1]'))
         )
 
 st_date.clear()
-time.sleep(1)
+time.sleep(2)
 st_date.send_keys(f"{start_day_filter}")
 print("Date filter start date set")
+
 time.sleep(2)
 
-en_date = WebDriverWait(browser,60).until(
+en_date = WebDriverWait(browser,15).until(
         EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[2]'))
         )
 
@@ -148,9 +152,10 @@ en_date.clear()
 en_date.send_keys(f"{end_day_filter}")
 print("Date filter end date set")
 
+time.sleep(2)
 #%%
 #click apply filters
-WebDriverWait(browser,60).until(
+WebDriverWait(browser,20).until(
                 EC.presence_of_element_located((By.XPATH,'//*[@data-dyn-controlname="SystemDefinedFilterPane_FilterDisplay_ApplyFilters"]'))
                 ).click()
 time.sleep(5)
@@ -164,14 +169,15 @@ time.sleep(5)
 # click_filter.click()
 # print("Filter clicked")
 
-# Add filters
+# # Add filters
 
 
 # aply_filt=WebDriverWait(browser,60).until(
 #         EC.presence_of_element_located((By.XPATH,'//*[@id="__InventTrans_DateFinancial_ApplyFilters_label"]'))
 #         )      
 # aply_filt.click()
-# time.sleep(5)
+
+#%%
 
 #click microsoft icon
 WebDriverWait(browser, 60).until(
@@ -230,6 +236,5 @@ for i in glob.glob(f"{download_path}Inventory transactions*.xlsx"):
 try:
         os.remove(tttt)
 except FileNotFoundError:
-        print(f"{tttt} not found, skipping removal.")       
-            
+        print(f"{tttt} not found, skipping removal.")                   
 print(f"{tttt} removed")
