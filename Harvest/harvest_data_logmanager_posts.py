@@ -48,7 +48,7 @@ conn=mysql.connector.connect(
 my_cursor=conn.cursor()
 
 # SQL query to select top 5 rows
-sql = "SELECT * FROM productionlogsheet lg where DATE(lg.datetime) = CURRENT_DATE"#-3"
+sql = "SELECT * FROM productionlogsheet lg where DATE(lg.datetime) = CURRENT_DATE-1"
 my_cursor.execute(sql)
 
 # Fetch the results
@@ -62,3 +62,21 @@ harvest_data = pd.DataFrame(df_mysql, columns=col_names).set_index('id')
 harvest_data['batch_number'] = harvest_data['batch_number'].str.strip()
 df=harvest_data.astype('str').copy().sort_values(by='datetime')
 print(df.tail())
+
+# Total sum of netweight
+df['datetime'] = pd.to_datetime(df['datetime'])
+total_weight = df['netweight'].astype(float).sum() / 1000  # Convert to tons
+
+# Total duration in hours
+time_span = df['datetime'].max() - df['datetime'].min()
+total_hours = time_span.total_seconds() / 3600 
+
+# Calculation
+if total_hours > 0:
+    avg_weight_per_hour = total_weight / (1000 * total_hours)
+else:
+    avg_weight_per_hour = 0
+
+print(f"Total Weight: {total_weight:.2f} kg")
+print(f"Total Hours: {total_hours:.2f}")
+print(f"Ton/Hr: {avg_weight_per_hour:.2f}")

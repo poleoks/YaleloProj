@@ -217,25 +217,28 @@ get_first_and_last_days_last_12_months()
 # Set up the email lists
 body = "Hello Team, \n\nPlease find an updated record of Trial Balance for the past 12 months attached.\n\nRegards,\nAudit Team"
 
-email_list = "pokuttu@yalelo.ug"#, alakica@yalelo.ug"
+email_list = "pokuttu@yalelo.ug, somar@yalelo.ug, alakica@yalelo.ug"
 
 # name the email subject
 subject = f"Trial Balance Extract - YK"
 new_path='C:/Users/Administrator/Documents/Python_Automations/'
-# sys.path.insert(0, new_path)
+g_file = "C:/Users/Administrator/Documents/Python_Automations/YK_Trial_Balance_1_Year_Extract.xlsx"
 
-os.chdir(new_path)
+# os.chdir(new_path)
 
 # %%
 time.sleep(5)
 # Sending email using gmail sender function
 from gmail_sender import *
-gmail_function(email_list,subject,body,new_path+filename)
 
-# remove the file after sending email
-if os.path.exists(new_path+filename):
-    os.remove(new_path+filename)
-    print(f"Removed the file: {filename} after sending email.")
+if os.path.exists(g_file):
+    gmail_function(email_list,subject,body, g_file)
+    time.sleep(15)
+    os.remove(g_file)
+    print(f"Removed the file: {g_file} after sending email.")
+    
+else:
+    print(f"The file: {g_file} does not exist.")
     
 #%%
 kill_browser("chrome")

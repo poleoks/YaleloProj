@@ -17,19 +17,20 @@ except Exception as e:
 #%%
 try:
     today = datetime.datetime.today()# - timedelta(days=3)
-    last_time = df.tail(1)['datetime'].min()
-    print(f"{today},{last_time}")
     currentdatetime = (datetime.datetime.today() - timedelta(days=19)).strftime('%Y-%m-%d %H:%M:%S')
     currentdatetime = today  #.strftime('%Y-%m-%d %H:%M:%S')
     currentdate = today.strftime('%Y-%m-%d')
-    df['datetime'] = pd.to_datetime(df['datetime'])
+    # df['datetime'] = pd.to_datetime(df['datetime'])
     df['netweight'] = df['netweight'].str.replace('kg','').astype('float')
     df['batch_number'] = df['batch_number'].str[:4] + "("+ df['batch_number'].str[7:] +")"
     df['number_of_pieces'] = df['number_of_pieces'].astype('int')
     df['date'] = df['datetime'].dt.strftime('%Y-%m-%d')
     df['timedifference_mins'] = (abs(df['datetime'] - currentdatetime).dt.total_seconds() / 60).astype('int')
     last_date =  df.tail(1)['date'].min()
-    # print(currentdate, last_date)
+    last_time = df.tail(1)['datetime'].dt.strftime('%H:%M:%S').min()
+    start_time = df.head(1)['datetime'].dt.strftime('%H:%M:%S').min()
+    print(f"Harvest_start: {start_time}, Harvest end: {last_time}")
+    
     (xrows,ycols) = df.shape
     print(df.shape)
 
@@ -150,7 +151,7 @@ try:
         #INSTANTIATE WHATSAPP
         files_t =['harvest.png']
         groups_t = ['YU S&OP Planning Cell']
-        messages_t = [f"Latest harvest report as at (Last Crate Weighed): {last_time}"]
+        messages_t = [f"Harvest Report\nTime: {start_time}-{last_time}\nTotal Wt: {total_weight:.2f}T, Total Hours: {total_hours:.0f} \nT/H: {avg_weight_per_hour:.2f}"]
         directory_t = "C:/Users/Administrator/Documents/Python_Automations/Harvest/"
 
         whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)

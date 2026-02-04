@@ -219,20 +219,25 @@ email_list = "pokuttu@yalelo.ug, alakica@yalelo.ug"
 subject = f"Trial Balance Extract - YU"
 new_path='C:/Users/Administrator/Documents/Python_Automations/'
 # sys.path.insert(0, new_path)
-os.chdir(new_path)
+# os.chdir(new_path)
 
 filename = "Trial_Balance_1_Year_Extract.xlsx"
-
+g_file = "C:/Users/Administrator/Documents/Python_Automations/Trial_Balance_1_Year_Extract.xlsx"
 
 # %%
 time.sleep(5)
 # Sending email using gmail sender function
 from gmail_sender import *
-gmail_function(email_list,subject,body,new_path+filename)
+
 # remove the file after sending email
-if os.path.exists(new_path+filename):
-    os.remove(new_path+filename)
-    print(f"Removed the file: {filename} after sending email.")
+if os.path.exists(g_file):
+    gmail_function(email_list,subject,body, g_file)
+    time.sleep(15)
+    os.remove(g_file)
+    print(f"Removed the file: {g_file} after sending email.")
+    
+else:
+    print(f"The file: {g_file} does not exist.")
     
 ##%
 time.sleep(5)
