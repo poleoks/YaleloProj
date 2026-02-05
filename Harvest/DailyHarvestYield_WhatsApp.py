@@ -27,8 +27,8 @@ try:
     df['date'] = df['datetime'].dt.strftime('%Y-%m-%d')
     df['timedifference_mins'] = (abs(df['datetime'] - currentdatetime).dt.total_seconds() / 60).astype('int')
     last_date =  df.tail(1)['date'].min()
-    last_time = df.tail(1)['datetime'].dt.strftime('%H:%M:%S').min()
-    start_time = df.head(1)['datetime'].dt.strftime('%H:%M:%S').min()
+    last_time = df.tail(1)['datetime'].dt.strftime('%H:%M').min()
+    start_time = df.head(1)['datetime'].dt.strftime('%H:%M').min()
     print(f"Harvest_start: {start_time}, Harvest end: {last_time}")
     
     (xrows,ycols) = df.shape
