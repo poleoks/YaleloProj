@@ -65,8 +65,8 @@ if now < noon:
                 'YU Retail Team','YU Retail Team']
     
     messages_t = [f"GKMA Sales: {yesterday}",f"Area Sales: {yesterday}",f"RC/BDR Sales: {yesterday}",
-                  f"MTD/Yesterday Banking: {yesterday}",f"MTD/Yesterday Banking: {yesterday}",
-                  f"MTD/Yesterday Banking: {yesterday}",f"OOH Sales: {yesterday}",
+                  f"Banking: {yesterday}.\nPlease bank and submit by 11:59 AM",f"Banking: {yesterday}.\nPlease bank and submit by 11:59 AM",
+                  f"Banking: {yesterday}.\nPlease bank and submit by 11:59 AM",f"OOH Sales: {yesterday}",
                   f"Reseller Sales: {yesterday}"]
 
     pbi_sign_in(retail_grp)
