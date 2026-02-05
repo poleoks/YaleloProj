@@ -10,9 +10,12 @@ import pandas as pd
 from powerbi_sign_in_file import *
 #%%
 filename = "YK_Trial_Balance_1_Year_Extract.xlsx"
+g_file = "C:/Users/Administrator/Documents/Python_Automations/YK_Trial_Balance_1_Year_Extract.xlsx"
+
 #get all start and end dates for each months
+# Create an empty DataFrame to store the appended data
+
 def get_first_and_last_days_last_12_months():
-        # Create an empty DataFrame to store the appended data
         df = pd.DataFrame()
         # browser=webdriver.Chrome(service=Service)
         browser.delete_all_cookies()
@@ -29,20 +32,18 @@ def get_first_and_last_days_last_12_months():
                     data = pd.read_excel(file)
                     print(f"{j(i)} month data shape is {data.shape}")
                     df = pd.concat([df, data])
-                    # print(f"consolidated data shape is {df.shape}")
-                    # print(first_day, last_day)
+                    print(f"appended {j(i)} month data, current shape is {df.shape}")
                     os.remove(file)
                 except Exception as e:
                     print("Error:", e)
                     
-                    
-                    
+                                       
             file_path =[]
             if i>0:
                 browser.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yk&mi=LedgerTrialBalanceListPage')
             else:
                 pass
-            j=i+1
+            # j=i+1
             def j(i):
                  if i==0:
                       return '1st'
@@ -207,9 +208,16 @@ def get_first_and_last_days_last_12_months():
                 lambda driver: len(glob.glob("C:/Users/Administrator/Downloads/Trial balance*.xlsx")) > len(file_path)
             )
             time.sleep(3)
+            
+            #%%
+            #Export file
+            if i==11:
+                df.to_excel(f'{g_file}', index=False)
+                print(f"Saved the compiled data to an excel file")
+            else:
+                pass
         print("Compilation completed")
         browser.quit()
-        df.to_excel(f'{filename}', index=False)
 
 get_first_and_last_days_last_12_months()
 
@@ -222,18 +230,18 @@ email_list = "pokuttu@yalelo.ug, somar@yalelo.ug, alakica@yalelo.ug"
 # name the email subject
 subject = f"Trial Balance Extract - YK"
 new_path='C:/Users/Administrator/Documents/Python_Automations/'
-g_file = "C:/Users/Administrator/Documents/Python_Automations/YK_Trial_Balance_1_Year_Extract.xlsx"
 
 # os.chdir(new_path)
 
 # %%
 time.sleep(5)
 # Sending email using gmail sender function
-from gmail_sender import *
 
 if os.path.exists(g_file):
+    from gmail_sender import *
     gmail_function(email_list,subject,body, g_file)
     time.sleep(15)
+    print(f"Email sent successfully to: {email_list} with the file: {g_file} attached.")
     os.remove(g_file)
     print(f"Removed the file: {g_file} after sending email.")
     
@@ -241,4 +249,5 @@ else:
     print(f"The file: {g_file} does not exist.")
     
 #%%
+time.sleep(15)
 kill_browser("chrome")
