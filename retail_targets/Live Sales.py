@@ -261,7 +261,7 @@ groups_t = ['YU Retail Team','YU Rest of Country Sales Team']
 files_t = ["nonborder_warehouse_value_chart.png","border_warehouse_value_chart.png"]
 messages_t = [f"Latest Sales GKMA/RC Shops: {nonborder_total:.2f}",f"Latest Sales BDR: {border_total:.2f}"]
 
-whatsapp_share(groups_t, messages_t,files_t, save_dir, Justine)
+whatsapp_share(groups_t, messages_t,files_t, save_dir, Pole)
 time.sleep(5)
 
 #%%
@@ -272,4 +272,5 @@ for i in glob.glob(f"{save_dir}*.png"):
     print(f"{i} removed successfully!")
 print("All temp files removed successfully!")
 time.sleep(3)
-browser.quit()
+kill_browser("chrome")
+print("Running browser killed successfully!")
