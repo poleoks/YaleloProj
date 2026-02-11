@@ -9,8 +9,8 @@ import pandas as pd
 
 from powerbi_sign_in_file import *
 #%%
-filename = "YK_Trial_Balance_1_Year_Extract.xlsx"
-g_file = "C:/Users/Administrator/Documents/Python_Automations/YK_Trial_Balance_1_Year_Extract.xlsx"
+filename = "Trial_Balance_1_Year_Extract_yk.xlsx"
+g_file = "C:/Users/Administrator/Documents/Python_Automations/Trial_Balance_1_Year_Extract_yk.xlsx"
 
 #get all start and end dates for each months
 # Create an empty DataFrame to store the appended data
