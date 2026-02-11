@@ -8,13 +8,15 @@ from datetime import datetime#, timedelta
 #import calendar
 
 #%%
-
-i=0
-for h in glob.glob(f"{save_dir}retail_targets/*.xlsx") or glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx") or glob.glob("*.png"):
-        i += 1
-        os.remove(h)
-        
-        print(f"{h} removed! {i}")
+try:
+    i=0
+    for h in glob.glob(f"{save_dir}retail_targets/*.xlsx") or glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx") or glob.glob("*.png"):
+            i += 1
+            os.remove(h)
+            
+            print(f"{h} removed! {i}")
+except:
+    print("No temp files to remove, proceed!")
 #%%
 today = datetime.today()
 first_day = today.replace(day=1) - relativedelta(months=1)
