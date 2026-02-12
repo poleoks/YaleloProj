@@ -18,7 +18,7 @@ active_warehouse = [
     {'WarehouseId' : 'Bulaga', 'Email':'bulagaduuka@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Bunamwaya', 'Email':'bunamwayastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Kisaasi', 'Email':'kisaasistore@yalelo.ug,  pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
-    # {'WarehouseId' : 'Bwaise', 'Email':'bwaisestore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
+    {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     # {'WarehouseId' : 'Kisaasi', 'Email':'kisaasistore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Gulu', 'Email':'gulustore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Jinja V3', 'Email':'jinjastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
@@ -47,6 +47,7 @@ active_warehouse = [
     {'WarehouseId' : 'HighValue', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Nyahuka', 'Email':'nyahukaborder@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Odramacaku', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Arua', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'}
     ]
 
@@ -69,7 +70,7 @@ df_in['Total'] = df_in.sum(axis=1, skipna=True)
 #%%
 #DC transfers from production
 df_in_dc_pdn = pd.pivot_table(tr_in[(tr_in['Received (kg)'] > 15) 
-                                    & ((tr_in['ShippingWarehouseId'] == 'Production')|(tr_in['ShippingWarehouseId'] == 'HighValue')) 
+                                    & ((tr_in['ShippingWarehouseId'] == 'Production')|(tr_in['ShippingWarehouseId'].isin(['HighValue','HV-Fillet','HV-Salted']))) 
                                     & (tr_in['ReceivingWarehouseId'] == 'KyebandoDC')],
                               index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], 
                               columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
@@ -79,15 +80,15 @@ df_in_dc_pdn['Total Received'] = df_in_dc_pdn.sum(axis=1, skipna=True)
 #%%
 #DC transfers from other warehouse
 df_in_dc_wh = pd.pivot_table(tr_in[(tr_in['Received (kg)'] > 15) 
-                                   & (((tr_in['ShippingWarehouseId'] != 'Production') & (tr_in['ShippingWarehouseId'] != 'HighValue')) ) 
+                                   & ((tr_in['ShippingWarehouseId'] == 'Production')|(tr_in['ShippingWarehouseId'].isin(['HighValue','HV-Fillet','HV-Salted']))) 
                                    & (tr_in['ReceivingWarehouseId'] == 'KyebandoDC')],
                                     index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], 
                                     columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
 df_in_dc_wh['Total Received Frm WHS'] = df_in_dc_wh.sum(axis=1, skipna=True)
 #%%
 #Driploss transfers from other warehouse
-df_dl_dc = pd.pivot_table(tr_in[(tr_in['Received (kg)'] < 15) 
-                                & ((tr_in['ShippingWarehouseId'] != 'Production')|(tr_in['ShippingWarehouseId'] != 'HighValue')) 
+df_dl_dc = pd.pivot_table(tr_in[(tr_in['Received (kg)'] <= 15) 
+                                & ((tr_in['ShippingWarehouseId'] == 'Production')|(tr_in['ShippingWarehouseId'].isin(['HighValue','HV-Fillet','HV-Salted']))) 
                                 & (tr_in['ReceivingWarehouseId'] == 'KyebandoDC')],
                                 index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], 
                                 columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')
@@ -243,7 +244,7 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
         Regards,
         Pole
         """
-    elif i in {'Malaba','Busia','Nyahuka','Mpondwe'}:
+    elif i in {'Malaba','Busia','Nyahuka','Mpondwe','Kisoro','Arua','Odramacaku'}:
         body = f"""
         Hello {i} Border Point,
 
