@@ -33,7 +33,6 @@ time.sleep(2)
 browser.delete_all_cookies()
 browser.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yu&mi=RetailRetailStoreTransactionTable')
 
-
 #more labels
 WebDriverWait(browser,60).until(
                 EC.presence_of_element_located((By.XPATH,'//*[contains(@id,"Grid_3") and @aria-label="Grid options"]'))

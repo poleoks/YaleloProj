@@ -40,14 +40,14 @@ active_warehouse = [
     {'WarehouseId' : 'Mukono', 'Email':'mukonoshop@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Mutungo', 'Email':'mutungostore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Nansana V2', 'Email':'nansanastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
-    {'WarehouseId' : 'Production', 'Email':'nbitsinze@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Production', 'Email':'pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Natete V2', 'Email':'nateetestore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Ntinda', 'Email':'ntindastore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'KyebandoR', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'HighValue', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Nyahuka', 'Email':'nyahukaborder@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'Odramacaku', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
-    {'WarehouseId' : 'Arua', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
+    {'WarehouseId' : 'Arua Outlet', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'},
     {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, jnanyonjo@yalelo.ug, pokuttu@yalelo.ug, brwakijuma@yalelo.ug'}
     ]
 
