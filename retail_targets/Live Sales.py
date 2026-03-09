@@ -155,8 +155,13 @@ print(df.columns, df.head())
 border_depos = ['Nyahuka', 'Busia', 'Odramacaku', 'Mpondwe', 'Elegu', 'Malaba', 'Kisoro', 'Gulu','Mbale','Jinja V3']
 now = datetime.now().strftime("%d-%b-%Y %I:%M %p")
 print(f"{now} - Live Sales Chart Generation Started")
-df = df[(df['Number of products'] > 0) & (df['Warehouse'] != "Farmgate") & (df['Warehouse'] != "FarmgatUGX") & (len(df['Receipt number'])>0)]
 
+df = df[
+    (df['Number of products'] > 0) &
+    (df['Warehouse'] != "Farmgate") &
+    (df['Warehouse'] != "FarmgatUGX") &
+    (df['Receipt number'].str.len() > 0)
+]
 df_border = df[df['Warehouse'].isin(border_depos)]
 df_nonborder = df[~df['Warehouse'].isin(border_depos)]
 
