@@ -8,13 +8,15 @@ from datetime import datetime#, timedelta
 #import calendar
 
 #%%
-
-i=0
-for h in glob.glob(f"{save_dir}retail_targets/*.xlsx") or glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx") or glob.glob("*.png"):
-        i += 1
-        os.remove(h)
-        
-        print(f"{h} removed! {i}")
+try:
+    i=0
+    for h in glob.glob(f"{save_dir}retail_targets/*.xlsx") or glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx") or glob.glob("*.png"):
+            i += 1
+            os.remove(h)
+            
+            print(f"{h} removed! {i}")
+except:
+    print("No temp files to remove, proceed!")
 #%%
 today = datetime.today()
 first_day = today.replace(day=1) - relativedelta(months=1)
@@ -30,7 +32,6 @@ time.sleep(2)
 #%%
 browser.delete_all_cookies()
 browser.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yu&mi=RetailRetailStoreTransactionTable')
-
 
 #more labels
 WebDriverWait(browser,60).until(
@@ -261,7 +262,7 @@ groups_t = ['YU Retail Team','YU Rest of Country Sales Team']
 files_t = ["nonborder_warehouse_value_chart.png","border_warehouse_value_chart.png"]
 messages_t = [f"Latest Sales GKMA/RC Shops: {nonborder_total:.2f}",f"Latest Sales BDR: {border_total:.2f}"]
 
-whatsapp_share(groups_t, messages_t,files_t, save_dir, Justine)
+whatsapp_share(groups_t, messages_t,files_t, save_dir, Pole)
 time.sleep(5)
 
 #%%
@@ -272,4 +273,5 @@ for i in glob.glob(f"{save_dir}*.png"):
     print(f"{i} removed successfully!")
 print("All temp files removed successfully!")
 time.sleep(3)
-browser.quit()
+kill_browser("chrome")
+print("Running browser killed successfully!")

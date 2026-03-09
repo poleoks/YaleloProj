@@ -149,8 +149,8 @@ try:
         time.sleep(5)
 
         #INSTANTIATE WHATSAPP
-        files_t =['harvest.png']
-        groups_t = ['YU S&OP Planning Cell']
+        files_t =['harvest_batch.png']
+        groups_t = ['Inventory system user acceptance testing']
         messages_t = [f"Harvest Report\nStart-End: {start_time}-{last_time}\nTotal Wt: {total_weight:.2f}T, Total Hours: {total_hours:.0f} \nT/H: {avg_weight_per_hour:.2f}"]
         directory_t = "C:/Users/Administrator/Documents/Python_Automations/Harvest/"
 

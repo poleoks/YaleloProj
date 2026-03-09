@@ -8,6 +8,8 @@ import glob
 import pandas as pd
 
 from powerbi_sign_in_file import *
+g_file = "C:/Users/Administrator/Documents/Python_Automations/Trial_Balance_1_Year_Extract.xlsx"
+
 #%%
 #get all start and end dates for each months
 def get_first_and_last_days_last_12_months():
@@ -28,8 +30,7 @@ def get_first_and_last_days_last_12_months():
                     data = pd.read_excel(file)
                     print(f"{j(i)} month data shape is {data.shape}")
                     df = pd.concat([df, data])
-                    # print(f"consolidated data shape is {df.shape}")
-                    # print(first_day, last_day)
+                    
                     os.remove(file)
                 except Exception as e:
                     print("Error:", e)
@@ -203,9 +204,14 @@ def get_first_and_last_days_last_12_months():
                 lambda driver: len(glob.glob("C:/Users/Administrator/Downloads/Trial balance*.xlsx")) > len(file_path)
             )
             time.sleep(3)
+            #Export file
+            if i==11:
+                df.to_excel(f'{g_file}', index=False)
+                print(f"Saved the compiled data to an excel file")
+            else:
+                pass
         print("Compilation completed")
         browser.quit()
-        df.to_excel('Trial_Balance_1_Year_Extract.xlsx', index=False)
 
 get_first_and_last_days_last_12_months()
 
@@ -222,24 +228,20 @@ new_path='C:/Users/Administrator/Documents/Python_Automations/'
 # os.chdir(new_path)
 
 filename = "Trial_Balance_1_Year_Extract.xlsx"
-g_file = "C:/Users/Administrator/Documents/Python_Automations/Trial_Balance_1_Year_Extract.xlsx"
 
 # %%
 time.sleep(5)
 # Sending email using gmail sender function
-from gmail_sender import *
-
-# remove the file after sending email
 if os.path.exists(g_file):
+    from gmail_sender import *
     gmail_function(email_list,subject,body, g_file)
     time.sleep(15)
+    print(f"Email sent successfully to: {email_list} with the file: {g_file} attached.")
     os.remove(g_file)
-    print(f"Removed the file: {g_file} after sending email.")
-    
+    print(f"Removed the file: {g_file} after sending email.")    
 else:
     print(f"The file: {g_file} does not exist.")
     
-##%
-time.sleep(5)
-# Close the browser
+#%%
+time.sleep(15)
 kill_browser("chrome")
