@@ -56,7 +56,7 @@ print("grid clicked")
 
 
 clk=WebDriverWait(browser,15).until(
-                EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Insert columns..."]'))
+                EC.presence_of_element_located((By.XPATH,'(//*[contains(@class,"dyn-button-label")])[1]'))
                 )
 print("click!")
 clk.click()
