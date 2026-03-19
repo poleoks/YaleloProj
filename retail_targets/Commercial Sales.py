@@ -7,7 +7,7 @@ from whatsapp_file_sign_in import *
 from powerbi_sign_in_file import *
 
 now = datetime.datetime.now()
-noon = now.replace(hour=12, minute=0, second=0, microsecond=0)
+noon = now.replace(hour=12, minute=30, second=0, microsecond=0)
 yesterday = (now - datetime.timedelta(days=1)).date()
 whatsapp_grp = ['YU Retail Team','Area Sales Leads','YU Rest of Country Sales Team','YU Rest of Country Sales Team',
                 'YU Retail Team','Area Sales Leads','YU Sales Executives','YU Sales Executives']

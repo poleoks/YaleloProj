@@ -66,13 +66,33 @@ time.sleep(2)
 browser.find_element(By.XPATH,'//*[@id="SysOperationTemplateForm_2_Fld7_1_list_item0"]').click()
 time.sleep(2)
 
-#negative balance
+
+#Exclude zero balance accounts
 try:
-    browser.find_element(By.XPATH, "//*[@id='SysOperationTemplateForm_2_Fld15_1']//span[@class='toggle-value' and @title='No']").click()
-    toggle_element = browser.find_element(By.XPATH, "//span[@id='SysOperationTemplateForm_2_Fld15_1_toggle']")
-    toggle_element.click()  # Simulate a click
+    time.sleep(2)
+    browser.find_element(By.XPATH, '//*[@id="SysOperationTemplateForm_2_Fld14_1_toggle"]').click()
+    print("Exclude zero balance accounts, clicked")
+   
 except:
-    print("switched on")
+    print("Exclude zero balance accounts, switched on")
+
+# #negative balance
+# try:
+#     browser.find_element(By.XPATH, "//*[@id='SysOperationTemplateForm_2_Fld15_1']//span[@class='toggle-value' and @title='No']").click()
+#     toggle_element = browser.find_element(By.XPATH, "//span[@id='SysOperationTemplateForm_2_Fld15_1_toggle']")
+#     toggle_element.click()  # Simulate a click
+# except:
+#     print("switched on")
+
+#Update collections status
+try:
+    time.sleep(2)
+    browser.find_element(By.XPATH, '//*[@id="SysOperationTemplateForm_2_Fld17_1_toggle"]').click()
+    time.sleep(2)
+    print("Update collections status, clickec")
+except:
+    print("Update collections status, switched on")
+
     
 #ok button to load report
 browser.find_element(By.XPATH, '//*[@id="SysOperationTemplateForm_2_CommandButton"]').click()
@@ -159,9 +179,7 @@ time.sleep(2)
 
 #negative balance
 try:
-    browser.find_element(By.XPATH, "//*[@id='SysOperationTemplateForm_2_Fld15_1']//span[@class='toggle-value' and @title='No']").click()
-    toggle_element = browser.find_element(By.XPATH, "//span[@id='SysOperationTemplateForm_2_Fld15_1_toggle']")
-
+    time.sleep(2)
     browser.find_element(By.XPATH, "//*[@id='SysOperationTemplateForm_2_Fld15_1']//span[@class='toggle-value' and @title='No']").click()
     toggle_element = browser.find_element(By.XPATH, "//span[@id='SysOperationTemplateForm_2_Fld15_1_toggle']")
     toggle_element.click()  # Simulate a click
