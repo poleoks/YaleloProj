@@ -81,7 +81,7 @@ else:
 print(f"Total Weight: {total_weight:.2f} kg")
 print(f"Total Hours: {total_hours:.2f}")
 print(f"Ton/Hr: {avg_weight_per_hour:.2f}")
-
+print(col_names)
 
 #%%
 # # check tables

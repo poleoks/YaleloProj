@@ -1,19 +1,28 @@
 #%%##
-
-from harvest_data_logmanager_posts import *
 ## navigate the report and take screenshot
+import sys
 sys.path.append("C:/Users/Administrator/Documents/Python_Automations/")
-from whatsapp_file_sign_in import *
 
-
-#%%
+# from harvest_data_logmanager_posts import *
+from powerbi_sign_in_file import *
 try:
-    for i in glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png'):
+    for i in glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png') or glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.xlsx') or glob.glob('C:/Users/Administrator/Downloads/*.xlsx')  :
         os.remove(i)
         print(f"Deleted file: {i}") 
 except Exception as e:
     print(f'No file to delete or error occurred: {e}')
+#%%
+download_path = "C:/Users/Administrator/Downloads/data.xlsx"
+df = pbi_export("https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/e3d968fc-5351-4d04-ab9c-0e7c241a98ac/bd4fa43b35e81444b15e",
+           download_path)
 
+print(f"Data exported to: {download_path}")
+time.sleep(5)
+print(df.head())
+time.sleep(5)
+
+
+from whatsapp_file_sign_in import *
 #%%
 try:
     today = datetime.datetime.today()# - timedelta(days=3)
@@ -37,23 +46,47 @@ try:
     #%%
     # Define the custom order for materials
     material_order = {
-        'SXXL': 1,
-        'XXL': 2,
-        'Extra Large': 3,
-        'Large': 4,
-        'Medium': 5,
-        'Small': 6,
-        'Extra Small': 7,
-        'HSXXL': 8,
-        'HXXL': 9,
-        'HExtra Large': 10,
-        'HLarge': 11,
-        'HMedium': 12,
-        'HSmall': 13,
-        'Below 150': 14,
-        'Mortality': 15,
-        'Sick Fish': 16,
-        'Culled': 17
+        "Below 150":9,
+        "Carcass-HSXXL":21,
+        "Carcass-SXXL":22,
+        "Culled Fish":10,
+        "Extra Large":4,
+        "Extra Small":8,
+        "Fillet Skin On SXXL":11,
+        "Fillet- Skinless -L":18,
+        "Fillet-Skinless HSXXL":12,
+        "Fillet-Skinless HXXL":13,
+        "Fillet-Skinless M":19,
+        "Fillet-Skinless Medium":20,
+        "Fillet-Skinless SXXL":15,
+        "Fillet-Skinless XL":17,
+        "Fillet-Skinless XXL":16,
+        "Fillets-Skinless HXL":14,
+        "Fresh G&S Large":26,
+        "Fresh G&S Medium":27,
+        "Fresh G&S Small":28,
+        "Fresh G&S SXXL":23,
+        "Fresh G&S XL":25,
+        "Fresh G&S XXL":24,
+        "HExtra Large":31,
+        "HLarge":32,
+        "HMD":35,
+        "HMedium":33,
+        "HSmall":34,
+        "HSXXL":29,
+        "HXXL":30,
+        "Large":5,
+        "Large-Gutted Scales On":40,
+        "Medium":6,
+        "Mortality":36,
+        "RedMeat-SXXL":37,
+        "Salted-CulledFish":38,
+        "Skins-SXXL":39,
+        "Small":7,
+        "SXXL":1,
+        "XXL":2,
+        "XXL-Gutted Scales On":41,
+        "XXXL":3
     }
 
     batch_number_order = {
@@ -167,7 +200,7 @@ except:
                )
 #%%
 try:
-    for i in glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png'):
+    for i in glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png') or glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.xlsx'):
         os.remove(i)
         print(f"Deleted file: {i}") 
 except Exception as e:
