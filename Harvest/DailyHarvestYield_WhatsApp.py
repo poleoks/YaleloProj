@@ -209,7 +209,7 @@ try:
         messages_t = [f"Harvest Report\nStart-End: {start_time}-{last_time}\nTotal Wt: {total_weight:.2f}T, Total Hours: {total_hours:.0f} \nT/H: {avg_weight_per_hour:.2f}"]
         directory_t = "C:/Users/Administrator/Documents/Python_Automations/Harvest/"
 
-        # whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
+        whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
 
         
     else:

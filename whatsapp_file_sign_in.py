@@ -57,7 +57,7 @@ def whatsapp_share(recipient_group, wsp_message,wsp_file, directory, profile_own
     for group_name, messages_and_files in group_data.items():
         # --- 1. SEARCH & SELECT GROUP (Done once per group) ---
         print(f"Searching for group: {group_name}")
-        search_xpath = '//div[@contenteditable="true"][@data-tab="3"]'
+        search_xpath = '//*[@aria-label="Search or start a new chat"]' #'//div[@contenteditable="true"][@data-tab="3"]'
         search_box = WebDriverWait(browser, 500).until(
             EC.presence_of_element_located((By.XPATH, search_xpath))
         )
