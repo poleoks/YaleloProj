@@ -219,7 +219,7 @@ get_first_and_last_days_last_12_months()
 # Set up the email lists
 body = "Hello Team, \n\nPlease find an updated record of Trial Balance for the past 12 months attached.\n\nRegards,\nAudit Team"
 
-email_list = "pokuttu@yalelo.ug, alakica@yalelo.ug"
+email_list = "pokuttu@yalelo.ug, alakica@yalelo.ug, jnakuya@yalelo.ug"
 
 # name the email subject
 subject = f"Trial Balance Extract - YU"
