@@ -55,8 +55,13 @@ gridopt.click()
 print("grid clicked")
 
 
-clk=WebDriverWait(browser,10).until(
-                EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Insert columns..." and @title="Insert columns..."]')) #'(//*[contains(@class,"dyn-button-label")])[1]'))
+try:
+        clk=WebDriverWait(browser,15).until(
+                EC.presence_of_element_located((By.XPATH,'//*[@data-dyn-controlname="GridOptionsColumnsButton"]'))
+                )
+except:
+        clk=WebDriverWait(browser,10).until(
+                EC.presence_of_element_located((By.XPATH,'(//*[contains(@class,"dyn-button-label")])[1]'))
                 )
 print("click insert!")
 clk.click()
