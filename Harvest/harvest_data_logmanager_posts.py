@@ -48,7 +48,7 @@ conn=mysql.connector.connect(
 my_cursor=conn.cursor()
 
 # SQL query to select top 5 rows
-sql = "SELECT * FROM productionlogsheet lg where DATE(lg.datetime) = CURRENT_DATE-1"
+sql = "SELECT * FROM productionlogsheet lg where DATE(lg.datetime) = CURRENT_DATE"#-1"
 # sql  = "SHOW DATABASES"
 my_cursor.execute(sql)
 
