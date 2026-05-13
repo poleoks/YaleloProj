@@ -48,7 +48,7 @@ conn=mysql.connector.connect(
 my_cursor=conn.cursor()
 
 # SQL query to select top 5 rows
-sql = "SELECT * FROM productionlogsheet lg where DATE(lg.datetime) = CURRENT_DATE"#-1"
+sql = "SELECT * FROM productionlogsheet lg where DATE(lg.datetime) = CURRENT_DATE-1"
 # sql  = "SHOW DATABASES"
 my_cursor.execute(sql)
 
@@ -78,7 +78,7 @@ if total_hours > 0:
 else:
     avg_weight_per_hour = 0
 
-print(f"Total Weight: {total_weight:.2f} kg")
+print(f"Total Weight: {total_weight:.2f} ton")
 print(f"Total Hours: {total_hours:.2f}")
 print(f"Ton/Hr: {avg_weight_per_hour:.2f}")
 print(col_names)
