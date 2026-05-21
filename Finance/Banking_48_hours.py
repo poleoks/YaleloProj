@@ -73,3 +73,7 @@ else:
     time.sleep(5)
     os.remove(f"{file_path_r}Banking_Risk_Report_{today.strftime('%Y%m%d')}.xlsx")
     print("Report sent and deleted successfully.")
+    
+    
+time.sleep(60)
+kill_browser("chrome")

@@ -243,3 +243,7 @@ try:
 except FileNotFoundError:
         print(f"{tttt} not found, skipping removal.")                   
 print(f"{tttt} removed")
+
+
+time.sleep(60)
+kill_browser("chrome")

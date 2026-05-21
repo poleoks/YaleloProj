@@ -4,8 +4,6 @@ from harvest_data_logmanager_posts import *
 ## navigate the report and take screenshot
 sys.path.append("C:/Users/Administrator/Documents/Python_Automations/")
 from whatsapp_file_sign_in import *
-
-
 #%%
 try:
     for i in glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png'):
@@ -171,3 +169,6 @@ try:
         print(f"Deleted file: {i}") 
 except Exception as e:
     print(f'No file to delete or error occurred: {e}')
+    
+time.sleep(60)
+kill_browser("chrome")
