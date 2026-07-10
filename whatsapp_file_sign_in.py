@@ -96,9 +96,9 @@ def whatsapp_share(recipient_group, wsp_message,wsp_file, directory, profile_own
             img = Image.open(f'{wsp_file}')
             copy_img_to_clipboard(img)
 
-            time.sleep(2)
+            time.sleep(1)
             txt_box.send_keys(Keys.CONTROL, 'v')
-            time.sleep(2)
+            time.sleep(10)
             msg_box = WebDriverWait(browser, 5).until(
                 EC.presence_of_element_located((By.XPATH,'(//*[@aria-placeholder="Type a message"])[1]'))
             )
