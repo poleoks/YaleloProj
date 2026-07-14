@@ -71,33 +71,36 @@ if now < noon:
 
     pbi_sign_in(retail_grp)
     ss_path_ret = save_dir+'retail.png'
+    time.sleep(10)
     browser.save_screenshot(ss_path_ret)
     print("Retail successfully taken screenshot!!!")
-    time.sleep(5)
     ss_path_area = save_dir+'area_sales.png'
     pbi_sign_in(area_sales_grp)
+    time.sleep(10)
     browser.save_screenshot(ss_path_area)
     print("Area sales successfully taken screenshot!!!")
-    time.sleep(5)
-
+    
     ss_path_rc = save_dir+'rc_sales.png'
     pbi_sign_in(rc_sales)
+    time.sleep(10)
     browser.save_screenshot(ss_path_rc)
     print("RC successfully taken screenshot!!!")
-    time.sleep(5)
-
+    
     ss_path_risk = save_dir+'risk_analysis.png'
     pbi_sign_in(risk_analysis)
+    time.sleep(10)
     browser.save_screenshot(ss_path_risk)
     print("RC successfully taken screenshot!!!")
 
     ss_path_ooh = save_dir+'ooh_gkma.png'
     pbi_sign_in(ooh_gkma)
+    time.sleep(10)
     browser.save_screenshot(ss_path_ooh)
     print("OOH successfully taken screenshot!!!")
     
     ss_path_resl = save_dir+'resellers_gkma.png'
     pbi_sign_in(resellers_gkma)
+    time.sleep(10)
     browser.save_screenshot(ss_path_resl)
     print("Resellers successfully taken screenshot!!!")
 else:
@@ -112,10 +115,10 @@ else:
     
     ss_path_risk = save_dir+'risk_analysis.png'
     pbi_sign_in(risk_analysis)
+    time.sleep(10)
     browser.save_screenshot(ss_path_risk)
     print("RC successfully taken screenshot!!!")
-    time.sleep(5)
-
+    
 time.sleep(2)
 browser.quit()
 
@@ -124,7 +127,7 @@ browser.quit()
 time.sleep(2)
 #INSTANTIATE WHATSAPP
 directory_t = "C:/Users/Administrator/Documents/Python_Automations/"
-whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
+whatsapp_share(groups_t, messages_t,files_t, directory_t, Justine)
 #%%
 #delete files
 import os

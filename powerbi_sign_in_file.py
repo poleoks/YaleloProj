@@ -10,7 +10,7 @@ Options.add_experimental_option("detach", True)
 from chrome_configuration import CHROME_PATH
 Options.add_argument(CHROME_PATH)
 chrome_install = ChromeDriverManager().install()
-
+print(f"ChromeDriver installed at: {chrome_install}")
 folder = os.path.dirname(chrome_install)
 chromedriver_path = os.path.join(folder, "chromedriver.exe")
 

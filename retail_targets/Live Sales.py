@@ -267,7 +267,7 @@ groups_t = ['YU Retail Team','YU Rest of Country Sales Team']
 files_t = ["nonborder_warehouse_value_chart.png","border_warehouse_value_chart.png"]
 messages_t = [f"Latest Sales GKMA/RC Shops: {nonborder_total:.2f}",f"Latest Sales BDR: {border_total:.2f}"]
 
-whatsapp_share(groups_t, messages_t,files_t, save_dir, Pole)
+whatsapp_share(groups_t, messages_t,files_t, save_dir, Justine)
 time.sleep(5)
 
 #%%

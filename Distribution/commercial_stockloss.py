@@ -30,7 +30,7 @@ groups_t = ['YU Retail Team','YU Rest of Country Sales Team']
 messages_t = [f"Stock loss as at: {yesterday}",f"Stock loss as at: {yesterday}"]
 
 directory_t = "C:/Users/Administrator/Documents/Python_Automations/"
-whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
+whatsapp_share(groups_t, messages_t,files_t, directory_t, Justine)
 time.sleep(5)
 
 #%%
