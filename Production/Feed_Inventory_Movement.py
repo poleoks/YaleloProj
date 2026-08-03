@@ -50,7 +50,7 @@ report_url="https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/
 #%%
 pbi_sign_in(repo_url=report_url)
 ##wait for a max of 5 mins until full load
-for jj in ['BS','GA','GB','GC','GD','GE','GF','GG','GH','NA','NB','NC','ND']:
+for jj in ['BS','GA','GB','GC','GD','GE','GF','GG','GH','GI','NA','NB','NC','ND']:
     try:
         browser.find_element(By.XPATH, f"//*[@title='{jj}']").click()
         time.sleep(5)
@@ -71,8 +71,9 @@ time.sleep(5)
 groups_t = [
     'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding',
     'Grow Out feeding', 'Grow Out feeding', 'Grow Out feeding','Grow Out feeding',
+    'Grow Out feeding',
     'Nursery YU', 'Nursery YU', 'Nursery YU','Nursery YU','Nursery YU',
-    'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 
+    'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS',
     'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS','FEED LOGISTICS', 'FEED LOGISTICS', 
     'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 'FEED LOGISTICS', 
     'Pole D&A'
@@ -80,19 +81,21 @@ groups_t = [
 messages_t = [
     'Platform: GA_Feed', 'Platform: GB_Feed', 'Platform: GC_Feed', 'Platform: GD_Feed', 
     'Platform: GE_Feed', 'Platform: GF_Feed', 'Platform: GG_Feed', 'Platform: GH_Feed',
+    'Platform: GI_Feed',
     'Platform: NA_Feed', 'Platform: NB_Feed', 'Platform: NC_Feed', 'Platform: ND_Feed', 
     'Platform: BS_Feed',
     'Platform: GA_Feed', 
     'Platform: GB_Feed', 'Platform: GC_Feed', 'Platform: GD_Feed', 'Platform: GE_Feed', 
-    'Platform: GF_Feed', 'Platform: GG_Feed','Platform: GH_Feed','Platform: NA_Feed', 'Platform: NB_Feed', 
+    'Platform: GF_Feed', 'Platform: GG_Feed','Platform: GH_Feed','Platform: GI_Feed', 
+    'Platform: NA_Feed', 'Platform: NB_Feed', 
     'Platform: NC_Feed', 'Platform: ND_Feed', 'Platform: BS_Feed', 'Platform: GA_Feed'
     ]
 files_t = [
     'GA_Feed.png', 'GB_Feed.png', 'GC_Feed.png', 'GD_Feed.png', 
-    'GE_Feed.png', 'GF_Feed.png', 'GG_Feed.png', 'GH_Feed.png',
+    'GE_Feed.png', 'GF_Feed.png', 'GG_Feed.png', 'GH_Feed.png','GI_Feed.png',
     'NA_Feed.png', 'NB_Feed.png', 'NC_Feed.png', 'ND_Feed.png', 'BS_Feed.png',
     'GA_Feed.png', 'GB_Feed.png', 'GC_Feed.png', 'GD_Feed.png', 
-    'GE_Feed.png', 'GF_Feed.png', 'GG_Feed.png','GH_Feed.png',
+    'GE_Feed.png', 'GF_Feed.png', 'GG_Feed.png','GH_Feed.png','GI_Feed.png',
     'NA_Feed.png', 'NB_Feed.png', 'NC_Feed.png', 'ND_Feed.png','BS_Feed.png','GA_Feed.png'
     ]
 
@@ -103,11 +106,10 @@ browser.quit()
 #%%
 import os
 import glob
-dir_path = 'C:/Users/Administrator/Documents/Python_Automations/'
+dir_path_ = 'C:/Users/Administrator/Documents/Python_Automations/Production/'
 
-for i in glob.glob(f"{dir_path}*_Feed.png"):
+for i in glob.glob(f"{dir_path_}*Feed.png"):
     os.remove(i)
     print(f"{i} removed successfully!")
 print("All temp files removed successfully!")
-
 # %%

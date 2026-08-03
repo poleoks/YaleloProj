@@ -152,7 +152,6 @@ try:
         directory_t = "C:/Users/Administrator/Documents/Python_Automations/Harvest/"
 
         whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
-
         
     else:
         print("No Latest Harvest Data!")

@@ -1,10 +1,72 @@
 #%%##
 
-from harvest_data_logmanager_posts import *
+import pandas as pd
+import mysql.connector
+import warnings
+warnings.filterwarnings('ignore')
+import mysql.connector
+import pandas as pd
+import time
+from requests.auth import HTTPBasicAuth
+
+import datetime
+from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
+from openpyxl import Workbook
+from openpyxl.styles import Font, Border, Side
+import glob
+import os
+
+server = "y360db.mysql.database.azure.com"
+database = "y360"
+username = "moweigh"
+password = "6Million$"
+#%%
+
+
+conn = mysql.connector.connect(
+    host="y360db.mysql.database.azure.com",
+    user="moweigh",
+    password="6Million$",
+    database="y360", 
+    connect_timeout=10
+)
+# h.CreatedOn, b.BatchCode, h.Weight, h.Pieces, p.ProductName, p.Size
+cursor = conn.cursor()
+
+query = """
+SELECT
+
+h.CreatedOn, h.HarvestId,
+b.BatchCode, h.Weight, h.Pieces, p.ProductName,
+p.Size, c.CrateCode, cn.CrateCode as NewCrateCode,
+d.DestinationName, dn.DestinationName as NewDestinationName
+
+FROM y360.harvest h
+LEFT JOIN y360.Batch b ON h.BatchId = b.BatchId
+LEFT JOIN y360.Product p ON h.ProductId = p.ProductId
+LEFT JOIN y360.Crate c ON h.CrateId = c.CrateId
+LEFT JOIN y360.Crate cn on h.NewCrateId = cn.CrateId
+LEFT JOIN y360.Destination d ON h.DestinationId = d.DestinationId
+LEFT JOIN y360.Destination dn on h.NewDestinationId = dn.DestinationId
+where DATE(h.CreatedOn) = CURDATE()-4 AND h.IsDispatched = 1
+"""
+cursor.execute(query)
+rows = cursor.fetchall()
+columns = [desc[0] for desc in cursor.description]
+
+df = pd.DataFrame(rows, columns=columns)
+
+cursor.close()
+conn.close()
+
+# df.to_csv('harvest_data.csv', index=False)
+print(df.head())
+
+import sys
+import os
 ## navigate the report and take screenshot
 sys.path.append("C:/Users/Administrator/Documents/Python_Automations/")
 from whatsapp_file_sign_in import *
-
 
 #%%
 try:
@@ -13,7 +75,6 @@ try:
         print(f"Deleted file: {i}") 
 except Exception as e:
     print(f'No file to delete or error occurred: {e}')
-
 #%%
 try:
     today = datetime.datetime.today()# - timedelta(days=3)

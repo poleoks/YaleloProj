@@ -15,7 +15,7 @@ for i in glob.glob("C:/Users/Administrator/Documents/Python_Automations/"+"*xlsx
 from powerbi_sign_in_file import *
 from datetime import datetime#, timedelta
 
-for i in range(190, 2000,1):
+for i in range(1, 2000,1):
     print(i)
     date_today=datetime.today().day
     month_num=datetime.today().month

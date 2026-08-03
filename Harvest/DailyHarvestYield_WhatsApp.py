@@ -116,11 +116,10 @@ try:
             f"{df2['netweight'].sum():,.2f}",
             f"{df2['number_of_pieces'].sum():,}",
             f"{len(df2):,}",
-            f"{(df2.netweight.sum() * 1000/df2.number_of_pieces.sum()).astype(int): ,}"
+            f"{(df2.netweight.sum() * 1000 / df2.number_of_pieces.sum()).astype(int): ,}"
         ]
         
-        # Style and export
-        
+        # Style and export        
         df_styled = (dd.style.hide(axis='index').set_caption("Batch-Level Harvest Summary").set_properties(**{'background-color': "#67C7F3"}).set_table_styles([{'selector': 'th', 'props': [('background-color', "#0C0B0B"), ('color', 'white')]}] ) )
         df2_styled = (dd2.style.hide(axis='index').set_caption("SKU-Level Summary").set_properties(**{'background-color': "#F3D173"}).set_table_styles([{'selector': 'th', 'props': [('background-color', '#404040'), ('color', 'white')]}] ))
     
