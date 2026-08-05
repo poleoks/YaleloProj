@@ -44,7 +44,7 @@ query = """
 SELECT
 CONVERT_TZ(h.CreatedOn, '+00:00', '+03:00') as datetime, 
 b.BatchCode as batch_number, h.Weight as netweight, h.Pieces as number_of_pieces,
-p.Size as material
+p.ProductName as material
 
 FROM y360.harvest h
 LEFT JOIN y360.Batch b ON h.BatchId = b.BatchId
@@ -221,7 +221,7 @@ if (df.sort_values(by='datetime').tail(1)['timedifference_mins'].min() < 120):# 
     
     dd['total_weight_kg'] = dd['total_weight_kg'].round(2).apply(lambda x: f"{x:,.2f}")
     dd['total_pieces'] = dd['total_pieces'].apply(lambda x: f"{x:,}")
-    dd['total_crates'] = dd['total_crates'].fillna(0).astype('int').apply(lambda x: f"{x:,}")
+    dd['total_pieces'] = pd.to_numeric(dd['total_pieces'].astype(str).str.replace(',', '', regex=False),  errors='coerce')
     dd['ABW (g)'] = dd['ABW (g)'].apply(lambda x: f"{x:,}")
 
     # Reset index and adjust appearance
