@@ -164,6 +164,7 @@ def pbi_export(url,download_address):
 
     xx= pd.read_excel(f"{download_address}").iloc[:-1,:]
     print(xx.shape)
+    print(xx.head())
     try:
         os.remove(download_address)
         print("file download completed!!!")

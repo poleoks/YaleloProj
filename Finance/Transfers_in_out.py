@@ -18,7 +18,7 @@ active_warehouse = [
     {'WarehouseId' : 'Bulaga', 'Email':'bulagaduuka@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Bunamwaya', 'Email':'bunamwayastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Kisaasi', 'Email':'kisaasistore@yalelo.ug,  pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug, pokuttu@yalelo.ug'}
+    {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Gulu', 'Email':'gulustore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Jinja V3', 'Email':'jinjastore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Mbale', 'Email':'mbalestore@yalelo.ug, pokuttu@yalelo.ug'},
@@ -33,7 +33,6 @@ active_warehouse = [
     {'WarehouseId' : 'Kyaliwajal', 'Email':'kyaliwajjalastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Kyambogo', 'Email':'kyambogostore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Kyengera-R', 'Email':'kyengerastore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Distrbtion', 'Email':'kyengerastore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Malaba', 'Email':'malababorder@yalelo.ug,  pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Mpondwe', 'Email':'mpondweborder@yalelo.ug,  pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Mukono', 'Email':'mukonoshop@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
@@ -44,9 +43,7 @@ active_warehouse = [
     {'WarehouseId' : 'Natete V2', 'Email':'nateetestore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Ntinda', 'Email':'ntindastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'KyebandoR', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'HighValue', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Nyahuka', 'Email':'nyahukaborder@yalelo.ug, pokuttu@yalelo.ug'},
-    # {'WarehouseId' : 'Odramacaku', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Arua Outlet', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Lira', 'Email':'lirashop@yalelo.ug, pokuttu@yalelo.ug'},
@@ -65,33 +62,63 @@ file_path=[]
     # load url
 #%%
 # read files
-tr_in = pbi_export(gr_transfers_url,download_file_address)
-df_in = pd.pivot_table(tr_in,index=["Date", "ReceivingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
-df_in['Total'] = df_in.sum(axis=1, skipna=True)
+tr_in = pbi_export(gr_transfers_url, download_file_address)
+
+tr_in['Date'] = pd.to_datetime(
+    tr_in['Date'],
+    errors='coerce'
+)
+
+# Keep only rows with valid dates
+tr_in = tr_in[tr_in['Date'].notna()].copy()
+
+df_in = pd.pivot_table(
+    tr_in[tr_in['Date'] >= pd.to_datetime(first_day)],
+    index=["Date", "ReceivingWarehouseId"],
+    columns=["SKU", "ProductSizeId"],
+    values="Received (kg)",
+    aggfunc="sum"
+)
 
 #%%
-#DC transfers from production
-df_in_dc_pdn = pd.pivot_table(tr_in[(tr_in['Received (kg)'] > 15) 
-                                    & ((tr_in['ShippingWarehouseId'] == 'Production')|(tr_in['ShippingWarehouseId'].isin(['HighValue','HV-Fillet','HV-Salted']))) 
+#DC transfers from production to dc
+df_in_dc_pdn = pd.pivot_table(tr_in[((tr_in['ShippingWarehouseId'].isin(['Production','HighValue','HV-Fillet','HV-Salted']))) 
                                     & (tr_in['ReceivingWarehouseId'] == 'KyebandoDC')],
                               index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], 
-                              columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
+                              columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum') #.reset_index(names=['Date','ReceivingWarehouseId'])
 
 df_in_dc_pdn['Total Received'] = df_in_dc_pdn.sum(axis=1, skipna=True)
 
 #%%
-#DC transfers from other warehouse
-df_in_dc_wh = pd.pivot_table(tr_in[(tr_in['Received (kg)'] > 15) 
-                                   & ((tr_in['ShippingWarehouseId'] == 'Production')|(tr_in['ShippingWarehouseId'].isin(['HighValue','HV-Fillet','HV-Salted']))) 
+
+df_out_pdn = pd.pivot_table(tr_in[((tr_in['ShippingWarehouseId'].isin(['Production','HighValue','HV-Fillet','HV-Salted'])))],
+                              index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], 
+                              columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum') #.reset_index(names=['Date','ReceivingWarehouseId'])
+df_out_pdn['Total Received'] = df_out_pdn.sum(axis=1, skipna=True)
+print(f"df_out_pdn head:\n{df_out_pdn.head()}")
+#%%
+df_to_pdn = pd.pivot_table(tr_in[((tr_in['ReceivingWarehouseId'].isin(['HighValue','Production','HV-Fillet','HV-Salted'])))],
+                              index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], 
+                              columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum') #.reset_index(names=['Date','ReceivingWarehouseId'])
+
+df_to_pdn['Total Received'] = df_to_pdn.sum(axis=1, skipna=True)
+print(f"df_to_pdn head:\n{df_to_pdn.head()}")
+#%%
+#DC transfers from other warehouses to dc
+df_in_dc_wh = pd.pivot_table(tr_in[~((tr_in['ShippingWarehouseId'] == 'Production')| (tr_in['ShippingWarehouseId'].isin(['HighValue','HV-Fillet','HV-Salted']))) 
                                    & (tr_in['ReceivingWarehouseId'] == 'KyebandoDC')],
                                     index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], 
                                     columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
-df_in_dc_wh['Total Received Frm WHS'] = df_in_dc_wh.sum(axis=1, skipna=True)
+df_in_dc_wh['Total Received Frm Other WHS'] = df_in_dc_wh.sum(axis=1, skipna=True)
+
 #%%
-#Driploss transfers from other warehouse
-df_dl_dc = pd.pivot_table(tr_in[(tr_in['Received (kg)'] <= 15) 
-                                & ((tr_in['ShippingWarehouseId'] == 'Production')|(tr_in['ShippingWarehouseId'].isin(['HighValue','HV-Fillet','HV-Salted']))) 
-                                & (tr_in['ReceivingWarehouseId'] == 'KyebandoDC')],
+df_out_dc_to_wh = pd.pivot_table(tr_in[(tr_in['ShippingWarehouseId'] == 'KyebandoDC')],
+                                    index=["Date", "ReceivingWarehouseId"], 
+                                    columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
+df_out_dc_to_wh['Total Received Frm Other WHS'] = df_out_dc_to_wh.sum(axis=1, skipna=True)
+#%%
+#Driploss transfers from other GKMA shops
+df_dl_dc = pd.pivot_table(tr_in[(tr_in['ReceivingWarehouseId'].isin(['GKMADistDL']))],
                                 index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], 
                                 columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')
 df_dl_dc['Driploss From Shops'] = df_dl_dc.sum(axis=1, skipna=True)
@@ -100,18 +127,48 @@ df_dl_dc['Driploss From Shops'] = df_dl_dc.sum(axis=1, skipna=True)
 df_out = pd.pivot_table(tr_in,index=["Date", "ShippingWarehouseId"], columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')#.reset_index(names=['Date','ReceivingWarehouseId'])
 df_out['Total'] = df_out.sum(axis=1, skipna=True)
 #%%
+#Driploss transfers from outside GKMA shops
+df_dl_pdn = pd.pivot_table(tr_in[(tr_in['ReceivingWarehouseId'].isin(['BodrDistDL', 'RC DistDrL']))],
+                                index=["Date", "ReceivingWarehouseId","ShippingWarehouseId"], 
+                                columns=["SKU","ProductSizeId"], values="Received (kg)", aggfunc='sum')
+df_dl_pdn['Driploss From RC_Bodr Shops'] = df_dl_pdn.sum(axis=1, skipna=True)
+#%%
 net_received_stock = pbi_export(actual_received_stock,download_file_address)
+net_received_stock['Date'] = pd.to_datetime(
+    net_received_stock['Date'],
+    errors='coerce'
+)
+
+# Keep only rows with valid dates
+net_received_stock = net_received_stock[net_received_stock['Date'].notna()].copy()
+
+
 net_received_stock = pd.pivot_table(net_received_stock,index=["Date","WarehouseId"], columns=["SKU","SizeId22"], values="Received Stock", aggfunc='sum')#.reset_index()
 net_received_stock['Total'] = net_received_stock.sum(axis=1, skipna=True)
 
 #%%
 sold_stock = pbi_export(overall_sales,download_file_address)
+
+sold_stock['Date'] = pd.to_datetime(
+    sold_stock['Date'],
+    errors='coerce'
+)
+# Keep only rows with valid dates
+sold_stock = sold_stock[sold_stock['Date'].notna()].copy()
+
 sold_stock = sold_stock[sold_stock['Date'] >= first_day]
 sold_stock = pd.pivot_table(sold_stock,index=["Date","WarehouseId"], columns=["ItemNumber","ProductSizeId"], values="Sales", aggfunc='sum')#.reset_index()
 sold_stock['Total'] = sold_stock.sum(axis=1, skipna=True)
 #%%
 # Banking
 banked = pbi_export(banking_,download_file_address)
+
+banked['Date'] = pd.to_datetime(
+    banked['Date'],
+    errors='coerce'
+)
+# Keep only rows with valid dates
+banked = banked[banked['Date'].notna()].copy()
 # banked["Date"] = pd.to_datetime(banked['Date'])
 banked = banked[banked['Date'] >= first_day]
 browser.quit()
@@ -153,21 +210,27 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
         df_out_w.loc['Sub Total', :] = df_out_w.sum().values
     except:
         None
-    try:
-        df_in_dc_pdn = df_in_dc_pdn.loc[slice(None), i, slice(None)].dropna(axis=1, how='all')
-        df_in_dc_pdn.loc['Sub Total', :] = df_in_dc_pdn.sum().values
-    except:
-        pass
+    # try:
+    #     df_in_dc_pdn = df_in_dc_pdn.loc[slice(None), i, slice(None)].dropna(axis=1, how='all')
+    #     df_in_dc_pdn.loc['Sub Total', :] = df_in_dc_pdn.sum().values
+    # except:
+    #     pass
+    
+    # try:
+    #     df_out_pdn = df_out_pdn.loc[slice(None), i, slice(None)].dropna(axis=1, how='all')
+    #     df_out_pdn.loc['Sub Total', :] = df_out_pdn.sum().values
+    # except:
+    #     pass
     try:
         df_in_dc_wh = df_in_dc_wh.loc[slice(None), i, slice(None)].dropna(axis=1, how='all')
         df_in_dc_wh.loc['Sub Total', :] = df_in_dc_wh.sum().values
     except:
         None
-    try:
-        df_dl_dc = df_dl_dc.loc[slice(None), i, slice(None)].dropna(axis=1, how='all')
-        df_dl_dc.loc['Sub Total', :] = df_dl_dc.sum().values
-    except:
-        None
+    # try:
+    #     df_dl_pdn = df_dl_pdn.loc[slice(None), i, slice(None)].dropna(axis=1, how='all')
+    #     df_dl_pdn.loc['Sub Total', :] = df_dl_pdn.sum().values
+    # except:
+    #     None
     try:
         bank_tr  = banked[banked['WarehouseId']== i]#.dropna(axis=1, how='all')
         subtotal = bank_tr.select_dtypes(include='number').sum()
@@ -202,9 +265,27 @@ for i,e in zip(active_warehouse['WarehouseId'].to_list(), active_warehouse['Emai
                     None
                 # Write df_out_w to the second sheet
                 try:
-                   df_out_w.to_excel(writer, sheet_name=f'{i} Stock Shipped Out')
+                   df_out_dc_to_wh.to_excel(writer, sheet_name=f'{i} Stock Shipped Out')
                 except:
                     None
+    elif i=='Production':
+        with pd.ExcelWriter(f"{i} MTD Stock.xlsx") as writer:
+            # Write df_in_w to the first sheet
+            try:
+                df_out_pdn.to_excel(writer, sheet_name=f'{i} Stock Shipped Out(Frm Pdn)')
+            except:
+                None
+            # Write df_in_w to the first sheet
+            try:
+                df_dl_pdn.to_excel(writer, sheet_name=f'{i} Driploss(Frm RC and Bodr Shops)')
+            except:
+                None
+            # Write df_in_w to the first sheet
+            try:
+                df_to_pdn.to_excel(writer, sheet_name=f'{i} Stock Returned(Frm Shops)')
+            except:
+                None
+                
     else:
         with pd.ExcelWriter(f"{i} MTD Stock.xlsx") as writer:
             # Write df_in_w to the first sheet
