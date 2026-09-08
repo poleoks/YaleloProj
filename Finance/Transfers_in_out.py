@@ -18,11 +18,10 @@ active_warehouse = [
     {'WarehouseId' : 'Bulaga', 'Email':'bulagaduuka@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Bunamwaya', 'Email':'bunamwayastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Kisaasi', 'Email':'kisaasistore@yalelo.ug,  pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug, pokuttu@yalelo.ug'},
-    # {'WarehouseId' : 'Kisaasi', 'Email':'kisaasistore@yalelo.ug, pokuttu@yalelo.ug'},
+    {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug, pokuttu@yalelo.ug'}
     {'WarehouseId' : 'Gulu', 'Email':'gulustore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Jinja V3', 'Email':'jinjastore@yalelo.ug, pokuttu@yalelo.ug'},
-    # {'WarehouseId' : 'Kafunta', 'Email':'kafuntastore@yalelo.ug, pokuttu@yalelo.ug'},
+    {'WarehouseId' : 'Mbale', 'Email':'mbalestore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Kasangati', 'Email':'kasangatistore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Kajjansi', 'Email':'kajjansistore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
     {'WarehouseId' : 'Kasubi', 'Email':'kasubistore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug'},
@@ -47,9 +46,11 @@ active_warehouse = [
     {'WarehouseId' : 'KyebandoR', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'HighValue', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Nyahuka', 'Email':'nyahukaborder@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'Odramacaku', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug'},
+    # {'WarehouseId' : 'Odramacaku', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug'},
     {'WarehouseId' : 'Arua Outlet', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug'},
-    {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug'}
+    {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug'},
+    {'WarehouseId' : 'Lira', 'Email':'lirashop@yalelo.ug, pokuttu@yalelo.ug'},
+    {'WarehouseId' : 'Mbarara', 'Email':'mbararashop@yalelo.ug, pokuttu@yalelo.ug'}
     ]
 
 active_warehouse = pd.DataFrame(active_warehouse)
