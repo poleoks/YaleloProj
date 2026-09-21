@@ -152,7 +152,7 @@ except:
 
 import matplotlib.pyplot as plt
 print(df.columns, df.head())
-border_depos = ['Nyahuka', 'Busia', 'Odramacaku', 'Mpondwe', 'Elegu', 'Malaba', 'Kisoro', 'Gulu','Mbale','Jinja V3','Lira']
+border_depos = ['Nyahuka', 'Busia', 'Odramacaku', 'Mpondwe', 'Elegu', 'Malaba', 'Kisoro', 'Gulu','Mbale','Jinja V3','Lira','Mbarara']
 now = datetime.now().strftime("%d-%b-%Y %I:%M %p")
 print(f"{now} - Live Sales Chart Generation Started")
 

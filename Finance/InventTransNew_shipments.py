@@ -12,7 +12,7 @@ print("Modules imported successfully")
 
 today = datetime.datetime.today()
 # set today as yesterday
-today = today - timedelta(days=1)
+today = today - timedelta(days=21)
 year_ = today.year
 month_ = today.month
 # end_day_filter = today.replace(day=12) - relativedelta(months=0)

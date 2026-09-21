@@ -25,15 +25,15 @@ import mysql.connector
 
 server = "y360db.mysql.database.azure.com"
 database = "y360"
-username = "moweigh"
-password = "6Million$"
+username = "pokuttu"
+password = "Yalelo@1"
 #%%
 
 
 conn = mysql.connector.connect(
     host="y360db.mysql.database.azure.com",
-    user="moweigh",
-    password="6Million$",
+    user="pokuttu",
+    password="Yalelo@1",
     database="y360", 
     connect_timeout=20
 )
@@ -71,11 +71,13 @@ df.sort_values(by='datetime', inplace=True)
 
 from whatsapp_file_sign_in import *
 #%%
-today = datetime.datetime.today()# - timedelta(days=3)
+today = datetime.datetime.today() #- timedelta(days=2)
 currentdatetime = (datetime.datetime.today() - timedelta(days=19)).strftime('%Y-%m-%d %H:%M:%S')
 currentdatetime = today  #.strftime('%Y-%m-%d %H:%M:%S')
 currentdate = today.strftime('%Y-%m-%d')
-# df['datetime'] = pd.to_datetime(df['datetime'])
+df['datetime'] = pd.to_datetime(df['datetime'])
+df = df.dropna(subset=['datetime'])
+
 # df['netweight'] = df['netweight'].str.replace('kg','').astype('float')
 df['batch_number'] = df['batch_number'].str[:4] + "("+ df['batch_number'].str[7:] +")"
 # df['number_of_pieces'] = df['number_of_pieces'].astype('int')
@@ -295,7 +297,7 @@ if (df.sort_values(by='datetime').tail(1)['timedifference_mins'].min() < 120):# 
 
     #INSTANTIATE WHATSAPP
     files_t =['harvest.png']
-    groups_t = ['YU S&OP Planning Cell']
+    groups_t = ['YU S&OP Planning Cell'] #['Pole']#
     messages_t = [f"Harvest Report\nStart-End: {start_time}-{last_time}\nTotal Weight: {total_weight:.2f}T, \nTotal Time: {hours_t}h {minutes_t}m \nT/H: {avg_weight_per_hour:.2f}"]
     directory_t = "C:/Users/Administrator/Documents/Python_Automations/Harvest/"
 

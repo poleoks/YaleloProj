@@ -71,9 +71,11 @@ tr_in['Date'] = pd.to_datetime(
 
 # Keep only rows with valid dates
 tr_in = tr_in[tr_in['Date'].notna()].copy()
+tr_in = tr_in[tr_in['Date'] >= pd.to_datetime(first_day)]
+
 
 df_in = pd.pivot_table(
-    tr_in[tr_in['Date'] >= pd.to_datetime(first_day)],
+    tr_in,
     index=["Date", "ReceivingWarehouseId"],
     columns=["SKU", "ProductSizeId"],
     values="Received (kg)",
@@ -141,7 +143,7 @@ net_received_stock['Date'] = pd.to_datetime(
 
 # Keep only rows with valid dates
 net_received_stock = net_received_stock[net_received_stock['Date'].notna()].copy()
-
+net_received_stock = net_received_stock[net_received_stock['Date'] >= pd.to_datetime(first_day)]
 
 net_received_stock = pd.pivot_table(net_received_stock,index=["Date","WarehouseId"], columns=["SKU","SizeId22"], values="Received Stock", aggfunc='sum')#.reset_index()
 net_received_stock['Total'] = net_received_stock.sum(axis=1, skipna=True)
