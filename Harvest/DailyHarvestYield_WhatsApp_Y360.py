@@ -110,7 +110,7 @@ print(df.head(5))
 
 df = df.sort_values('datetime')
 df['time_lag'] = df['datetime'].diff()
-downtime_df = df[df['time_lag'] >= pd.Timedelta(minutes=30)]
+downtime_df = df[df['time_lag'] >= pd.Timedelta(minutes=20)]
 total_dt= downtime_df['time_lag'].sum().total_seconds() / 60  # Convert to minutes
 total_downtime = int(total_dt)
 
