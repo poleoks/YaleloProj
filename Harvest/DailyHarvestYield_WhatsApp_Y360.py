@@ -71,7 +71,7 @@ df.sort_values(by='datetime', inplace=True)
 
 from whatsapp_file_sign_in import *
 #%%
-today = datetime.datetime.today() #- timedelta(days=2)
+today = datetime.datetime.today() #- timedelta(days=1)
 currentdatetime = (datetime.datetime.today() - timedelta(days=19)).strftime('%Y-%m-%d %H:%M:%S')
 currentdatetime = today  #.strftime('%Y-%m-%d %H:%M:%S')
 currentdate = today.strftime('%Y-%m-%d')
@@ -97,7 +97,7 @@ total_weight = df['netweight'].astype(float).sum() / 1000  # Convert to tons
 
 # Total duration in hours
 time_span = df['datetime'].max() - df['datetime'].min()
-total_hours = time_span.total_seconds() / 3600 
+total_hours = time_span.total_seconds() / 3600
 total_minutes = time_span.total_seconds() / 60
 
 # 2. Split into total hours and remaining minutes
@@ -106,17 +106,31 @@ hours_t, minutes_t = divmod(total_minutes, 60)
 # 3. Cast to integers
 hours_t = int(hours_t)
 minutes_t = int(minutes_t)
+print(df.head(5))
+
+df = df.sort_values('datetime')
+df['time_lag'] = df['datetime'].diff()
+downtime_df = df[df['time_lag'] >= pd.Timedelta(minutes=30)]
+total_dt= downtime_df['time_lag'].sum().total_seconds() / 60  # Convert to minutes
+total_downtime = int(total_dt)
+
+# Net duration (Total time minus Downtime)
+net_minutes = (time_span.total_seconds() / 60) - total_downtime
+net_hours = net_minutes / 60
 
 
 # Calculation
 if total_hours > 0:
-    avg_weight_per_hour = total_weight / (total_hours)
+    avg_weight_per_hour = total_weight / (net_hours)
 else:
     avg_weight_per_hour = 0
 
 print(f"Total Weight: {total_weight:.2f}T")
 print(f"Total Hours: {total_hours:.2f}")
 print(f"Ton/Hr: {avg_weight_per_hour:.2f}")
+print(f"Total Downtime: {total_downtime}")
+print(f"Net Hours: {net_hours:.2f}")
+
 
 (xrows,ycols) = df.shape
 print(df.shape)
@@ -298,7 +312,7 @@ if (df.sort_values(by='datetime').tail(1)['timedifference_mins'].min() < 120):# 
     #INSTANTIATE WHATSAPP
     files_t =['harvest.png']
     groups_t = ['YU S&OP Planning Cell'] #['Pole']#
-    messages_t = [f"Harvest Report\nStart-End: {start_time}-{last_time}\nTotal Weight: {total_weight:.2f}T, \nTotal Time: {hours_t}h {minutes_t}m \nT/H: {avg_weight_per_hour:.2f}"]
+    messages_t = [f"Harvest Report\nStart-End: {start_time}-{last_time}\nTotal Weight: {total_weight:.2f}T, \nTotal Time: {hours_t}h {minutes_t}m \nDowntime: {total_downtime}m \nT/H: {avg_weight_per_hour:.2f}"]
     directory_t = "C:/Users/Administrator/Documents/Python_Automations/Harvest/"
 
     whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
