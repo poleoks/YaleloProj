@@ -121,6 +121,7 @@ net_hours = net_minutes / 60
 
 # Calculation
 if total_hours > 0:
+    print(f"totalmins {time_span.total_seconds() / 60}, total_downtime {total_downtime}, net_hours {net_hours}")
     avg_weight_per_hour = total_weight / (net_hours)
 else:
     avg_weight_per_hour = 0
@@ -130,7 +131,9 @@ print(f"Total Hours: {total_hours:.2f}")
 print(f"Ton/Hr: {avg_weight_per_hour:.2f}")
 print(f"Total Downtime: {total_downtime}")
 print(f"Net Hours: {net_hours:.2f}")
+df.to_csv(f"C:/Users/Administrator/Documents/Python_Automations/Harvest/harvest_{currentdate}.csv", index=False)
 
+# time.sleep(100)
 
 (xrows,ycols) = df.shape
 print(df.shape)
