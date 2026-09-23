@@ -315,7 +315,7 @@ if (df.sort_values(by='datetime').tail(1)['timedifference_mins'].min() < 120):# 
     messages_t = [f"Harvest Report\nStart-End: {start_time}-{last_time}\nTotal Weight: {total_weight:.2f}T, \nTotal Time: {hours_t}h {minutes_t}m \nDowntime: {total_downtime}m \nT/H: {avg_weight_per_hour:.2f}"]
     directory_t = "C:/Users/Administrator/Documents/Python_Automations/Harvest/"
 
-    whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
+    # whatsapp_share(groups_t, messages_t,files_t, directory_t, Pole)
 
     
 else:
