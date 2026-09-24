@@ -30,6 +30,7 @@ def get_first_and_last_days_last_12_months():
                     data = pd.read_excel(file)
                     print(f"{j(i)} month data shape is {data.shape}")
                     df = pd.concat([df, data])
+                    print(df.head(2), df.columns)
                     
                     os.remove(file)
                 except Exception as e:
@@ -86,6 +87,15 @@ def get_first_and_last_days_last_12_months():
             br.clear()
             time.sleep(1)
             br.send_keys(first_day)
+            br.send_keys(Keys.ENTER)
+            
+            
+            br=WebDriverWait(browser,60).until(
+                EC.presence_of_element_located((By.XPATH,'//*[@id="ledgertrialbalancelistpage_1_DimensionSetName_input"]'))
+                )
+            br.clear()
+            time.sleep(1)
+            br.send_keys('ChargeItems')
             br.send_keys(Keys.ENTER)
 
             # //*[contains(@id,"ledgertrialbalancelistpage") and contains(@id,"EndDate_input")]
