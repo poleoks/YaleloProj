@@ -223,7 +223,7 @@ browser.quit()
 from gmail_sender import *
 subject = "Inventory Transactions YTD"
 body = "Hi Team,\n\nPlease find attached the Inventory Transactions report.\n\nBest regards,\nPole"
-to = "pokuttu@yalelo.ug"
+to = "pokuttu@yalelo.ug, jnakuya@yalelo.ug"
 gmail_function(to,subject, body, attachments_)
 time.sleep(5)
 #%%

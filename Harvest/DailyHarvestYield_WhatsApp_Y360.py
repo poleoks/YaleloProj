@@ -325,13 +325,15 @@ else:
     print("No Latest Harvest Data!")
     pass
 #%%
+import os
+import glob
 try:
-    for i in glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png') or glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.xlsx'):
+    for i in glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.png') or glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.xlsx') or glob.glob('C:/Users/Administrator/Documents/Python_Automations/Harvest/*.csv'):
         os.remove(i)
         print(f"Deleted file: {i}") 
 except Exception as e:
     print(f'No file to delete or error occurred: {e}')
     
-time.sleep(5)
 #%%
+time.sleep(5)
 kill_browser("chrome")
