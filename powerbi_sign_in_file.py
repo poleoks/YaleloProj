@@ -183,7 +183,7 @@ def pbi_export(url, download_address):
 
     # Click Export icon
     WebDriverWait(browser, 5 * 60).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@aria-label="Export"]'))
+        EC.presence_of_element_located((By.XPATH, '//*[@data-testid="export-btn"]'))
     ).click()
 
     # Wait for the file to download

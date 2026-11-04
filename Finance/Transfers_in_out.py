@@ -15,13 +15,14 @@ first_day=first_day.strftime('%m/%d/%Y')
 
 #%%
 active_warehouse = [
+    {'WarehouseId' : 'Arua Outlet', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Bulaga', 'Email':'bulagaduuka@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Bunamwaya', 'Email':'bunamwayastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Kisaasi', 'Email':'kisaasistore@yalelo.ug,  pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
-    {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
+    {'WarehouseId' : 'Busia', 'Email':'busiastore@yalelo.ug, anagudi@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Gulu', 'Email':'gulustore@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
-    {'WarehouseId' : 'Jinja V3', 'Email':'jinjastore@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
-    {'WarehouseId' : 'Mbale', 'Email':'mbalestore@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
+    {'WarehouseId' : 'Jinja V3', 'Email':'jinjastore@yalelo.ug, anagudi@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
+    {'WarehouseId' : 'Mbale', 'Email':'mbalestore@yalelo.ug, anagudi@yalelo.ug,pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Kasangati', 'Email':'kasangatistore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Kajjansi', 'Email':'kajjansistore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Kasubi', 'Email':'kasubistore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
@@ -32,8 +33,12 @@ active_warehouse = [
     {'WarehouseId' : 'Kisoro', 'Email':'kisorostore@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Kyaliwajal', 'Email':'kyaliwajjalastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Kyambogo', 'Email':'kyambogostore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
+    {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
+    {'WarehouseId' : 'KyebandoR', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Kyengera-R', 'Email':'kyengerastore@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
-    {'WarehouseId' : 'Malaba', 'Email':'malababorder@yalelo.ug,  pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
+    {'WarehouseId' : 'Lira', 'Email':'lirashop@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
+    {'WarehouseId' : 'Malaba', 'Email':'malababorder@yalelo.ug, anagudi@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
+    {'WarehouseId' : 'Mbarara', 'Email':'mbararashop@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Mpondwe', 'Email':'mpondweborder@yalelo.ug,  pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Mukono', 'Email':'mukonoshop@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Mutungo', 'Email':'mutungostore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
@@ -42,12 +47,8 @@ active_warehouse = [
     {'WarehouseId' : 'Production', 'Email':'pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Natete V2', 'Email':'nateetestore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
     {'WarehouseId' : 'Ntinda', 'Email':'ntindastore@yalelo.ug, pokuttu@yalelo.ug, nahumuza@yalelo.ug, gmugabi@yalelo.ug, mssemuyaba@yalelo.ug, jmanirafasha@yalelo.ug'},
-    {'WarehouseId' : 'KyebandoR', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
-    {'WarehouseId' : 'Nyahuka', 'Email':'nyahukaborder@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
-    {'WarehouseId' : 'Arua Outlet', 'Email':'odramacakustore@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
-    {'WarehouseId' : 'KyebandoDC', 'Email':'mbiryetega@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
-    {'WarehouseId' : 'Lira', 'Email':'lirashop@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'},
-    {'WarehouseId' : 'Mbarara', 'Email':'mbararashop@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'}
+    {'WarehouseId' : 'Nyahuka', 'Email':'nyahukaborder@yalelo.ug, pokuttu@yalelo.ug, jmanirafasha@yalelo.ug'}
+    
     ]
 
 active_warehouse = pd.DataFrame(active_warehouse)

@@ -7,139 +7,198 @@ from whatsapp_file_sign_in import *
 from datetime import datetime#, timedelta
 #import calendar
 
+# NEW: explicit imports so the script doesn't depend on the star imports above
+import os, glob, time
+import pandas as pd
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import (
+    TimeoutException,
+    ElementClickInterceptedException,
+)
+
+DOWNLOADS = "C:/Users/Administrator/Downloads/"
+TX_PATTERN = f"{DOWNLOADS}Transactions*.xlsx"
+
 #%%
-try:
-    i=0
-    for h in glob.glob(f"{save_dir}retail_targets/*.xlsx") or glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx") or glob.glob("*.png"):
-            i += 1
+# NEW: helper functions
+def snap(name):
+    """Save a screenshot + print the URL, for debugging failures."""
+    path = f"{save_dir}retail_targets/{name}.png"
+    browser.save_screenshot(path)
+    print(f"Screenshot saved: {path} | URL: {browser.current_url}")
+
+def wait_overlay(timeout=30):
+    """Wait for D365's blocking overlay to disappear."""
+    WebDriverWait(browser, timeout).until(
+        EC.invisibility_of_element_located((By.ID, "ShellBlockingDiv"))
+    )
+
+def safe_click(xpath, timeout=15):
+    """Wait for the overlay to clear, then click. Retries once via JS if intercepted."""
+    wait_overlay()
+    el = WebDriverWait(browser, timeout).until(
+        EC.element_to_be_clickable((By.XPATH, xpath))
+    )
+    try:
+        el.click()
+    except ElementClickInterceptedException:
+        time.sleep(2)
+        wait_overlay()
+        el = browser.find_element(By.XPATH, xpath)  # re-find in case it went stale
+        browser.execute_script("arguments[0].click();", el)
+
+#%%
+# CHANGED: clean up old files separately so one failure doesn't skip the rest
+i = 0
+for pattern in [f"{save_dir}retail_targets/*.xlsx", TX_PATTERN, f"{save_dir}retail_targets/*.png"]:
+    for h in glob.glob(pattern):
+        try:
             os.remove(h)
-            
+            i += 1
             print(f"{h} removed! {i}")
-except:
+        except Exception as e:
+            print(f"Could not remove {h}: {e}")
+if i == 0:
     print("No temp files to remove, proceed!")
+
 #%%
+# CHANGED: start_day removed (it was never used; the report only needs today)
 today = datetime.today()
-first_day = today.replace(day=1) - relativedelta(months=1)
 now = datetime.now().strftime("%Y-%m-%d %H:%M")
-# Calculate the last day of the month
+end_day = today.strftime('%m/%d/%Y')
 
-start_day=first_day.strftime('%m/%d/%Y')
-end_day=today.strftime('%m/%d/%Y')
-
-print(start_day, end_day)
+print("Filtering for:", end_day)
 time.sleep(2)
 
 #%%
-browser.delete_all_cookies()
+# CHANGED: removed browser.delete_all_cookies() (it wiped the login session)
 browser.get('https://fw-d365-prod.operations.dynamics.com/?cmp=yu&mi=RetailRetailStoreTransactionTable')
 
-#more labels
-WebDriverWait(browser,60).until(
-                EC.presence_of_element_located((By.XPATH,'//*[contains(@id,"Grid_3") and @aria-label="Grid options"]'))
-                ).click()
+try:
+    WebDriverWait(browser, 90).until(
+        EC.element_to_be_clickable((By.XPATH, '//*[contains(@id,"Grid_3") and @aria-label="Grid options"]'))
+    ).click()
+except TimeoutException:
+    snap("grid_options_timeout")
+    raise
 
 print("more labels clicked")
 time.sleep(3)
+
 # Insert column
-# try:
-clk=WebDriverWait(browser,15).until(
-                EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Insert columns..."]'))
-                )
+clk = WebDriverWait(browser, 15).until(
+    EC.presence_of_element_located((By.XPATH, '//*[@aria-label="Insert columns..."]'))
+)
 print("click!")
 time.sleep(2)
 clk.click()
 print("insert cols clicked")
 
-#warehouse search
-try:
-    for cols in ["Number of products","Transaction time","Gross amount","Warehouse"]:     
-        filter = WebDriverWait(browser,5).until(
-                        EC.presence_of_element_located((By.XPATH,'(//input[@aria-label="Filter"])[2]'))
-                        )
+# CHANGED: per-column try/except (no more bare "except: pass"), plus overlay waits
+for cols in ["Number of products", "Transaction time", "Gross amount", "Warehouse"]:
+    try:
+        filter = WebDriverWait(browser, 10).until(
+            EC.presence_of_element_located((By.XPATH, '(//input[@aria-label="Filter"])[2]'))
+        )
         filter.clear()
         time.sleep(1)
 
         filter.send_keys(cols)
         print(f"{cols} pasted")
-
-        time.sleep(2)
-        browser.find_element(By.XPATH,'//*[@class="quickFilter-listFieldName" and contains(text(), "Field")]').click()
         time.sleep(2)
 
-        browser.find_element(By.XPATH,'//*[contains(@class,"dyn-checkbox-span")]').click()
+        safe_click('//*[@class="quickFilter-listFieldName" and contains(text(), "Field")]', 10)
         time.sleep(2)
-except:
-       pass
 
+        safe_click('//*[contains(@class,"dyn-checkbox-span")]', 10)
+        wait_overlay(15)
+        time.sleep(1)
+        print(f"{cols} added")
+    except Exception as e:
+        print(f"{cols} FAILED: {type(e).__name__}")
+        snap(f"fail_{cols.replace(' ', '_')}")
 
-browser.find_element(By.XPATH,'//*[@class="button-label" and contains(text(),"Update")]').click()
-#Financial Date Filter
+# CHANGED: single Update click (it was duplicated), now waits for the overlay
+try:
+    safe_click('//*[@class="button-label" and contains(text(),"Update")]', 15)
+    print("update clicked")
+except Exception as e:
+    snap("update_failed")
+    raise
 
+#%%
+# Financial Date Filter (via the grid quick filter)
+try:
+    wait_overlay(30)
+    time.sleep(3)
 
-# Wait for blocking overlay to disappear
-WebDriverWait(browser, 30).until(
-    EC.invisibility_of_element_located((By.ID, "ShellBlockingDiv"))
-)
+    # The visible quick-filter box above the grid
+    qf = next(i for i in browser.find_elements(By.XPATH, '//input[@name="QuickFilterControl_Input"]')
+              if i.is_displayed())
+    qf.click()
+    qf.clear()
+    qf.send_keys(end_day)
+    time.sleep(2)
 
-# Activate date filter
-target = WebDriverWait(browser, 10).until(
-    EC.element_to_be_clickable((By.XPATH, '//*[@id="RBOTransactionTable_transDate_3_0_header"]'))
-)
-target.click()
+    # Debug: show which fields the dropdown offers
+    opts = [o.text for o in browser.find_elements(By.XPATH, '//*[contains(@class,"quickFilter-listFieldName")]')
+            if o.is_displayed()]
+    print("Quick filter options:", opts)
 
-# Begin date
-bgd = WebDriverWait(browser,60).until(
-                EC.presence_of_element_located((By.XPATH,'//*[@name="FilterField_RBOTransactionTable_transDate_transDate_Input_0"]'))
-                )
-bgd.clear()
-time.sleep(1)
-bgd.send_keys(end_day)
-print("start date filtered")
-# Start date
-std = WebDriverWait(browser,60).until(
-                EC.presence_of_element_located((By.XPATH,'//*[@name="FilterField_RBOTransactionTable_transDate_transDate_Input_1"]'))
-                )
-std.clear()
-time.sleep(1)
-std.send_keys(end_day)
+    # Pick the "Date" field (exact match, so it doesn't hit e.g. "Statement date")
+    safe_click('//*[contains(@class,"quickFilter-listFieldName") and normalize-space()="Date"]', 15)
 
-time.sleep(1)
-browser.find_element(By.XPATH,'//*[@id="__RBOTransactionTable_transDate_ApplyFilters_label"]').click()
+    wait_overlay(60)
+    time.sleep(3)
+    snap("after_date_filter")
+except (TimeoutException, StopIteration):
+    snap("date_filter_failed")
+    raise
 
 print("end date filtered")
-
 time.sleep(5)
+wait_overlay(60)
+
+#%%
+# Export
 WebDriverWait(browser, 15).until(
     EC.presence_of_element_located(
-        (By.XPATH,'//*[@class="button-commandRing MicrosoftOffice-symbol"]')
+        (By.XPATH, '//*[@class="button-commandRing MicrosoftOffice-symbol"]')
     )
 ).click()
 print('click office')
 time.sleep(2)
-#click export excel
-WebDriverWait(browser, 15).until(
-    EC.presence_of_element_located(
-        (By.XPATH,'(//*[text()="Transactions"])[2]')
-    )
-).click()
 
-print("export menu")
-file_path =[]
-#click download button
+# click export excel
 WebDriverWait(browser, 15).until(
-    EC.presence_of_element_located(
-        (By.XPATH,'//*[@data-dyn-controlname="DownloadButton"]')
-    )
+    EC.presence_of_element_located((By.XPATH, '(//*[text()="Transactions"])[2]'))
+).click()
+print("export menu")
+
+# CHANGED: remember what's already in Downloads so we only pick up the NEW file
+files_before = set(glob.glob(TX_PATTERN))
+
+# click download button
+WebDriverWait(browser, 15).until(
+    EC.presence_of_element_located((By.XPATH, '//*[@data-dyn-controlname="DownloadButton"]'))
 ).click()
 print("export started")
-WebDriverWait(browser, 45*60).until(
-                    lambda driver: len(glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx")) > len(file_path)
-                    )
 
+# CHANGED: wait for a new file AND for Chrome to finish writing it
+WebDriverWait(browser, 45 * 60).until(
+    lambda driver: bool(set(glob.glob(TX_PATTERN)) - files_before)
+    and not glob.glob(f"{DOWNLOADS}*.crdownload")
+)
+time.sleep(2)
 print("export completed")
-for file in glob.glob("C:/Users/Administrator/Downloads/Transactions*.xlsx"):
-                    df = pd.read_excel(file)
 
+# CHANGED: read the newest new file instead of whichever was last in the loop
+new_files = set(glob.glob(TX_PATTERN)) - files_before
+latest_file = max(new_files, key=os.path.getmtime)
+print("Reading:", latest_file)
+df = pd.read_excel(latest_file)
 
 print(df.shape)
 
@@ -150,6 +209,7 @@ except:
     print("No Running browser, proceed")
     pass
 
+#%%
 import matplotlib.pyplot as plt
 print(df.columns, df.head())
 border_depos = ['Nyahuka', 'Busia', 'Odramacaku', 'Mpondwe', 'Elegu', 'Malaba', 'Kisoro', 'Gulu','Mbale','Jinja V3','Lira','Mbarara']
@@ -165,8 +225,7 @@ df = df[
 df_border = df[df['Warehouse'].isin(border_depos)]
 df_nonborder = df[~df['Warehouse'].isin(border_depos)]
 
-overall_df_bdr = round(df_border['Number of products'].sum(), 2)
-overall_df_nbdr = round(df_nonborder['Number of products'].sum(), 2)
+# CHANGED: removed unused overall_df_bdr / overall_df_nbdr
 
 def plot_and_save(df_sub, title_suffix, save_path):
     df_sub = df_sub.copy()
@@ -209,7 +268,7 @@ def plot_and_save(df_sub, title_suffix, save_path):
             pivot_df[period] = 0
 
     # Reorder columns in chronological order
-    period_order = ['Morning (Before Noon)', 'Afternoon (12pm-4pm)', 
+    period_order = ['Morning (Before Noon)', 'Afternoon (12pm-4pm)',
                     'Evening (4pm-8pm)', 'After 8pm']
     pivot_df = pivot_df[period_order]
 
@@ -224,7 +283,7 @@ def plot_and_save(df_sub, title_suffix, save_path):
     left = pd.Series([0] * len(pivot_df), index=pivot_df.index)
 
     for period in period_order:
-        ax.barh(pivot_df.index, pivot_df[period], left=left, 
+        ax.barh(pivot_df.index, pivot_df[period], left=left,
                 color=color_map[period], label=period)
         left += pivot_df[period]
 
@@ -237,7 +296,7 @@ def plot_and_save(df_sub, title_suffix, save_path):
     # Add total value labels at the end of each bar
     for idx, warehouse in enumerate(pivot_df.index):
         total = pivot_df.loc[warehouse].sum()
-        ax.text(total + 1, idx, f'{total:.2f}', 
+        ax.text(total + 1, idx, f'{total:.2f}',
                 va='center', fontsize=8, color='grey')
 
     plt.tight_layout()
@@ -248,7 +307,6 @@ def plot_and_save(df_sub, title_suffix, save_path):
 
 
 # Save Both Charts
-
 os.makedirs(save_dir, exist_ok=True)
 
 border_path = os.path.join(save_dir, "border_warehouse_value_chart.png")
@@ -262,17 +320,15 @@ print(f"Non-border total: {nonborder_total:.2f} kg")
 
 
 #%%
-#Send whatsapp message
+# Send whatsapp message
 groups_t = ['YU Retail Team','YU Rest of Country Sales Team']
 files_t = ["nonborder_warehouse_value_chart.png","border_warehouse_value_chart.png"]
 messages_t = [f"Latest Sales GKMA/RC Shops: {nonborder_total:.2f}",f"Latest Sales BDR: {border_total:.2f}"]
 
-whatsapp_share(groups_t, messages_t,files_t, save_dir, Justine)
+whatsapp_share(groups_t, messages_t, files_t, save_dir, Justine)
 time.sleep(5)
 
 #%%
-import os
-import glob
 for i in glob.glob(f"{save_dir}*.png"):
     os.remove(i)
     print(f"{i} removed successfully!")
