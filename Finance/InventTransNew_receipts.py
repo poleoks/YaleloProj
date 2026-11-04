@@ -127,7 +127,7 @@ cupd.click()
 time.sleep(5)
 #%%
 ##Receitp filter to Purchased only
-fnb=WebDriverWait(browser,20).until(
+fnb=WebDriverWait(browser,50).until(
         EC.presence_of_element_located((By.XPATH,'//*[@aria-label="Filter field: Number, operator: begins with"]'))
         )
 fnb.clear()
@@ -138,7 +138,7 @@ print("Number filtered to start with YUTO only")
 time.sleep(2)
 
 #%%
-st_date = WebDriverWait(browser,15).until(
+st_date = WebDriverWait(browser,25).until(
         EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[1]'))
         )
 
@@ -149,6 +149,16 @@ print("Date filter start date set")
 
 time.sleep(2)
 
+WebDriverWait(browser,15).until(
+        EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Physical date, operator: between"])[1]'))
+        ).clear()
+time.sleep(1)
+print("Start Physical date cleared")
+WebDriverWait(browser,15).until(
+        EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Physical date, operator: between"])[2]'))
+        ).clear()
+print("End Physical date cleared")
+time.sleep(1)
 en_date = WebDriverWait(browser,15).until(
         EC.presence_of_element_located((By.XPATH,'(//*[@aria-label="Filter field: Financial date, operator: between"])[2]'))
         )
