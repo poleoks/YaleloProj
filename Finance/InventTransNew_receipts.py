@@ -85,19 +85,22 @@ for cols in ["Warehouse"]:
         browser.find_element(By.XPATH,'//*[contains(@class,"dyn-checkbox-span")]').click()
         time.sleep(2)
         print(f"New column:{cols} added")
+
+
 cupd = WebDriverWait(browser,10).until(
         EC.presence_of_element_located((By.XPATH,"//*[contains(text(),'Update')]"))
         )
 cupd.click()
-time.sleep(25)
 
+time.sleep(25)
 
 #%%
 # Add custom filter Receipt
-addf=WebDriverWait(browser,15).until(
+addf=WebDriverWait(browser,115).until(
                 EC.presence_of_element_located((By.XPATH,'//*[@data-dyn-role="Button" and @class="filterDisplay-addFieldControl button dynamicsButton" ]'))
                 )
 addf.click()
+time.sleep(2)
 print("---click add filter")
 for cols in ["Receipt", "Financial date"]:     
         filter = WebDriverWait(browser,15).until(
@@ -166,8 +169,15 @@ en_date = WebDriverWait(browser,15).until(
 en_date.clear()
 en_date.send_keys(f"{end_day_filter}")
 print("Date filter end date set")
-
 time.sleep(2)
+
+clr_wh = WebDriverWait(browser, 15).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@aria-label="Filter field: Warehouse, operator: begins with"]'))
+        )
+clr_wh.clear()
+time.sleep(1)
+print("Warehouse filter cleared")
+time.sleep(3)
 #%%
 #click apply filters
 WebDriverWait(browser,20).until(

@@ -24,7 +24,7 @@ start_date= start_date.strftime('%Y-%m-%d')
 print(formatted_date)
 # file_location=f"Customer Credit Report - {end_date}.xlsx"
 download_path="C:/Users/Administrator/Downloads"
-download_address = f"{download_path}/Customer account statement*.pdf"
+download_address = os.path.join(download_path, "Customer account statement*.pdf")
 
 for d in glob.glob(download_address):
     if os.path.exists(d):
@@ -43,22 +43,27 @@ except:
 
 
 customer_list = {
-    "Bertha's Kitchen " : "berthamusinguzi@gmail.com",
-    "Oakridge catering  and hospitality " : "oaksridge.hosp@gmail.com",
-    "Latitude Zero Degrees Limited" : "0accounts2@thelatitudehotels.com",
-    "Sokony Africa Limited" : "accounts@qualityhill.biz,eowora@lepetitvillage.net,pnamususwa@lepetitvillage.net",
+    # "Bertha's Kitchen " : "berthamusinguzi@gmail.com",
+    # "Oakridge catering  and hospitality " : "oaksridge.hosp@gmail.com",
+    # "Latitude Zero Degrees Limited" : "0accounts2@thelatitudehotels.com",
+    # "Sokony Africa Limited" : "accounts@qualityhill.biz,eowora@lepetitvillage.net,pnamususwa@lepetitvillage.net",
     "Cakely (U) Limited" : "Cafecakely@gmail.com",
     "Mapenzi Grill" : "Jeraldoboth14@gmail.com",
     "Extreme park Busiika" : "Accounts@extremeadventures.co.ug",
     "Villa Kololo" : "finance.villakololo@gmail.com",
     "Great Habib " : "minahnabs@gmail.com",
+    "Kampala Serena" : "jeanne.ahairwe@serenahotels.com",
     "D A Fish and More Freshness Uganda" : "kiyingirichard32@gmail.com",
     "Rhino Restaurant " : "Info@comforthotel.co.ug",
     "Hotel la Vena " : "lavenahotel81@gmail.com",
     "Kalanoga resort " : "reservations@kalanoga.com",
     "Forest Park resort " : "forestparkresort@gmail.com",
     "Natures green resort " : "ybirigwa@yahoo.com",
-    "Caramel café " : "caramelacc2018@gmail.com"
+    "Caramel café " : "caramelacc2018@gmail.com",
+    "Zal Psalms resort" : "zalpalms@gmail.com",
+    "Fresh Kyenyanja" : "benardnsengiyunva@gmail.com",
+    "Jinja Sailing Club" : "accounts@jinjasailingclub.com",
+    "MADA HOLDINGS ( JINJA NILE RESORT" : "fcug@madahotels.com"
     }
 for customer, gmail_ac in customer_list.items():  
     time.sleep(3)
@@ -106,6 +111,14 @@ for customer, gmail_ac in customer_list.items():
     max_attempts = 5
 
     for attempt in range(1, max_attempts + 1):
+                
+        for d in download_address:
+            if os.path.exists(d):
+                os.remove(d)
+                print(f"Deleted file: {d}")
+            else:
+                print(f"File not found: {d}")
+            
         number = random.randint(1, 10)
         numbere = random.randint(1, 10)
         start_date = (datetime.today() - timedelta(days=attempt+60+number)).strftime('%m/%d/%Y')

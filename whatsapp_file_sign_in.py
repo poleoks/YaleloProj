@@ -110,7 +110,7 @@ def whatsapp_share(recipient_group, wsp_message,wsp_file, directory, profile_own
             # Send message (which also sends the attached file)
             # msg_box.send_keys(Keys.ENTER)
             # Find Send button in attachment preview
-            send_button = WebDriverWait(browser, 15).until(
+            send_button = WebDriverWait(browser, 65).until(
                 EC.element_to_be_clickable(
                     (By.XPATH,
                     '//*[@ aria-label="Send 1 selected"]')

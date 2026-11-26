@@ -9,50 +9,52 @@ from powerbi_sign_in_file import *
 now = datetime.datetime.now()
 noon = now.replace(hour=12, minute=30, second=0, microsecond=0)
 yesterday = (now - datetime.timedelta(days=1)).date()
-whatsapp_grp = ['YU Retail Team','Area Sales Leads','YU Rest of Country Sales Team','YU Rest of Country Sales Team',
-                'YU Retail Team','Area Sales Leads','YU Sales Executives','YU Sales Executives']
+whatsapp_grp = ['YU Retail Team','Area Sales Leads','YU Rest of Country Sales Team',
+                # 'YU Rest of Country Sales Team','YU Retail Team','Area Sales Leads',
+                'YU Sales Executives','YU Sales Executives']
 if now < noon:
     pic_files = [
          f'{save_dir}retail.png',
          f'{save_dir}area_sales.png',
          f'{save_dir}rc_sales.png',
-         f'{save_dir}risk_analysis.png',
-         f'{save_dir}risk_analysis.png',
-         f'{save_dir}risk_analysis.png',
+        #  f'{save_dir}risk_analysis.png',
+        #  f'{save_dir}risk_analysis.png',
+        #  f'{save_dir}risk_analysis.png',
          f'{save_dir}ooh_gkma.png',
          f'{save_dir}resellers_gkma.png'
          ]
     msg = [f"MTD GKMA Sales Report {yesterday}",
            f"MTD Area Sales Report {yesterday}",
            f"MTD BODR/RC Sales Report {yesterday}",
-           f"MTD Banking Report {yesterday}, please submit banking by 12:59PM",
-           f"MTD Banking Report {yesterday}, please submit banking by 12:59PM",
-           f"MTD Banking Report {yesterday}, please submit banking by 12:59PM",
+        #    f"MTD Banking Report {yesterday}, please submit banking by 12:59PM",
+        #    f"MTD Banking Report {yesterday}, please submit banking by 12:59PM",
+        #    f"MTD Banking Report {yesterday}, please submit banking by 12:59PM",
            f"MTD OOH Report {yesterday}",
            f"MTD Resellers Report {yesterday}"
            ]
     print(len(pic_files), now,"<",noon)
     print("The current time is before midday.")
 else:
-    pic_files = [
-                f'{save_dir}risk_analysis.png',
-                f'{save_dir}risk_analysis.png',
-                f'{save_dir}risk_analysis.png',
-                f'{save_dir}risk_analysis.png'
-                ]
-    msg = [
-           f"MTD Banking Report {yesterday}",
-           f"MTD Banking Report {yesterday}",
-           f"MTD Banking Report {yesterday}"
-           ]
-    print(len(pic_files), now,">",noon)
-    print("The current time is midday or later.")
+    pass
+    # pic_files = [
+    #             f'{save_dir}risk_analysis.png',
+    #             f'{save_dir}risk_analysis.png',
+    #             f'{save_dir}risk_analysis.png',
+    #             f'{save_dir}risk_analysis.png'
+    #             ]
+    # msg = [
+    #        f"MTD Banking Report {yesterday}",
+    #        f"MTD Banking Report {yesterday}",
+    #        f"MTD Banking Report {yesterday}"
+    #        ]
+    # print(len(pic_files), now,">",noon)
+    # print("The current time is midday or later.")
 #%%
 retail_grp = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/c04614698037b6c54570"
 area_sales_grp = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/d07599e95d4f8b1765bd"
 rc_sales = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/a9b1381a5590a908d025"
 rc_scoreboard = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/f1e04d768ede25bd9120?experience=power-bi&bookmarkGuid=bac313a6a309015b9528"
-risk_analysis = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/91687127-028f-4c1e-8ad9-3f783f724150/ReportSection7fb968f4825ec2e5889b"
+# risk_analysis = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/91687127-028f-4c1e-8ad9-3f783f724150/ReportSection7fb968f4825ec2e5889b"
 ooh_gkma = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/53ec76f15a2501eece98"
 resellers_gkma = "https://app.powerbi.com/groups/6514fc4d-2ddc-4df0-8cd7-1a6a5f7deed8/reports/5f61f3b9-2d89-4a45-a953-dc0bf47eac96/be0d3b60c587d413ab0e"
 
@@ -109,26 +111,27 @@ if now < noon:
     browser.save_screenshot(ss_path_resl)
     print("Resellers successfully taken screenshot!!!")
     
-    ss_path_risk = save_dir+'risk_analysis.png'
-    pbi_sign_in(risk_analysis)
-    time.sleep(10)
-    browser.save_screenshot(ss_path_risk)
-    print("Risk analysis successfully taken screenshot!!!")
+    # ss_path_risk = save_dir+'risk_analysis.png'
+    # pbi_sign_in(risk_analysis)
+    # time.sleep(10)
+    # browser.save_screenshot(ss_path_risk)
+    # print("Risk analysis successfully taken screenshot!!!")
 else:
-    files_t =['risk_analysis.png','risk_analysis.png','risk_analysis.png']
+    pass
+    # files_t =['risk_analysis.png','risk_analysis.png','risk_analysis.png']
     
-    groups_t = ['YU Rest of Country Sales Team','Area Sales Leads','YU Retail Team']
+    # groups_t = ['YU Rest of Country Sales Team','Area Sales Leads','YU Retail Team']
     
-    messages_t = [
-                  f"MTD/Yesterday Banking: {yesterday}",f"MTD/Yesterday Banking: {yesterday}",
-                  f"MTD/Yesterday Banking: {yesterday}"
-                  ]
+    # messages_t = [
+    #               f"MTD/Yesterday Banking: {yesterday}",f"MTD/Yesterday Banking: {yesterday}",
+    #               f"MTD/Yesterday Banking: {yesterday}"
+    #               ]
     
-    ss_path_risk = save_dir+'risk_analysis.png'
-    pbi_sign_in(risk_analysis)
-    time.sleep(10)
-    browser.save_screenshot(ss_path_risk)
-    print("RC successfully taken screenshot!!!")
+    # ss_path_risk = save_dir+'risk_analysis.png'
+    # pbi_sign_in(risk_analysis)
+    # time.sleep(10)
+    # browser.save_screenshot(ss_path_risk)
+    # print("RC successfully taken screenshot!!!")
     
 time.sleep(2)
 browser.quit()
